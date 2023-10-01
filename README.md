@@ -43,3 +43,8 @@ This allows a closer inspection of the API as well as manually testing it.
 
 
 ## Running the app
+
+### Dev mode
+
+From the deploy folder: 
+- docker compose --profile dev up
