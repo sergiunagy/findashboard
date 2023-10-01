@@ -42,3 +42,26 @@ services:
     # change to project folder and start serving the app -> use 0.0.0.0 as host since the default is a loopback
     # Note: hot-reload is enabled by default
     command: ["sh", "-c", "ng serve --port 4200 --host 0.0.0.0"]
+  
+  # #######################
+  # Authentication & Authorization service
+  # #######################
+  auth-backend:
+    build:
+      context: ../backend/auth/deploy
+      dockerfile: Dockerfile
+    image: sergiunagy/findash-auth-serv
+    container_name: findash-auth-serv
+    # mount volumes if you want hot reloads
+    volumes:
+      - "../backend/auth/src:/home/app"
+    networks:
+      backnet:
+        aliases:
+          - authentication-server
+    environment: 
+      FINNHUB_APIKEY : "ck47m71r01qus81pr1ogck47m71r01qus81pr1p0"
+    ports:
+      - "5000:5000"
+
+    profiles: ["dev", "prod"]    

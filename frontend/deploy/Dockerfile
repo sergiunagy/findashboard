@@ -11,8 +11,3 @@ WORKDIR /home/node/app
 
 # Build with:
 # docker build -f ./Dockerfile -t node-angular-app
-# http://localhost:4200/
-# ng new node-angular-app --no-strict
-# ? Would you like to add Angular routing? No
-# ? Which stylesheet format would you like to use? CSS
-# ng serve
