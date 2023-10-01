@@ -1,0 +1,44 @@
+# #############################
+# Definition of SW infrastructure for the Angular app
+# Defines:
+# - services
+# - networks
+# - volumes
+# Uses profiles to control what configurations launch, depending on the user-scenario
+# ##############################
+version: "3.8"
+
+networks:
+  frontnet: 
+    name: frontnet
+  backnet:
+    name: backnet
+
+services:
+  # #######################
+  # Frontend UI service
+  # #######################
+  frontend:
+    build:
+      context: ../frontend/deploy
+      args:
+        - script="initial_setup.bash"
+      # todo: add a context path here
+    image: sergiunagy/findash-angular-app
+    working_dir: /home/node/app/findash-angular-app
+    container_name: findash-angular-app
+    environment:
+      - NODE_ENV=dev
+    volumes:
+      - "../frontend/app:/home/node/app"
+      # todo: add output folder bindmount for the compiled website
+    networks:
+      - frontnet
+    ports:
+      - "8000:4200"
+    # todo: add production profile
+    profiles: ["dev", "test"]
+
+    # change to project folder and start serving the app -> use 0.0.0.0 as host since the default is a loopback
+    # Note: hot-reload is enabled by default
+    command: ["sh", "-c", "ng serve --port 4200 --host 0.0.0.0"]
