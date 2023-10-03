@@ -1,0 +1,17 @@
+# Auth dependencies:
+# Development/Testing setup
+# #########################
+
+# App serving and http
+uvicorn==0.23.2
+fastapi==0.103.2
+httpx==0.25.0
+python-multipart==0.0.6
+requests==2.31.0
+# database modeling
+sqlalchemy==2.0.21
+
+# JWT operations 
+python-jose==3.3.0
+# Testing
+pytest==7.4.2
