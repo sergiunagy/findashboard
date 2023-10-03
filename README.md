@@ -14,6 +14,17 @@ The infrastructure is defined in the deploy folder yml and docker files.
 
 ## Functionality
 
+### Mobile first 
+We mostly design around the width as the main limiting factor (for grouping, font size, UI elements sizes, ..).
+
+Considering current statistics we have 2 major categories:
+- smallest screen width still in signifficant use: 360px width (height 780px-800px)
+- most common width still used in 2023: 390px (height 844)
+
+Used sites:
+- https://worship.agency/mobile-screen-sizes-for-2023-based-on-data-from-2022
+- https://gs.statcounter.com/screen-resolution-stats/mobile/worldwide
+
 ## Libraries and build tools
 
 We use bootstrap and Angular Material as a styling librares.   
