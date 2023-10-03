@@ -61,7 +61,99 @@ services:
           - authentication-server
     environment: 
       FINNHUB_APIKEY : "ck47m71r01qus81pr1ogck47m71r01qus81pr1p0"
-    ports:
-      - "5000:5000"
+      FRONTEND_HOST : "http://localhost:8000"
 
     profiles: ["dev", "prod"]    
+
+  # #######################
+  # Dashboards service
+  # #######################
+  dashboards-backend:
+    build:
+      context: ../backend/dashboards/deploy
+      dockerfile: Dockerfile
+    image: sergiunagy/finapp-dashboards-serv
+    container_name: findash-dashboards-serv
+    # mount volumes if you want hot reloads
+    volumes:
+      - "../backend/dashboards/src:/home/app"
+    networks:
+      backnet:
+        aliases:
+          - dashboards-server
+    environment: 
+      FRONTEND_HOST : "http://localhost:8000"
+
+    profiles: ["dev", "prod"]
+
+  # #######################
+  # DataStore service 
+  # #######################
+  datastore:
+    build:
+      context: ../backend/datastore/deploy
+      dockerfile: Dockerfile
+    image: sergiunagy/finapp-datastore-serv
+    container_name: findash-datastore-mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=findemoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=findemoadmin_pas_951
+      - MONGO_DB_PORT=27017
+    # configure seeding and/or permanent storage. 
+    volumes: 
+      - '../backend/datastore/dbinit:/database-seed'
+      # mount storage for persistent volume --> needs storage transfer strategy
+      # - dbstorage:/data/db
+    networks:
+      backnet:
+        aliases:
+          - datastore-server
+          
+    profiles: ["dev", "prod"]
+
+  # #######################
+  # DataStore Admin service  - dev only
+  # #######################
+  mongo-express:
+    image: mongo-express:1.0.0-alpha.4
+    container_name: mongo-express
+    ports:
+      - 5090:8081
+    environment:
+    - ME_CONFIG_MONGODB_ADMINUSERNAME=findemoadmin
+    - ME_CONFIG_MONGODB_ADMINPASSWORD=findemoadmin_pas_951
+    - ME_CONFIG_MONGODB_SERVER=datastore-server
+    depends_on:
+      - datastore
+    # Mongo container is available but the server starts responding only after init
+    restart: always
+    networks:
+      - backnet
+    
+    profiles: ["dev"]
+
+  # #######################
+  # Ingress service
+  # #######################
+  ingress-server:
+    privileged: true
+    build:
+      context: ../backend/ingress
+      dockerfile: ./deploy/Dockerfile.dev
+    image: sergiunagy/nginx:0.01
+    container_name: findash-ingress-nginx
+    # map any static files you want to serve here
+    volumes:
+      - "../backend/ingress/config:/etc/nginx/conf.d" # map configuration files here
+    networks:
+      - backnet
+    profiles: ["dev", "prod"]
+
+    # this is a proxy service and is bound to the localhost network stack
+    ports:
+      - "8080:80"
+
+    # the service waits for authorization and the controller to be up because it requires them when checking proxy paths  
+    depends_on:
+      - auth-backend
+      - dashboards-backend

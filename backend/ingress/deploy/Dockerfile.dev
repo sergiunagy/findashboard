@@ -1,0 +1,35 @@
+# #########################
+# Nginx Web server image
+# 
+# Contains:  
+#  - official owasp/modsec for nginx image with core rules set up
+#  - development/debug tools for system and processes control
+#  
+# Use:
+#  - Include as service in deployed cluster/setup
+#  - 
+# History:
+# v0.1- 28.09.2022      : creation
+# v0.2- 10-10-2022      : copy configurations and default templates into image. This is needed to deploy on clusters without
+#                     having to force bind mounts.
+# ##########################
+
+ARG baseImage=owasp/modsecurity-crs
+ARG baseVersion=3.3.4-nginx-202209221209
+FROM ${baseImage}:${baseVersion}
+# Args get removed after FROM -> reinit them in case we want them in env vars
+ARG baseImage=owasp/modsecurity-crs
+ARG baseVersion=3.3.4-nginx-202209221209
+
+LABEL maintainer="sergiu.nagy"
+
+# install service/system and network utilities for debug purposes
+RUN apt-get update \
+        && apt-get install systemd -y \
+        && apt-get install net-tools -y \ 
+        && apt-get install procps -y
+
+# add the reverse_proxy configurations
+COPY config/reverse_proxy.conf "/etc/nginx/conf.d/reverse_proxy.conf"
+# overwrite the deault server configuration
+COPY config/default_template.conf "/etc/nginx/templates/conf.d/default.conf.template"
