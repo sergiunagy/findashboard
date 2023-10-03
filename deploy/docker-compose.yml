@@ -125,7 +125,7 @@ services:
     - ME_CONFIG_MONGODB_SERVER=datastore-server
     depends_on:
       - datastore
-    # Mongo container is available but the server starts responding only after init
+    # Mongo container is available but the server starts responding only after init. TODO: health check as start condition ?
     restart: always
     networks:
       - backnet
@@ -153,7 +153,7 @@ services:
     ports:
       - "8080:80"
 
-    # the service waits for authorization and the controller to be up because it requires them when checking proxy paths  
+    # the service waits for authorization and the dashboards services to be up because it requires them when checking proxy paths  
     depends_on:
       - auth-backend
       - dashboards-backend

@@ -7,7 +7,7 @@ Sources, configurations and docs are locate in the app folder
 
 ### The service infrastructure
 The application (both in dev and prod) runs from Docker containers.
-The infrastructure is defined in the deploy folder yml and docker file.  
+The infrastructure is defined in the deploy folder yml and docker files.  
 
 **Note**:
 - for the first project setup (no files exist yet on drive and no commit has been made in Git) please use the initial_setup.bash to run an automated setup.
@@ -16,18 +16,20 @@ The infrastructure is defined in the deploy folder yml and docker file.
 
 ## Libraries and build tools
 
-We use bootstrap as a styling library.  
+We use bootstrap and Angular Material as a styling librares.   
 We use NodeJs to serve the app during development and provide the build toolchain.  
-We use Nginx to serve the app in production.
+We use Nginx to serve the app in production. Nginx is also used as Ingress solution to our backend.
 
 The documentation and diagrams are created using drawio (a VSCode plugin exists as well as a standalone app).
 
-## Finnhub api
-The online data is produced by the finnhub.io provided REST apis
+## Data provider: Finnhub api
+The online data is produced by the finnhub.io provided REST apis.
+Our backend will redirect requests to the finnhub.io api.
 
-### Authentication
+### Finnhub Authentication
 Authentication is required for all requests sent to the API.
 The Authentication is provied in the form of a per-user token (api-key).  
+This is obtained on the Frontend as part of a successful authentication to our backend.
 
 **Note**:
 - It may have previously possible to generate a token programmaticaly but there is no longer an API providing this functionality.
@@ -47,4 +49,5 @@ This allows a closer inspection of the API as well as manually testing it.
 ### Dev mode
 
 From the deploy folder: 
-- docker compose --profile dev up
+
+        docker compose --profile dev up
