@@ -1,2 +1,16 @@
-<p>dashboards-list works!</p>
-<p *ngIf="(auth.isAuthenticated$ | async)"> Is authenticated </p>
+<div class="container-fluid">
+    <div class="row">
+        <main class="col-sm-10">
+            <div class="d-flex justify-content-between flex-wrap flex-sm-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">{{""}}</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group btn-group-md me-2">
+                        <button type="button" class="btn btn-md btn-outline-secondary">New</button>
+                        <button type="button" class="btn btn-md btn-outline-secondary">Load</button>
+                        <button type="button" class="btn btn-md btn-outline-secondary">Save</button>
+                    </div>
+                </div>  
+            </div>
+        </main>
+    </div>
+</div>
