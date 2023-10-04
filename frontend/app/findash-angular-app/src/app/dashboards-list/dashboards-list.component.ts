@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthStore } from '../auth/auth.store';
 
 @Component({
   selector: 'app-dashboards-list',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class DashboardsListComponent {
 
+  constructor (public auth: AuthStore){
+
+  }
 }

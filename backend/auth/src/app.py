@@ -37,9 +37,13 @@ dummy_response_with_api_key ={
 # not yet required
 
 # ------ APIs
-@app.post("/api/v1/auth/signin", tags=['signin'])
+@app.post("/api/v1/auth/signin", tags=['signin'],
+          summary='authentication API with user credentials.',
+          description='Incomplete. Always returns auth ok. Credentials not checked.',
+)
 async def signin():
-    
+    # TODO: implement actual auth
+
     # proper JWT header
     response_header = {
         'Content-Type': 'application/json', 

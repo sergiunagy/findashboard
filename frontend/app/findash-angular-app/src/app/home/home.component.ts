@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthStore } from '../auth/auth.store';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
+  constructor (public auth:AuthStore){
+    
+  }
 }
