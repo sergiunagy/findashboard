@@ -2,18 +2,27 @@
     <div class="row">
         <main class="col-sm-10">
             <!-- Top buttons  -->
-            <div class="d-flex justify-content-between flex-wrap flex-sm-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">{{""}}</h1>
+            <div
+                class="d-flex justify-content-end flex-wrap flex-sm-nowrap align-items-right pt-3 pb-2 mb-3 border-bottom">
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group btn-group-md me-2">
-                        <button type="button" class="btn btn-md btn-outline-secondary">New</button>
-                        <button type="button" class="btn btn-md btn-outline-secondary">Load</button>
+                        <button type="button" class="btn btn-md btn-outline-secondary"
+                            (click)="onNewDashboardsConfig()">New</button>
+                        <button type="button" class="btn btn-md btn-outline-secondary"
+                            (click)="onDashboardsConfigLoad()">Load</button>
                         <button type="button" class="btn btn-md btn-outline-secondary">Save</button>
                     </div>
-                </div>  
+                </div>
             </div>
+            <ng-container *ngIf="(dashStore.loadedDashboard$ | async) as dashboard">
+                <h6 class="small-info">{{dashboard.name}}</h6>
+            </ng-container>
             <!-- Content -->
-            <app-dashboard></app-dashboard>
+            <ng-container *ngIf="(dashStore.loadedDashboard$ | async) as dashboard">
+                <div *ngFor="let symbol of dashboard.trackedSymbols">
+                    <app-dashboard></app-dashboard>
+                </div>
+            </ng-container>
         </main>
     </div>
 </div>

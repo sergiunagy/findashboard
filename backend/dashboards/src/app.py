@@ -122,8 +122,10 @@ async def save_dashboard(user: str , dashboard:Dashboard):
 def _find_dashboard_by_owner_and_name(user:str, dashboard_name:str):
     # ########### DB OPERATIONS 
     db,client =_get_db_handle()
+    print(user, dashboard_name)
 
-    dashboard = db['dashboard'].find_one({"ownerid":user}, projection={"_id":0}).get("content")
+    dashboard = db['dashboard'].find_one({"ownerid":user, "name":dashboard_name}, projection={"_id":0})
+    print(dashboard)
 
     client.close()
 
@@ -134,7 +136,7 @@ def _find_last_updated_dashboard_by_user(user):
     db, client =_get_db_handle()
 
     dashboard = db["dashboard"].aggregate([
-           {"$match": {"ownerid":user}},
+           {"$match": {"ownerid":user}}, 
            {"$sort": {"unixTimestamp": -1}},
            {"$limit": 1 },
            {"$unset":["_id", "ownerid"]}
