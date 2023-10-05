@@ -20,7 +20,7 @@
             <!-- Content -->
             <ng-container *ngIf="(dashStore.loadedDashboard$ | async) as dashboard">
                 <div *ngFor="let symbol of dashboard.trackedSymbols">
-                    <app-dashboard></app-dashboard>
+                    <app-dashboard [trackedSymbol]="symbol"></app-dashboard>
                 </div>
             </ng-container>
         </main>

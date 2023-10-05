@@ -1,7 +1,11 @@
-
-<div
-    class="d-flex justify-content-between flex-sm-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
-    <h1 class="h2">AAPL </h1>
-    <app-linechart></app-linechart>
-    <app-avgcalc></app-avgcalc>
-</div>
+<ng-container *ngIf="(mySymTracker$ | async) as tracker">
+    <div class="col-sm-9">
+        <div class="row">
+            <h1 class="h4">{{trackedSymbol}} </h1>
+        </div>
+        <div class="d-flex justify-content-between flex-sm-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
+            <app-linechart [data]="tracker"></app-linechart>
+            <app-avgcalc [data]="tracker"></app-avgcalc>
+        </div>
+    </div>
+</ng-container>

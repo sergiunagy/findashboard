@@ -1,3 +1,7 @@
+/**
+ * Dashboard configuration data model
+ */
+
 import * as moment from "moment";
 
 export interface DashboardConfig {
