@@ -14,6 +14,7 @@
                     </div>
                 </div>
             </div>
+            <app-load-dashboard *ngIf="isLoadCfgOpen" (close)="onHandleLoadModalClose()"></app-load-dashboard>
             <ng-container *ngIf="(dashStore.loadedDashboard$ | async) as dashboard">
                 <h6 class="small-info">{{dashboard.name}}</h6>
             </ng-container>

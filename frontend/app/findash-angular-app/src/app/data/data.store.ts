@@ -24,7 +24,6 @@ export class DataStore{
 
                     
     registerNewTrackedSym(sym:string, update_interval_mins:number ){
-        console.log("REGISTER: " + sym);
         /* check if symbol exists. Else throw error */
         /* create the data tracker -subject-obervable */
         this.trackers[sym]={
@@ -69,7 +68,6 @@ export class DataStore{
         const epochUnixTimestampInSeconds = Math.round(new Date().getTime()/1000);
         
         const url = BACKEND_HOST + CANDLE_DATA_API;
-        console.log("DATA UPDATE : "+ symbol+" :: "+ LAST_24H + "---" + epochUnixTimestampInSeconds );
         return this.http.get(url, {
             params: {
               symbol: symbol,

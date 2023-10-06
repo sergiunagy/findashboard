@@ -1,0 +1,25 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="container-fluid">
+            <div class="modal-header">
+                <h5 class="modal-title">Load Dashboard</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="onCancel()"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" (keyup.enter)="onSubmit()" #dashnameinput />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="onSubmit()">Submit</button>
+            </div>
+            <ul class="list-group" *ngIf="(userDashboards$ | async) as dashboards">
+                <li *ngFor="let dname of dashboards" 
+                    class="list-group-item"
+                    (click)="onListSubmit(dname)"
+                    >{{dname}}</li>
+
+                <!-- <li class="list-group-item active">Cras justo odio</li> -->
+              </ul>
+        </div>
+    </div>
+</div>

@@ -23,6 +23,7 @@ docker run --rm -u node -v $(pwd)/../app:/home/node/app sergiunagy/findash-angul
 
 # UNTESTED - TODO - rebuild image and test
 docker run --rm -u node -v $(pwd)/../app:/home/node/app sergiunagy/findash-angular-app sh -c "cd findash-angular-app && npm install --save  moment"
+docker run --rm -u node -v $(pwd)/../app:/home/node/app sergiunagy/findash-angular-app sh -c "cd findash-angular-app && npm install --save  ng-bootstrap"
 # UNTESTED -END
 
 # Add material themes and packages: 

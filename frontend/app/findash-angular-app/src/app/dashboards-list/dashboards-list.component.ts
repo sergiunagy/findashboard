@@ -5,12 +5,15 @@ import * as moment from 'moment';
 import { DashboardsStore } from './dahsboards.store';
 
 
+
 @Component({
   selector: 'app-dashboards-list',
   templateUrl: './dashboards-list.component.html',
   styleUrls: ['./dashboards-list.component.css']
 })
 export class DashboardsListComponent {
+
+  isLoadCfgOpen: boolean=false;
 
   constructor(
     public auth: AuthStore,
@@ -24,8 +27,8 @@ export class DashboardsListComponent {
   onNewDashboardsConfig() {
     /* TEST */
     const testDashboard: DashboardConfig = {
-      name: "Test Dashboard",
-      trackedSymbols: ["AAPL", "GOOGL", "MSFT", "AMZN"],
+      name: "NVDA-TSLA-META",
+      trackedSymbols: ["NVDA", "TSLA", "META"],
       unixTimestamp: moment().unix()
     }
     /* TEST */
@@ -41,7 +44,7 @@ export class DashboardsListComponent {
     const dashname = 'JPM-TSLA-NVDA';
     /* TEST */
     this.authValidCheck();
-    this.dashStore.loadDashboardByOwnerAndName(uid, dashname).subscribe();
+    this.isLoadCfgOpen = true;
   }
 
   onSaveDashboardsConfig() {
@@ -52,5 +55,9 @@ export class DashboardsListComponent {
     if (!this.auth.userState) {
       throw new Error("Protected component called without auth");
     }
+  }
+
+  onHandleLoadModalClose(){
+    this.isLoadCfgOpen=false;
   }
 }
