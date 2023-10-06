@@ -8,6 +8,9 @@ import { SigninComponent } from './signin/signin.component';
 import { DashboardsListComponent } from './dashboards-list/dashboards-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LinechartComponent } from './linechart/linechart.component';
+import { AvgcalcComponent } from './avgcalc/avgcalc.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     SigninComponent,
     DashboardsListComponent,
+    DashboardComponent,
+    LinechartComponent,
+    AvgcalcComponent,
   ],
   imports: [
     BrowserModule,

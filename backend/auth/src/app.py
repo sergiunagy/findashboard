@@ -25,11 +25,15 @@ app.add_middleware(
 ################# Dummy data - TODO: proper auth is currently out of scope. Add this later
 DUMMY_TOKEN = '1234' # TODO: generate proper JWT if required
 
-dummy_response_with_api_key ={ 
-        'user_alias' :'demo-user-alias', 
+dummy_user_profile = {
+        'id': '01865b6c51f04ba8a8b5ecc699fc51ec',
+        'alias' :'user-alias', 
+        'name' :'Anonymous',
+}
+
+dummy_response_with_api_key ={
+        'user' : dummy_user_profile,
         'token_type':'bearer',
-        'access_token' :DUMMY_TOKEN,
-        'expires_in': '3600',
         'finnhub-api-key': API_KEY,
         }
 
@@ -44,11 +48,5 @@ dummy_response_with_api_key ={
 async def signin():
     # TODO: implement actual auth
 
-    # proper JWT header
-    response_header = {
-        'Content-Type': 'application/json', 
-        'Cache-Control': 'no-store',
-        'Pragma': 'no-cache'
-        }
-    return dummy_response_with_api_key, 200, response_header
+    return dummy_response_with_api_key
 

@@ -11,6 +11,9 @@ const SIGN_IN_API = "/api/v1/auth/signin";
     providedIn: 'root'
 })
 export class AuthStore{
+    
+    /* state storage variable */
+    public userState: User = null;
     /* Use the subject-observable pattern */
     private subjectUser = new BehaviorSubject<User>(null); /* Initial value: null, i.e. no auth data exists for the user */
 
@@ -36,7 +39,18 @@ export class AuthStore{
         return this.http
             .post<User>(BACKEND_HOST+SIGN_IN_API, {user: user, password:pass})
             .pipe(
-                tap(userProfile=> this.subjectUser.next(userProfile)), /* emit auth data as side-effect */
+                map(rsp=> { /* Get user profile from response */
+                    return <User>{
+                        id: rsp['user']['id'],
+                        name: rsp['user']['name'],
+                        alias: rsp['user']['alias'],
+                        apikey: rsp['finnhub-api-key']
+                    }
+                }),
+                tap(userProfile=> {
+                    this.subjectUser.next(userProfile);
+                    this.userState = userProfile; /* store state in memory */
+                }), /* emit auth data as side-effect */
                 shareReplay()
                 );  /* avoid repeated recalls on subscribe. Auth context is global*/            
     }
