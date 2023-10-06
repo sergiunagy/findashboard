@@ -15,16 +15,22 @@ export class AvgcalcComponent {
 
     const toSec = (min) => min*60;
     const intervalThreshold = moment().unix() - toSec(min);
+    const last_val = (arr) => arr[arr.length-1].value;
+
     /* calculate mean over the relevant interval*/
     const sample = Array.from(this.data)
-                        .filter(el=>moment(el.date).unix() >= intervalThreshold)
-                        .map(el=> el.value)
-    /* If no data found for interval, push last value in data- TODO: this is not really correct since we may be far from the actual value */
-    if(!sample){
-      sample.push(this.data[-1].value);
-    }
-    const avg = sample.reduce((sum, value)=>sum + value, 0)/sample.length;
+                        .filter(el=>moment(el.date).unix() >= intervalThreshold);
                         
+    /* If no data found for interval, push last value in data- TODO: this is not really correct since we may be far from the actual value */
+    if(sample.length===0){
+      // console.log(`No data for the requested interval: last ${min} minutes. Filling with last value`);
+      return last_val(this.data).toPrecision(4);
+    }
+
+    const avg = sample.map(el=> el.value)
+                     .reduce((sum, value)=>sum + value, 0)/sample.length;
+    
+
     return avg.toPrecision(4);
   }
 

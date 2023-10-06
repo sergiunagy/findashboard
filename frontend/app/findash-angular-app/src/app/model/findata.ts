@@ -1,10 +1,9 @@
 import { BehaviorSubject, Observable } from "rxjs";
 
 /* 
-  User Object Model
+  Financial data Object Model
  */
   export interface FinData {
-    symbol: string;
-    subjData: BehaviorSubject<number[]>;
-    obsData: Observable<number[]>;
+    date: string;
+    value: number;
 }

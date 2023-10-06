@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, OnInit,Input } from '@angular/core';
 import * as d3 from 'd3'
+import { FinData } from '../model/findata';
 
 @Component({
   selector: 'app-linechart',
@@ -8,7 +9,7 @@ import * as d3 from 'd3'
 })
 export class LinechartComponent {
 
-   @Input() public data: {date: Date, value: number}[];
+  @Input() public data: { value: number, date: Date }[];
 
   private isInitialized=false;
   // private svg: any;
@@ -25,8 +26,9 @@ export class LinechartComponent {
   public lineGroup;
 
 
-  constructor (private elRef: ElementRef, private renderer: Renderer2){
-  }
+  constructor (private elRef: ElementRef, 
+              private renderer: Renderer2,
+              ){}
 
   ngOnInit() {
     this.createSvg();

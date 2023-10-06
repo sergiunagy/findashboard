@@ -38,7 +38,7 @@ export class DashboardsListComponent {
   onDashboardsConfigLoad() {
     /* TEST */
     const uid = this.auth.userState?.id;
-    const dashname = 'Last Test Dashboard';
+    const dashname = 'JPM-TSLA-NVDA';
     /* TEST */
     this.authValidCheck();
     this.dashStore.loadDashboardByOwnerAndName(uid, dashname).subscribe();
