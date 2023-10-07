@@ -7,6 +7,7 @@ import { AuthStore } from "../auth/auth.store";
 const BACKEND_HOST="http://localhost:8080";
 const SAVE_DASHBOARD_API = "/api/v1/dashboards/save";
 const LOAD_LAST_DASHBOARD = "/api/v1/dashboards/loadlast";
+const FINDALL_DASHBOARDS = "/api/v1/dashboards/findall";
 const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
 
 @Injectable({
@@ -30,6 +31,8 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
             this.loadLastSavedDasboardConfig(uid).pipe(
               tap(dashCfg=>this.subjectDashboard.next(dashCfg))
             ).subscribe();
+          } else {
+            throw new Error ("Store triggered without an authenticated User");
           }
         }
     
@@ -102,4 +105,23 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
           );
       }
 
+    findAllDashboardNamesForUser(uid:string):Observable<string[]>{
+      const url = BACKEND_HOST + FINDALL_DASHBOARDS;
+
+      return this.http.get<DashboardConfig[]>(url,
+        {
+          params:{
+            user: uid,
+          }
+        }).pipe(
+          map(dashCfgs => {
+              return dashCfgs.map(cfg=> cfg.name);
+          }),
+          catchError(err => {
+            const msg = 'Init Failed to fetch data from provider at' + url;
+            console.log(msg, err); /* dev log */
+            return throwError(() => new Error(err));
+          })
+        );
+    }
   }

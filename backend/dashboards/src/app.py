@@ -1,4 +1,5 @@
 import os 
+import json
 from typing import Optional
 from fastapi import FastAPI, Request, Response, status, APIRouter
 from fastapi.responses import Response, HTMLResponse, PlainTextResponse
@@ -95,6 +96,29 @@ async def find_last_updated_dashboard_for_user(user: str):
     
     return {'dashboard': last_updated_dashboard}
 
+
+@app.get("/api/v1/dashboards/findall", 
+        tags=['dashboards'], 
+        summary='retrieve all dashboard configurations given a user',
+        )
+async def find_all_dashboards_for_user(user: str):
+    """
+    Retrieves a Dashboard profile given a user/owner and a dashboard name
+
+    Parameters
+    ----------
+    - user - the user id passed as a query parameter
+    - dashboardname - as a query parameter
+
+    Response
+    --------
+    - 
+    """
+    last_updated_dashboard = _find_all_dashboards_by_user(user)
+    
+    return last_updated_dashboard
+
+
 @app.post("/api/v1/dashboards/save", 
         tags=['dashboards'], 
         summary='save a dashboard configuration',
@@ -125,7 +149,6 @@ def _find_dashboard_by_owner_and_name(user:str, dashboard_name:str):
     print(user, dashboard_name)
 
     dashboard = db['dashboard'].find_one({"ownerid":user, "name":dashboard_name}, projection={"_id":0})
-    print(dashboard)
 
     client.close()
 
@@ -144,6 +167,17 @@ def _find_last_updated_dashboard_by_user(user):
 
     client.close()
     return dashboard
+
+def _find_all_dashboards_by_user(user):
+    # ########### DB OPERATIONS 
+    db, client =_get_db_handle()
+
+    # simply convert to list here, no big data expected
+    dashboards = list(db["dashboard"].find({"ownerid":user}, projection={"_id":0}))
+
+    client.close()
+    return dashboards
+
 
 def _save_dashboard(user:str, dashboard_data: Dashboard):
 

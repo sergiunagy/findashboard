@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LinechartComponent } from './linechart/linechart.component';
 import { AvgcalcComponent } from './avgcalc/avgcalc.component';
+import { LoadDashboardComponent } from './dashboards-list/load-dashboard/load-dashboard.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -21,12 +24,14 @@ import { AvgcalcComponent } from './avgcalc/avgcalc.component';
     DashboardComponent,
     LinechartComponent,
     AvgcalcComponent,
+    LoadDashboardComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

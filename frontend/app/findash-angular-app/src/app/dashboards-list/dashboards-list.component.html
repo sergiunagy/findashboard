@@ -6,14 +6,23 @@
                 class="d-flex justify-content-end flex-wrap flex-sm-nowrap align-items-right pt-3 pb-2 mb-3 border-bottom">
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group btn-group-md me-2">
-                        <button type="button" class="btn btn-md btn-outline-secondary"
-                            (click)="onNewDashboardsConfig()">New</button>
-                        <button type="button" class="btn btn-md btn-outline-secondary"
-                            (click)="onDashboardsConfigLoad()">Load</button>
-                        <button type="button" class="btn btn-md btn-outline-secondary">Save</button>
+                        <button *ngIf="currentState === availableStates.READ" type="button" class="btn btn-md btn-outline-secondary"
+                            (click)="onDashboardsConfigLoad()">
+                            Load</button>
+                        <button *ngIf="currentState ===availableStates.READ" type="button" class="btn btn-md btn-outline-secondary"
+                            (click)="onNewDashboardsConfig()">
+                            New</button>                             
+                        <button *ngIf="currentState === availableStates.READ" type="button" class="btn btn-md btn-outline-secondary">
+                            Edit</button>                        
+                        <button *ngIf="[availableStates.EDIT, availableStates.CREATE].includes(currentState)" type="button" class="btn btn-md btn-outline-secondary">
+                            Save</button>
+                        <button  *ngIf="currentState === availableStates.READ" type="button" class="btn btn-md btn-outline-secondary"
+                            (click)="onDashboardsConfigLoad()">
+                            Delete</button>
                     </div>
                 </div>
             </div>
+            <app-load-dashboard *ngIf="isLoadCfgOpen" (close)="onHandleLoadModalClose()"></app-load-dashboard>
             <ng-container *ngIf="(dashStore.loadedDashboard$ | async) as dashboard">
                 <h6 class="small-info">{{dashboard.name}}</h6>
             </ng-container>
