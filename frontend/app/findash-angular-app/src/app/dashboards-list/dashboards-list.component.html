@@ -15,9 +15,14 @@
                         <button *ngIf="currentState === availableStates.READ" type="button"
                             class="btn btn-md btn-outline-secondary">
                             Edit</button>
-                        <button *ngIf="[availableStates.EDIT, availableStates.CREATE].includes(currentState)"
-                            type="button" class="btn btn-md btn-outline-secondary">
-                            Save</button>
+                        <ng-container *ngIf="[availableStates.EDIT, availableStates.CREATE].includes(currentState)">
+                            <button type="button" class="btn btn-md btn-outline-secondary" (click)="onSaveCreate()">
+                                Save</button>
+                            <button type="button" class="btn btn-md btn-outline-secondary" (click)="onClearCreate()">
+                                Clear</button>
+                            <button type="button" class="btn btn-md btn-outline-secondary" (click)="onCancelCreate()">
+                                Cancel</button>
+                        </ng-container>
                         <ng-container *ngIf="(dashStore.loadedDashboard$ | async) as dashboard">
                             <button *ngIf="currentState === availableStates.READ" type="button"
                                 class="btn btn-md btn-outline-secondary" (click)="onDashboardDelete(dashboard.id)">
@@ -26,6 +31,7 @@
                     </div>
                 </div>
             </div>
+            <app-messages></app-messages>
             <app-load-dashboard *ngIf="isLoadCfgOpen" (close)="onHandleLoadModalClose()"></app-load-dashboard>
             <ng-container *ngIf="(dashStore.loadedDashboard$ | async) as dashboard">
                 <h6 class="small-info">{{dashboard.name}}</h6>
@@ -33,9 +39,29 @@
             <!-- Content -->
             <ng-container *ngIf="(dashStore.loadedDashboard$ | async) as dashboard">
                 <div *ngFor="let symbol of dashboard.trackedSymbols">
-                    <app-dashboard [trackedSymbol]="symbol"></app-dashboard>
+                    <app-dashboard 
+                        [isEditable]="[availableStates.EDIT, availableStates.CREATE].includes(currentState)"
+                        [trackedSymbol]="symbol">
+                    </app-dashboard>
                 </div>
             </ng-container>
+            <!-- AddSymbol button -->
+            <div class="d-flex justify-content-center" *ngIf="[availableStates.EDIT, availableStates.CREATE].includes(currentState)">
+                <button class="btn btn-primary" 
+                (click)="onAddNewSymbolToTrack()" 
+                *ngIf="!isAddingNewSymbol"
+                [disabled]="!allowNewElement"
+                > Add symbol to track
+                </button>
+                <ng-container *ngIf="isAddingNewSymbol">
+                    <input type="text" (keypress)="onNewTrackedSymbolInput()"
+                        (keyup.enter)="onNewSymbolSubmit($event)" />
+                    <!-- <ul class="list-group" *ngIf="(dataStore.availableSymbols$ | async) as symbols">
+                    <li *ngFor="let symbol of symbols" class="list-group-item">{{symbol}}</li>
+                </ul> -->
+                </ng-container>
+                <hr>
+            </div>
         </main>
     </div>
 </div>

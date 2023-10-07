@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FinData } from '../model/findata';
 import { Observable, catchError, map, shareReplay, tap, throwError } from 'rxjs';
 import { DataStore } from '../data/data.store';
+import { DashboardsStore } from '../dashboards-list/dahsboards.store';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,11 +13,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   symbolTracker$: Observable<FinData[]>;
 
+  @Input() @Output() isEditable=false;
+
   @Input() trackedSymbol: string = null;
 
 
-  constructor( 
-    private dataprovider: DataStore) { }
+
+  constructor(private dataprovider: DataStore,
+              private dashStore: DashboardsStore /* todo: this creates tight-coupling, refactor */
+            ) { }
 
 
   ngOnInit(): void {
@@ -33,4 +38,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dataprovider.unregisterTrackedSym(this.trackedSymbol);
   }
 
+  onRemoveElement(){
+    this.dashStore.removeTrackedSym(this.trackedSymbol);
+  }
 }
