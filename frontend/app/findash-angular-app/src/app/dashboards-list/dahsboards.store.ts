@@ -31,6 +31,8 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
             this.loadLastSavedDasboardConfig(uid).pipe(
               tap(dashCfg=>this.subjectDashboard.next(dashCfg))
             ).subscribe();
+          } else {
+            throw new Error ("Store triggered without an authenticated User");
           }
         }
     
