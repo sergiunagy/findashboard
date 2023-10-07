@@ -8,6 +8,7 @@ const BACKEND_HOST="http://localhost:8080";
 const SAVE_DASHBOARD_API = "/api/v1/dashboards/save";
 const LOAD_LAST_DASHBOARD = "/api/v1/dashboards/loadlast";
 const FINDALL_DASHBOARDS = "/api/v1/dashboards/findall";
+const DELETE_DASHBOARD = "/api/v1/dashboards/delete";
 const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
 
 @Injectable({
@@ -47,6 +48,7 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
         }).pipe(
           map(response => {
               return <DashboardConfig>{
+                      id: response['dashboard']['_id'],                
                       name: response['dashboard']['name'],
                       trackedSymbols: response['dashboard']['trackedSymbols'],
                       unixTimestamp: response['dashboard']['unixTimestamp'],
@@ -60,7 +62,7 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
         );
     }
 
-    saveDashboardsConfiguration(userid:string, dconfig: DashboardConfig):Observable<boolean | Object>{
+    saveDashboardsConfiguration(userid:string, dconfig: Partial<DashboardConfig>):Observable<boolean | Object>{
 
         const url = BACKEND_HOST + SAVE_DASHBOARD_API;
 
@@ -91,6 +93,7 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
           }).pipe(
             map(response => {
                 return <DashboardConfig>{
+                        id: response['dashboard']['_id'],
                         name: response['dashboard']['name'],
                         trackedSymbols: response['dashboard']['trackedSymbols'],
                         unixTimestamp: response['dashboard']['unixTimestamp'],
@@ -119,6 +122,27 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
           }),
           catchError(err => {
             const msg = 'Init Failed to fetch data from provider at' + url;
+            console.log(msg, err); /* dev log */
+            return throwError(() => new Error(err));
+          })
+        );
+    }
+
+    deleteDashboard(dashid:number):Observable<boolean | Object>{
+      const url = BACKEND_HOST + DELETE_DASHBOARD;
+      const uid = this.auth.userState?.id
+      return this.http.delete(url,
+        {
+          params:{
+            dashboard_id: dashid
+          }
+        }).pipe(
+          /* as a side-effect, load the last saved config into the current dashboard since our state is now invalid*/
+          tap(_=> this.loadLastSavedDasboardConfig(uid).pipe(
+            tap(dashCfg=>this.subjectDashboard.next(dashCfg))
+          ).subscribe()),
+          catchError(err => {
+            const msg = 'Delete dashboard failed for id' + dashid;
             console.log(msg, err); /* dev log */
             return throwError(() => new Error(err));
           })

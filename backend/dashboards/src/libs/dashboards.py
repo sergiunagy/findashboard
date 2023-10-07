@@ -1,7 +1,15 @@
 import json
+import bson
 from pymongo import MongoClient
+from bson import ObjectId
+
 from db.db import get_db_handle
 from models.dashboard import Dashboard
+
+def _oid_to_str(element):
+
+    element['_id'] = str(element['_id'])
+    return element
 
 def find_dashboard_by_owner_and_name(user:str, dashboard_name:str):
     """
@@ -12,7 +20,9 @@ def find_dashboard_by_owner_and_name(user:str, dashboard_name:str):
     db,client = get_db_handle()
     print(user, dashboard_name)
 
-    dashboard = db['dashboard'].find_one({"ownerid":user, "name":dashboard_name}, projection={"_id":0})
+    dashboard = db['dashboard'].find_one({"ownerid":user, "name":dashboard_name})
+    if dashboard:
+       dashboard = _oid_to_str(dashboard)
 
     client.close()
 
@@ -26,8 +36,11 @@ def find_last_updated_dashboard_by_user(user):
            {"$match": {"ownerid":user}}, 
            {"$sort": {"unixTimestamp": -1}},
            {"$limit": 1 },
-           {"$unset":["_id", "ownerid"]}
+        #    {"$unset":["_id", "ownerid"]}
         ]).next()
+    
+    if dashboard:
+       dashboard = _oid_to_str(dashboard)
 
     client.close()
     return dashboard
@@ -35,10 +48,12 @@ def find_last_updated_dashboard_by_user(user):
 def find_all_dashboards_by_user(user):
     # ########### DB OPERATIONS 
     db, client =get_db_handle()
-
-    # simply convert to list here, no big data expected
-    dashboards = list(db["dashboard"].find({"ownerid":user}, projection={"_id":0}))
-
+    # simply convert to list here, no big data expected 
+    dashboards = list(db["dashboard"].find({"ownerid":user}))
+    # return the oid as well => this needs converstion
+    if dashboards:
+       dashboards = list(map(_oid_to_str,dashboards))
+            
     client.close()
 
     return dashboards
@@ -57,13 +72,16 @@ def save_dashboard(user:str, dashboard_data: Dashboard):
     return res.inserted_id    
 
 
-def delete_dashboard_for_owner_and_name(user:str, dashboard_name:str):
+def delete_dashboard_by_id(did: str):
     # ########### DB OPERATIONS 
     db,client = get_db_handle()
-    print(user, dashboard_name)
 
-    dashboard = db['dashboard'].delete_one({"ownerid":user, "name":dashboard_name})
+    try:
+        deleted = db['dashboard'].delete_one({"_id":ObjectId(did)})
+
+    except bson.errors.InvalidId as err:
+        deleted = {False}
 
     client.close()
 
-    return {'dashboard':dashboard}
+    return deleted.deleted_count == 1

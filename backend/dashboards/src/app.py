@@ -80,9 +80,9 @@ async def save_dashboard(user: str , dashboard:Dashboard):
         tags=['dashboards'], 
         summary='delete a users dashboard configuration by name ',
         )
-async def delete_dashboard(user: str , dashboard_name:str):
+async def delete_dashboard(dashboard_id: str):
 
-    saved  = dashb.delete_dashboard_for_owner_and_name(user, dashboard_name) 
-    return {saved is not None}
+    deleted  = dashb.delete_dashboard_by_id(dashboard_id) 
+    return deleted
     
 

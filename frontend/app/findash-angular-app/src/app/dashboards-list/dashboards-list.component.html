@@ -6,19 +6,23 @@
                 class="d-flex justify-content-end flex-wrap flex-sm-nowrap align-items-right pt-3 pb-2 mb-3 border-bottom">
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group btn-group-md me-2">
-                        <button *ngIf="currentState === availableStates.READ" type="button" class="btn btn-md btn-outline-secondary"
-                            (click)="onDashboardsConfigLoad()">
+                        <button *ngIf="currentState === availableStates.READ" type="button"
+                            class="btn btn-md btn-outline-secondary" (click)="onDashboardsConfigLoad()">
                             Load</button>
-                        <button *ngIf="currentState ===availableStates.READ" type="button" class="btn btn-md btn-outline-secondary"
-                            (click)="onNewDashboardsConfig()">
-                            New</button>                             
-                        <button *ngIf="currentState === availableStates.READ" type="button" class="btn btn-md btn-outline-secondary">
-                            Edit</button>                        
-                        <button *ngIf="[availableStates.EDIT, availableStates.CREATE].includes(currentState)" type="button" class="btn btn-md btn-outline-secondary">
+                        <button *ngIf="currentState ===availableStates.READ" type="button"
+                            class="btn btn-md btn-outline-secondary" (click)="onNewDashboardsConfig()">
+                            New</button>
+                        <button *ngIf="currentState === availableStates.READ" type="button"
+                            class="btn btn-md btn-outline-secondary">
+                            Edit</button>
+                        <button *ngIf="[availableStates.EDIT, availableStates.CREATE].includes(currentState)"
+                            type="button" class="btn btn-md btn-outline-secondary">
                             Save</button>
-                        <button  *ngIf="currentState === availableStates.READ" type="button" class="btn btn-md btn-outline-secondary"
-                            (click)="onDashboardsConfigLoad()">
-                            Delete</button>
+                        <ng-container *ngIf="(dashStore.loadedDashboard$ | async) as dashboard">
+                            <button *ngIf="currentState === availableStates.READ" type="button"
+                                class="btn btn-md btn-outline-secondary" (click)="onDashboardDelete(dashboard.id)">
+                                Delete</button>
+                        </ng-container>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@ import { AuthStore } from '../auth/auth.store';
 import { DashboardConfig } from '../model/dashboardconfig';
 import * as moment from 'moment';
 import { DashboardsStore } from './dahsboards.store';
+import { Router } from '@angular/router';
 
 export enum DashboardStates {
   INIT,
@@ -27,6 +28,7 @@ export class DashboardsListComponent implements OnInit, OnDestroy{
   constructor(
     public auth: AuthStore,             /* user should be authenticated and a profile available */
     public dashStore: DashboardsStore, /* when this gets injected, the last configuration will be pre-loaded */
+    private router: Router
   ) {
 
     /* Dev error : if this is reached the auth guard got bypassed */
@@ -45,7 +47,7 @@ export class DashboardsListComponent implements OnInit, OnDestroy{
   /* ----------------  Create -----------------*/
   onNewDashboardsConfig() {
     /* TEST - hardcoded data */
-    const testDashboard: DashboardConfig = {
+    const testDashboard: Partial<DashboardConfig> = {
       name: "NVDA-TSLA-META",
       trackedSymbols: ["NVDA", "TSLA", "META"],
       unixTimestamp: moment().unix()
@@ -70,6 +72,9 @@ export class DashboardsListComponent implements OnInit, OnDestroy{
   /* ---------- Save  ---------- */
   onSaveDashboardsConfig() { }
   /* ---------- Delete  ---------- */
+  onDashboardDelete(dashboardId:number){
+    this.dashStore.deleteDashboard(dashboardId).subscribe();
+  }
   /* ---------- Edit  ---------- */
   /* ---------- Clear  ---------- */
 
