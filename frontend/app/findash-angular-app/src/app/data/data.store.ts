@@ -28,7 +28,7 @@ export class DataStore {
 
   registerNewTrackedSym(sym: string, update_interval_mins: number) {
     /* check if symbol exists. Else throw error */
-    /* create the data tracker -subject-obervable */
+    /* create the data tracker -subject-observable */
     this.trackers[sym] = {
       sData: new BehaviorSubject<FinData[]>(null),
       data$: null,
@@ -49,9 +49,8 @@ export class DataStore {
             
         })
     }
-
+    console.log('tracker add: ' + sym);
     return this.trackers[sym].data$;
-    /* create a data-polling subject-observable pair triggered on timer event  */
   }
 
   unregisterTrackedSym(sym: string) {
