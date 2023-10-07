@@ -10,6 +10,7 @@ Start as a separate service.
 
 ## Configuration
 
+See https://hub.docker.com/r/owasp/modsecurity-crs/ .
 Due to the way the image is built, we need a specific logic to be able to overwrite the settings with our own.
 See image description in Dockerhub.
 

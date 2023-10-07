@@ -38,18 +38,7 @@ def test_point():
         description=f'Returns a Dashboard profile given a user/owner and a dashboard name',
         )
 async def find_dashboard_for_user_and_name(user: str, dashboard_name:str):
-    """
-    Retrieves a Dashboard profile given a user/owner and a dashboard name
 
-    Parameters
-    ----------
-    - user - the user id passed as a query parameter
-    - dashboardname - as a query parameter
-
-    Response
-    --------
-    - 
-    """
     dashboard = dashb.find_dashboard_by_owner_and_name(user, dashboard_name)
     
     return dashboard
@@ -57,22 +46,10 @@ async def find_dashboard_for_user_and_name(user: str, dashboard_name:str):
 
 @app.get("/api/v1/dashboards/loadlast", 
         tags=['dashboards'], 
-        summary='retrieve a dashboard configuration',
-        description=f'Returns a Dashboard profile given a user/owner and a dashboard name',
+        summary='retrieve last dashboard configuration for user',
         )
 async def find_last_updated_dashboard_for_user(user: str):
-    """
-    Retrieves a Dashboard profile given a user/owner and a dashboard name
 
-    Parameters
-    ----------
-    - user - the user id passed as a query parameter
-    - dashboardname - as a query parameter
-
-    Response
-    --------
-    - 
-    """
     last_updated_dashboard = dashb.find_last_updated_dashboard_by_user(user)
     
     return {'dashboard': last_updated_dashboard}
@@ -83,18 +60,7 @@ async def find_last_updated_dashboard_for_user(user: str):
         summary='retrieve all dashboard configurations given a user',
         )
 async def find_all_dashboards_for_user(user: str):
-    """
-    Retrieves a Dashboard profile given a user/owner and a dashboard name
 
-    Parameters
-    ----------
-    - user - the user id passed as a query parameter
-    - dashboardname - as a query parameter
-
-    Response
-    --------
-    - 
-    """
     last_updated_dashboard =dashb.find_all_dashboards_by_user(user)
     
     return last_updated_dashboard
@@ -106,20 +72,17 @@ async def find_all_dashboards_for_user(user: str):
         description=f'Stores a Dashboard profile given',
         )
 async def save_dashboard(user: str , dashboard:Dashboard):
-    """
-    Retrieves a Dashboard profile given a user/owner and a dashboard name
-
-    Parameters
-    ----------
-    - user - the user id passed as a query parameter
-    - dashboardname - as a query parameter
-
-    Response
-    --------
-    - 
-    """
 
     saved  = dashb.save_dashboard(user, dashboard) 
+    return {saved is not None}
+
+@app.delete("/api/v1/dashboards/delete", 
+        tags=['dashboards'], 
+        summary='delete a users dashboard configuration by name ',
+        )
+async def delete_dashboard(user: str , dashboard_name:str):
+
+    saved  = dashb.delete_dashboard_for_owner_and_name(user, dashboard_name) 
     return {saved is not None}
     
 

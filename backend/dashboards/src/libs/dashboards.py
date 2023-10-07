@@ -4,6 +4,10 @@ from db.db import get_db_handle
 from models.dashboard import Dashboard
 
 def find_dashboard_by_owner_and_name(user:str, dashboard_name:str):
+    """
+    Return one dashboard for a given user-dashboard_name combination OR
+    an empty object.
+    """
     # ########### DB OPERATIONS 
     db,client = get_db_handle()
     print(user, dashboard_name)
@@ -39,9 +43,7 @@ def find_all_dashboards_by_user(user):
 
     return dashboards
 
-
 def save_dashboard(user:str, dashboard_data: Dashboard):
-
     # ########### DB OPERATIONS 
     db,client =get_db_handle()
 
@@ -53,3 +55,15 @@ def save_dashboard(user:str, dashboard_data: Dashboard):
                                       })
     client.close()
     return res.inserted_id    
+
+
+def delete_dashboard_for_owner_and_name(user:str, dashboard_name:str):
+    # ########### DB OPERATIONS 
+    db,client = get_db_handle()
+    print(user, dashboard_name)
+
+    dashboard = db['dashboard'].delete_one({"ownerid":user, "name":dashboard_name})
+
+    client.close()
+
+    return {'dashboard':dashboard}

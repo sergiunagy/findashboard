@@ -147,13 +147,17 @@ services:
       - "../backend/ingress/config:/etc/nginx/conf.d" # map configuration files here
     networks:
       - backnet
-    profiles: ["dev", "prod"]
-
     # this is a proxy service and is bound to the localhost network stack
     ports:
       - "8080:80"
-
     # the service waits for authorization and the dashboards services to be up because it requires them when checking proxy paths  
     depends_on:
       - auth-backend
       - dashboards-backend
+    # enable proper logging and allow DELETE
+    environment:
+    - MODSEC_AUDIT_LOG="/var/log/modsec_audit.log"
+    - ALLOWED_METHODS=GET HEAD POST OPTIONS DELETE
+    profiles: ["dev", "prod"]
+
+    
