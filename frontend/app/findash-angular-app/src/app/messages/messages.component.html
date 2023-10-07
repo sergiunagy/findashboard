@@ -1,0 +1,17 @@
+
+<ng-container *ngIf="(errors$ | async) as errors">
+
+    <div class="messages-container container-fluid" *ngIf="showMessages">
+
+        <div class="message" *ngFor="let error of errors">
+            {{error}}
+        </div>
+
+        <button type="button" class="btn-close justify-content-end" aria-label="Close"
+        (click)="onClose()"></button>
+
+    </div>
+
+</ng-container>
+
+

@@ -1,4 +1,4 @@
-<header class="navbar sticky-top bg-dark flex-sm-nowrap p-1 shadow navbar-brand " data-bs-theme="dark">
+<header class="container-fluid navbar sticky-top bg-dark flex-sm-nowrap p-1 shadow navbar-brand " data-bs-theme="dark">
     <p *ngIf="!(auth.isAuthenticated$ | async)" class="col-sm-3 col-lg-2 me-0 px-3 fs-6 text-white"></p>
     <ng-container *ngIf="(auth.isAuthenticated$ | async)">
         <div class="col-sm-3 col-lg-2 me-0 px-3 fs-6 text-white">Signed in as Anonymous</div>

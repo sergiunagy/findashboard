@@ -121,8 +121,18 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
       } ;
 
       this.subjectDashboard.next(empytDashboard);
+      /* retrieve provider symbols*/ 
+
     }
-    
+
+    abortCreateDashboard(){
+      const uid = this.auth.userState?.id
+
+      this.loadLastSavedDasboardConfig(uid).pipe(
+        tap(dashCfg=>this.subjectDashboard.next(dashCfg))
+      ).subscribe();
+    }
+
     newDashboardsConfiguration(userid:string, dconfig: Partial<DashboardConfig>):Observable<boolean | Object>{
 
       const url = BACKEND_HOST + NEW_DASHBOARD;

@@ -13,6 +13,8 @@ import { LinechartComponent } from './linechart/linechart.component';
 import { AvgcalcComponent } from './avgcalc/avgcalc.component';
 import { LoadDashboardComponent } from './dashboards-list/load-dashboard/load-dashboard.component';
 import { FormsModule } from '@angular/forms';
+import { MessagesComponent } from './messages/messages.component';
+import { MessagesService } from './messages/messages.service';
 
 
 @NgModule({
@@ -25,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     LinechartComponent,
     AvgcalcComponent,
     LoadDashboardComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,9 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    MessagesService, /*multi instance are possible, add local provider where suitable*/
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

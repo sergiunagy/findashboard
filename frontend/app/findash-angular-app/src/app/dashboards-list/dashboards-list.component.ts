@@ -4,6 +4,8 @@ import { DashboardConfig } from '../model/dashboardconfig';
 import * as moment from 'moment';
 import { DashboardsStore } from './dahsboards.store';
 import { Router } from '@angular/router';
+import { DataStore } from '../data/data.store';
+import { MessagesService } from '../messages/messages.service';
 
 export enum DashboardStates {
   INIT,
@@ -18,17 +20,25 @@ export enum DashboardStates {
   styleUrls: ['./dashboards-list.component.css']
 })
 export class DashboardsListComponent implements OnInit, OnDestroy{
+  private MAX_ELEMENTS = 4;
 
   availableStates  = DashboardStates;
   /* Load configuration modal active flag */
   isLoadCfgOpen: boolean=false; 
   /* state variable of the Dashboards  */
   currentState : DashboardStates;
+  /* check against max */
+  allowNewElement : boolean = false; 
+   /* state during adding a new tracker*/
+  isAddingNewSymbol: boolean = false;
 
   constructor(
     public auth: AuthStore,             /* user should be authenticated and a profile available */
     public dashStore: DashboardsStore, /* when this gets injected, the last configuration will be pre-loaded */
-    private router: Router
+    public dataStore: DataStore,             
+    private msg: MessagesService,
+    private router: Router,
+    
   ) {
 
     /* Dev error : if this is reached the auth guard got bypassed */
@@ -55,9 +65,35 @@ export class DashboardsListComponent implements OnInit, OnDestroy{
     /* TEST */
     /* state transition to activate template elements */
     this.currentState=DashboardStates.CREATE;
-    
+
     // this.dashStore.newDashboardsConfiguration(uid, testDashboard).subscribe();
     this.dashStore.createNewDashboard();
+  }
+
+  onClear(){
+    /* Inform store to clear the dahsboard content */
+    this.dashStore.createNewDashboard();
+    /* state reset */
+    this.isAddingNewSymbol = false;
+  }
+  onCancelCreate(){
+    /* inform store of rollback action */
+    this.dashStore.abortCreateDashboard();
+    /* state transition to READ */
+    this.currentState = DashboardStates.READ;
+    this.isAddingNewSymbol = false;
+
+  }
+  onAddNewSymbolToTrack(){
+    this.isAddingNewSymbol = true;
+  }
+
+  onNewTrackedSymbolInput(){
+    console.log("k");
+  }
+  onNewSymbolSubmit(){
+    this.msg.showErrors('Yarrr');
+    this.isAddingNewSymbol = false;
   }
  /* --------- Load  ----------
  * Configuration Modal handlers 

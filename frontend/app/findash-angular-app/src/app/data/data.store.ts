@@ -7,6 +7,7 @@ import { FinData } from "../model/findata";
 
 const BACKEND_HOST = "http://localhost:8080";
 const CANDLE_DATA_API = "/findata/api/v1/stock/candle"
+const FIND_SYMBOLS_API = "/findata/api/v1/stock/symbol"
 
 @Injectable({
   providedIn: "root" /* Make available to all components. */
@@ -21,9 +22,18 @@ export class DataStore {
     }
   } = {};
 
+  /* Data provider available Symbols list */
+  private subjectSymbols = new BehaviorSubject(null);
+  availableSymbols$ = this.subjectSymbols.asObservable();
+
   constructor(private http: HttpClient,
     private auth: AuthStore,
-  ) { }
+  ) {
+    /* preload once at startup -> this takes signifficant time so it is preloading*/
+    this.loadAllAvailableSymbols().subscribe(
+      symbolsList=> this.subjectSymbols.next(symbolsList)
+    );
+   }
 
 
   registerNewTrackedSym(sym: string, update_interval_mins: number) {
@@ -60,6 +70,26 @@ export class DataStore {
   }
 
   updateTrackedSymInterval(sym: string, new_update_interval_mins: number) { }
+
+
+  loadAllAvailableSymbols():Observable<string[]>{
+    const url = BACKEND_HOST + FIND_SYMBOLS_API;
+    return this.http.get<any[]>(url, {
+      params: {
+        token: this.auth.userState.apikey,
+        exchange: "US",
+      },
+      // responseType: "json",
+    }).pipe(
+      /* First build an array of values of interest*/
+      map(data => data.map(el=> el['symbol'])),
+      catchError(err => {
+        const msg = (err != "no_data") ? 'data collect failed to fetch data from provider' : "no data for time interval";
+        console.log(msg, err); /* dev log */
+        return throwError(() => new Error(err));
+      }))
+  } /*findAllSymbols*/
+
 
   private startTracking(update_interval_mins): Observable<number> {
     /* Set up a polling interval.
