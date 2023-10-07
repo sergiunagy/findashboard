@@ -1,7 +1,11 @@
 <ng-container *ngIf="(symbolTracker$ | async) as tracker">
     <div class="col-sm-9">
-        <div class="row">
+        <div class="d-flex justify-content-between flex-sm-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
             <h1 class="h4">{{trackedSymbol}} </h1>
+            <button *ngIf="isEditable" 
+                    class="btn btn-md btn-outline-secondary"
+                    (click)="onRemoveElement()"
+                    >-</button>
         </div>
         <div class="d-flex justify-content-between flex-sm-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
             <app-linechart [data]="tracker"></app-linechart>

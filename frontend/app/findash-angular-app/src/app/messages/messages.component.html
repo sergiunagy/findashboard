@@ -1,7 +1,7 @@
 
 <ng-container *ngIf="(errors$ | async) as errors">
 
-    <div class="messages-container container-fluid" *ngIf="showMessages">
+    <div class="messages-container d-flex flex-row justify-content-between border-bottom" *ngIf="showMessages">
 
         <div class="message" *ngFor="let error of errors">
             {{error}}
