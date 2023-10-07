@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, catchError, map, tap, throwError } from "r
 import { AuthStore } from "../auth/auth.store";
 
 const BACKEND_HOST="http://localhost:8080";
-const SAVE_DASHBOARD_API = "/api/v1/dashboards/save";
+const NEW_DASHBOARD = "/api/v1/dashboards/new";
 const LOAD_LAST_DASHBOARD = "/api/v1/dashboards/loadlast";
 const FINDALL_DASHBOARDS = "/api/v1/dashboards/findall";
 const DELETE_DASHBOARD = "/api/v1/dashboards/delete";
@@ -36,7 +36,8 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
             throw new Error ("Store triggered without an authenticated User");
           }
         }
-    
+
+    /* ----------- READ ----------- */
    private loadLastSavedDasboardConfig(uid):Observable<DashboardConfig>{
       const url = BACKEND_HOST + LOAD_LAST_DASHBOARD;
 
@@ -60,25 +61,6 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
             return throwError(() => new Error(err));
           })
         );
-    }
-
-    saveDashboardsConfiguration(userid:string, dconfig: Partial<DashboardConfig>):Observable<boolean | Object>{
-
-        const url = BACKEND_HOST + SAVE_DASHBOARD_API;
-
-        return this.http
-            .post(url, dconfig,
-                    {
-                        params:{
-                            user: "01865b6c51f04ba8a8b5ecc699fc51ec",
-                    }})
-            .pipe(
-                catchError(err => {
-                    const msg = 'Failed to save dashboard';
-                    console.log(msg, err); /* dev log */
-                    return throwError(() => new Error(err));
-                })
-              )
     }
 
     loadDashboardByOwnerAndName(userid:string, dashboard_name: string):Observable<DashboardConfig>{
@@ -127,6 +109,40 @@ const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
           })
         );
     }
+
+    /* ----------- CREATE AND UPDATE ----------- */
+    createNewDashboard(){
+      /* clear current configuration */
+      const empytDashboard:DashboardConfig = {
+        id: null,
+        name: "",
+        trackedSymbols: [],
+        unixTimestamp: null,
+      } ;
+
+      this.subjectDashboard.next(empytDashboard);
+    }
+    
+    newDashboardsConfiguration(userid:string, dconfig: Partial<DashboardConfig>):Observable<boolean | Object>{
+
+      const url = BACKEND_HOST + NEW_DASHBOARD;
+      const uid = this.auth.userState?.id
+
+      return this.http
+          .post(url, dconfig,
+                  {
+                      params:{
+                          user: uid
+                  }})
+          .pipe(
+              catchError(err => {
+                  const msg = 'Failed to save dashboard';
+                  console.log(msg, err); /* dev log */
+                  return throwError(() => new Error(err));
+              })
+            )
+  }
+    /* ----------- DELETE ----------- */
 
     deleteDashboard(dashid:number):Observable<boolean | Object>{
       const url = BACKEND_HOST + DELETE_DASHBOARD;

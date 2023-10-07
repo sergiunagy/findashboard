@@ -154,10 +154,10 @@ services:
     depends_on:
       - auth-backend
       - dashboards-backend
-    # enable proper logging and allow DELETE
+    # enable proper logging and allow DELETE and PUT through the WAF
     environment:
     - MODSEC_AUDIT_LOG="/var/log/modsec_audit.log"
-    - ALLOWED_METHODS=GET HEAD POST OPTIONS DELETE
+    - ALLOWED_METHODS=GET HEAD POST OPTIONS DELETE PUT
     profiles: ["dev", "prod"]
 
     

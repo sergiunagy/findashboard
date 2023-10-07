@@ -66,15 +66,26 @@ async def find_all_dashboards_for_user(user: str):
     return last_updated_dashboard
 
 
-@app.post("/api/v1/dashboards/save", 
+@app.post("/api/v1/dashboards/new", 
         tags=['dashboards'], 
-        summary='save a dashboard configuration',
+        summary='add a new dashboard configuration',
+        description=f'Creates a new Dashboard profile associate to the user',
+        )
+async def new_dashboard(user: str , dashboard:Dashboard):
+
+    created_id  = dashb.new_dashboard(user, dashboard) 
+    return {created_id is not None}
+
+
+@app.put("/api/v1/dashboards/update", 
+        tags=['dashboards'], 
+        summary='update a dashboard configuration',
         description=f'Stores a Dashboard profile given',
         )
-async def save_dashboard(user: str , dashboard:Dashboard):
+async def update_dashboard(dashboard_id:str):
 
-    saved  = dashb.save_dashboard(user, dashboard) 
-    return {saved is not None}
+    
+    return {"Not Implemented"}
 
 @app.delete("/api/v1/dashboards/delete", 
         tags=['dashboards'], 

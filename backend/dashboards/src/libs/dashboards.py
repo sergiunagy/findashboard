@@ -58,7 +58,7 @@ def find_all_dashboards_by_user(user):
 
     return dashboards
 
-def save_dashboard(user:str, dashboard_data: Dashboard):
+def new_dashboard(user:str, dashboard_data: Dashboard):
     # ########### DB OPERATIONS 
     db,client =get_db_handle()
 

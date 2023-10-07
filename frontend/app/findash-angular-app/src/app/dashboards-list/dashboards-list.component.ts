@@ -53,10 +53,11 @@ export class DashboardsListComponent implements OnInit, OnDestroy{
       unixTimestamp: moment().unix()
     }
     /* TEST */
-    const uid = this.auth.userState?.id;
-    this.authValidCheck();
-
-    this.dashStore.saveDashboardsConfiguration(uid, testDashboard).subscribe();
+    /* state transition to activate template elements */
+    this.currentState=DashboardStates.CREATE;
+    
+    // this.dashStore.newDashboardsConfiguration(uid, testDashboard).subscribe();
+    this.dashStore.createNewDashboard();
   }
  /* --------- Load  ----------
  * Configuration Modal handlers 
