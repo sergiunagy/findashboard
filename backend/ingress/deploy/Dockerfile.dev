@@ -8,10 +8,6 @@
 # Use:
 #  - Include as service in deployed cluster/setup
 #  - 
-# History:
-# v0.1- 28.09.2022      : creation
-# v0.2- 10-10-2022      : copy configurations and default templates into image. This is needed to deploy on clusters without
-#                     having to force bind mounts.
 # ##########################
 
 ARG baseImage=owasp/modsecurity-crs

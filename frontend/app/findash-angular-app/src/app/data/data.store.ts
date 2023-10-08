@@ -4,10 +4,11 @@ import { HttpClient, HttpErrorResponse, HttpParams, HttpRequest } from "@angular
 import { AuthStore } from "../auth/auth.store";
 import { BehaviorSubject, Observable, Subscription, catchError, count, delay, delayWhen, interval, map, mergeMap, of, retry, retryWhen, share, shareReplay, tap, throwError, timer } from "rxjs";
 import { FinData } from "../model/findata";
+import { environment } from "src/environments/environment";
 
-const BACKEND_HOST = "http://localhost:8080";
-const CANDLE_DATA_API = "/findata/api/v1/stock/candle"
-const FIND_SYMBOLS_API = "/findata/api/v1/stock/symbol"
+const BACKEND_HOST = environment.backendurl;
+const CANDLE_DATA_API = environment.api_getcandle;
+const FIND_SYMBOLS_API = environment.api_findsymbols;
 
 @Injectable({
   providedIn: "root" /* Make available to all components. */

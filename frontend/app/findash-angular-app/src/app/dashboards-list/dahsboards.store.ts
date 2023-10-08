@@ -4,14 +4,15 @@ import { DashboardConfig } from "../model/dashboardconfig";
 import { BehaviorSubject, Observable, catchError, map, tap, throwError } from "rxjs";
 import { AuthStore } from "../auth/auth.store";
 import * as moment from "moment";
+import { environment } from '../../environments/environment';
 
-const BACKEND_HOST = "http://localhost:8080";
-const NEW_DASHBOARD = "/api/v1/dashboards/new";
-const UPDATE_DASHBOARD = "/api/v1/dashboards/update";
-const LOAD_LAST_DASHBOARD = "/api/v1/dashboards/loadlast";
-const FINDALL_DASHBOARDS = "/api/v1/dashboards/findall";
-const DELETE_DASHBOARD = "/api/v1/dashboards/delete";
-const LOAD_DASHBOARD_BY_NAME_API = "/api/v1/dashboards/load";
+const BACKEND_HOST = environment.backendurl; 
+const NEW_DASHBOARD = environment.api_newdashboard;
+const UPDATE_DASHBOARD = environment.api_updatedashboard;
+const LOAD_LAST_DASHBOARD = environment.api_loadlastdashboard;
+const FINDALL_DASHBOARDS = environment.api_findalldashboards ;
+const DELETE_DASHBOARD =environment.api_deletedashboard;
+const LOAD_DASHBOARD_BY_NAME_API = environment.api_loaddasboardbyname;
 
 @Injectable({
   providedIn: 'root'
