@@ -82,10 +82,11 @@ async def new_dashboard(user: str , dashboard:Dashboard):
         summary='update a dashboard configuration',
         description=f'Stores a Dashboard profile given',
         )
-async def update_dashboard(dashboard_id:str):
+async def update_dashboard(dashboard_id: str, updated_dashboard:Dashboard):
 
-    
-    return {"Not Implemented"}
+    updated_count = dashb.update_dashboard(dashboard_id, updated_dashboard)
+
+    return {updated_count == 1}
 
 @app.delete("/api/v1/dashboards/delete", 
         tags=['dashboards'], 

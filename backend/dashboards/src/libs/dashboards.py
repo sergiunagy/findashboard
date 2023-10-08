@@ -69,6 +69,19 @@ def new_dashboard(user:str, dashboard_data: Dashboard):
                                       "unixTimestamp": dashboard_data.unixTimestamp
                                       })
     client.close()
+    return res.inserted_id  
+  
+def update_dashboard(dashboard_id: str, updated_dashboard: Dashboard):
+    # ########### DB OPERATIONS 
+    db,client =get_db_handle()
+
+    res = db['dashboard'].update_one({
+                                      "ownerid":user, 
+                                      "name":dashboard_data.name, 
+                                      "trackedSymbols":dashboard_data.trackedSymbols,
+                                      "unixTimestamp": dashboard_data.unixTimestamp
+                                      })
+    client.close()
     return res.inserted_id    
 
 
