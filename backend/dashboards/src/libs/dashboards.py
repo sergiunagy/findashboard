@@ -71,18 +71,19 @@ def new_dashboard(user:str, dashboard_data: Dashboard):
     client.close()
     return res.inserted_id  
   
-def update_dashboard(dashboard_id: str, updated_dashboard: Dashboard):
+def update_dashboard(user_id:str, dashboard_id: str, updated_dashboard: Dashboard):
     # ########### DB OPERATIONS 
     db,client =get_db_handle()
-
-    res = db['dashboard'].update_one({
-                                      "ownerid":user, 
-                                      "name":dashboard_data.name, 
-                                      "trackedSymbols":dashboard_data.trackedSymbols,
-                                      "unixTimestamp": dashboard_data.unixTimestamp
-                                      })
+    
+    res = db['dashboard'].update_one({"_id":ObjectId(dashboard_id)},
+                                     {"$set":{
+                                      "ownerid":user_id, 
+                                      "name":updated_dashboard.name, 
+                                      "trackedSymbols":updated_dashboard.trackedSymbols,
+                                      "unixTimestamp": updated_dashboard.unixTimestamp
+                                      }})
     client.close()
-    return res.inserted_id    
+    return res.modified_count    
 
 
 def delete_dashboard_by_id(did: str):

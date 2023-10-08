@@ -13,10 +13,10 @@
                             class="btn btn-md btn-outline-secondary" (click)="onNewDashboardsConfig()">
                             New</button>
                         <button *ngIf="currentState === availableStates.READ" type="button"
-                            class="btn btn-md btn-outline-secondary">
+                            class="btn btn-md btn-outline-secondary" (click)="onEnterEditMode()">
                             Edit</button>
                         <ng-container *ngIf="[availableStates.EDIT, availableStates.CREATE].includes(currentState)">
-                            <button type="button" class="btn btn-md btn-outline-secondary" (click)="onSaveCreate()">
+                            <button type="button" class="btn btn-md btn-outline-secondary" (click)="onSave()">
                                 Save</button>
                             <button type="button" class="btn btn-md btn-outline-secondary" (click)="onClearCreate()">
                                 Clear</button>

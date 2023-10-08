@@ -20,18 +20,18 @@ export enum DashboardStates {
   templateUrl: './dashboards-list.component.html',
   styleUrls: ['./dashboards-list.component.css']
 })
-export class DashboardsListComponent implements OnInit, OnDestroy{
+export class DashboardsListComponent implements OnInit, OnDestroy {
   private MAX_ALLOWED_DASH_ELEMENTS = 4;
 
-  availableStates  = DashboardStates;
-  availableSymbols : string[]=[];
+  availableStates = DashboardStates;
+  availableSymbols: string[] = [];
   /* Load configuration modal active flag */
-  isLoadCfgOpen: boolean=false; 
+  isLoadCfgOpen: boolean = false;
   /* state variable of the Dashboards  */
-  currentState : DashboardStates;
+  currentState: DashboardStates;
   /* check against max */
-  allowNewElement : boolean = false; 
-   /* state during adding a new tracker*/
+  allowNewElement: boolean = false;
+  /* state during adding a new tracker*/
   isAddingNewSymbol: boolean = false;
   /* Subscriptions to manage */
   subSymbols: Subscription;
@@ -39,26 +39,26 @@ export class DashboardsListComponent implements OnInit, OnDestroy{
   constructor(
     public auth: AuthStore,             /* user should be authenticated and a profile available */
     public dashStore: DashboardsStore, /* when this gets injected, the last configuration will be pre-loaded */
-    public dataStore: DataStore,             
+    public dataStore: DataStore,
     private msg: MessagesService,
     private router: Router,
-    
+
   ) {
 
     /* Dev error : if this is reached the auth guard got bypassed */
     this.authValidCheck();
     this.currentState = DashboardStates.INIT;
-    this.allowNewElement=false;
+    this.allowNewElement = false;
     /* subscribe to symbols list -> for quick search. TODO: maybe outsource to service ? */
-    this.subSymbols= dataStore.availableSymbols$
-    .subscribe(syms=> this.availableSymbols = syms);
+    this.subSymbols = dataStore.availableSymbols$
+      .subscribe(syms => this.availableSymbols = syms);
   }
   /* ---------- Lifecycle hooks ---------- */
-  ngOnInit(){
+  ngOnInit() {
     this.currentState = DashboardStates.READ;
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     /* Manual subscriptions handling */
     this.subSymbols.unsubscribe();
   }
@@ -66,46 +66,46 @@ export class DashboardsListComponent implements OnInit, OnDestroy{
   /* ----------------  Create -----------------*/
   onNewDashboardsConfig() {
     /* state transition to activate template elements */
-    this.currentState=DashboardStates.CREATE;
+    this.currentState = DashboardStates.CREATE;
     this.dashStore.createNewDashboard();
-    this.allowNewElement=true;
+    this.allowNewElement = true;
   }
 
-  onClearCreate(){
+  onClearCreate() {
     /* Inform store to clear the dahsboard content */
     this.dashStore.createNewDashboard();
     /* state reset */
     this.isAddingNewSymbol = false;
     /* allow add */
-    this.allowNewElement=true;
+    this.allowNewElement = true;
   }
-  onCancelCreate(){
+  onCancelCreate() {
     /* inform store of rollback action */
     this.dashStore.abortCreateDashboard();
     /* state transition to READ */
     this.currentState = DashboardStates.READ;
     this.isAddingNewSymbol = false;
-    this.allowNewElement=true;
+    this.allowNewElement = true;
   }
 
-  onAddNewSymbolToTrack(){
+  onAddNewSymbolToTrack() {
     this.isAddingNewSymbol = true;
   }
 
-  onNewTrackedSymbolInput(){
+  onNewTrackedSymbolInput() {
     /* todo: Quicksearrch here */
   }
 
-  onNewSymbolSubmit(event: any){
+  onNewSymbolSubmit(event: any) {
     const symbol = event.target.value;
     /* validate against cached symbols*/
-    if (!this.availableSymbols.includes(symbol)){
+    if (!this.availableSymbols.includes(symbol)) {
       this.msg.showErrors('Symbol does not exist.');
       /*clear ? */
       return;
     }
 
-    if (this.dashStore.symbolIsTracked(symbol)){
+    if (this.dashStore.symbolIsTracked(symbol)) {
       this.msg.showErrors('Symbol is already tracked.');
       return;
     }
@@ -113,39 +113,50 @@ export class DashboardsListComponent implements OnInit, OnDestroy{
     /* add symbol to be tracked */
     this.dashStore.addNewTrackedSym(symbol);
     /* check and disable add button  */
-    if(this.dashStore.getNumberOfTrackedSymbols()>= this.MAX_ALLOWED_DASH_ELEMENTS){
-      this.allowNewElement=false;
+    if (this.dashStore.getNumberOfTrackedSymbols() >= this.MAX_ALLOWED_DASH_ELEMENTS) {
+      this.allowNewElement = false;
     }
     this.isAddingNewSymbol = false;
   }
 
-  onSaveCreate(){
-    
-    this.dashStore.saveCreatedDashboard().subscribe(
-      res=> console.log(res)
-    );
+  onSave() {
+
+    if (this.currentState === DashboardStates.CREATE) {
+      this.dashStore.saveCreatedDashboard().subscribe(
+        res => console.log(res)
+      );
+    } else if (this.currentState === DashboardStates.EDIT){
+      this.dashStore.saveEditedDashboard().subscribe(
+        res => console.log(res)
+      );      
+    } else {/* catch all. This should not be reached */}
     /* state transition to READ */
     this.currentState = DashboardStates.READ;
     this.isAddingNewSymbol = false;
   }
- /* --------- Load  ----------
- * Configuration Modal handlers 
-  */
+  /* --------- Load  ----------
+  * Configuration Modal handlers 
+   */
   onDashboardsConfigLoad() {
     this.isLoadCfgOpen = true;
   }
 
-  onHandleLoadModalClose(){
-    this.isLoadCfgOpen=false;
+  onHandleLoadModalClose() {
+    this.isLoadCfgOpen = false;
   }
 
   /* ---------- Save  ---------- */
   onSaveDashboardsConfig() { }
   /* ---------- Delete  ---------- */
-  onDashboardDelete(dashboardId:number){
+  onDashboardDelete(dashboardId: number) {
     this.dashStore.deleteDashboard(dashboardId).subscribe();
   }
   /* ---------- Edit  ---------- */
+  onEnterEditMode() {
+
+    /* state transition to EDIT */
+    this.currentState = DashboardStates.EDIT;
+  }
   /* ---------- Clear  ---------- */
 
   /* ------------ Private, utility methods ----------- */

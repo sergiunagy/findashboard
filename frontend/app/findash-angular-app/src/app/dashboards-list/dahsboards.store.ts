@@ -7,6 +7,7 @@ import * as moment from "moment";
 
 const BACKEND_HOST = "http://localhost:8080";
 const NEW_DASHBOARD = "/api/v1/dashboards/new";
+const UPDATE_DASHBOARD = "/api/v1/dashboards/update";
 const LOAD_LAST_DASHBOARD = "/api/v1/dashboards/loadlast";
 const FINDALL_DASHBOARDS = "/api/v1/dashboards/findall";
 const DELETE_DASHBOARD = "/api/v1/dashboards/delete";
@@ -126,6 +127,7 @@ export class DashboardsStore {
     /* clear current configuration */
     const empytDashboard: DashboardConfig = {
       id: null,
+      ownerid:"",
       name: "",
       trackedSymbols: [],
       unixTimestamp: null,
@@ -181,6 +183,38 @@ export class DashboardsStore {
     }
     /* emit change to subscribers*/
     this.subjectDashboard.next(this.dashboardState);
+  }
+
+  saveEditedDashboard() {
+    const url = BACKEND_HOST + UPDATE_DASHBOARD;
+    const uid = this.auth.userState?.id;
+    /* TODO: do some checks here: content, validation.. */
+
+    /* construct our cfg */
+    const dashCfg: Partial<DashboardConfig> = {
+        /* id is not part of the editable section */
+        name: this.dashboardState.trackedSymbols.join('-'),
+        trackedSymbols: this.dashboardState.trackedSymbols,
+        unixTimestamp: moment().unix()
+    }
+
+    /* push local state to storage */
+    return this.http
+      .put(url, dashCfg,
+        {
+          params: {
+            user_id: this.auth.userState.id,
+            dashboard_id: this.dashboardState.id,
+          }
+        })
+      .pipe(
+        catchError(err => {
+          const msg = 'Failed to save dashboard';
+          console.log(msg, err); /* dev log */
+          return throwError(() => new Error(err));
+        })
+      )
+    /* download latest, i.e. load what we just uploaded */
   }
 
   saveCreatedDashboard() {
