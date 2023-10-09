@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
 
-    backendurl: "http://localhost:8080",
+    backendurl: "http://localhost:8090",
     
     /* DASHBOARDS SERVICE API */
     api_newdashboard : "/api/v1/dashboards/new",
@@ -16,5 +16,5 @@ export const environment = {
     api_findsymbols : "/findata/api/v1/stock/symbol",
 
     /* AUTH SERVICE API */
-    api_signin : "/api/v1/auth/signin",
+    api_signin : "/api/v1/auth/signins",
 };

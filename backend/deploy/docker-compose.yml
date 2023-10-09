@@ -1,0 +1,139 @@
+# #############################
+# Definition of SW infrastructure for the Angular app BACKEND ONLY
+# Defines:
+# - services
+# - networks
+# - volumes
+# Uses profiles to control what configurations launch, depending on the user-scenario
+# ##############################
+version: "3.8"
+
+networks:
+  frontnet: 
+    name: frontnet
+  backnet:
+    name: backnet
+
+services:
+  
+  # #######################
+  # Authentication & Authorization service
+  # #######################
+  auth-backend:
+    build:
+      context: ../auth/deploy
+      dockerfile: Dockerfile
+    image: sergiunagy/findash-auth-serv
+    container_name: findash-auth-serv
+    # mount volumes if you want hot reloads
+    volumes:
+      - "../auth/src:/home/app"
+    networks:
+      backnet:
+        aliases:
+          - authentication-server
+    environment: 
+      FINNHUB_APIKEY : "ck47m71r01qus81pr1ogck47m71r01qus81pr1p0"
+      FRONTEND_HOST_DEV : "http://localhost:8000"
+      FRONTEND_HOST : "http://localhost:8080"
+
+    profiles: ["dev", "prod"]    
+
+  # #######################
+  # Dashboards service
+  # #######################
+  dashboards-backend:
+    build:
+      context: ../dashboards/deploy
+      dockerfile: Dockerfile
+    image: sergiunagy/finapp-dashboards-serv
+    container_name: findash-dashboards-serv
+    # mount volumes if you want hot reloads
+    volumes:
+      - "../dashboards/src:/home/app"
+    networks:
+      backnet:
+        aliases:
+          - dashboards-server
+    environment: 
+      FRONTEND_HOST_DEV : "http://localhost:8000"
+      FRONTEND_HOST : "http://localhost:8080"
+
+    profiles: ["dev", "prod"]
+
+  # #######################
+  # DataStore service 
+  # #######################
+  datastore:
+    build:
+      context: ../datastore/deploy
+      dockerfile: Dockerfile
+    image: sergiunagy/finapp-datastore-serv
+    container_name: findash-datastore-mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=findemoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=findemoadmin_pas_951
+      - MONGO_DB_PORT=27017
+    # configure seeding and/or permanent storage. 
+    volumes: 
+      - '../datastore/dbinit:/database-seed'
+      # mount storage for persistent volume --> needs storage transfer strategy
+      # - dbstorage:/data/db
+    networks:
+      backnet:
+        aliases:
+          - datastore-server
+          
+    profiles: ["dev", "prod"]
+
+  # #######################
+  # DataStore Admin service  - dev only
+  # #######################
+  mongo-express:
+    image: mongo-express:1.0.0-alpha.4
+    container_name: mongo-express
+    ports:
+      - 5090:8081
+    environment:
+    - ME_CONFIG_MONGODB_ADMINUSERNAME=findemoadmin
+    - ME_CONFIG_MONGODB_ADMINPASSWORD=findemoadmin_pas_951
+    - ME_CONFIG_MONGODB_SERVER=datastore-server
+    depends_on:
+      - datastore
+    # Mongo container is available but the server starts responding only after init. TODO: health check as start condition ?
+    restart: always
+    networks:
+      - backnet
+    
+    profiles: ["dev"]
+
+  # #######################
+  # Ingress service
+  # #######################
+  ingress-server:
+    privileged: true
+    build:
+      context: ../ingress
+      dockerfile: ./deploy/Dockerfile.dev
+    image: sergiunagy/nginx:0.01
+    container_name: findash-ingress-nginx
+    # map any static files you want to serve here
+    volumes:
+      - "../ingress/config:/etc/nginx/conf.d" # map configuration files here
+    networks:
+      - backnet
+    # this is a proxy service and is bound to the localhost network stack
+    ports:
+      - "8090:80"
+    # the service waits for authorization and the dashboards services to be up because it requires them when checking proxy paths  
+    depends_on:
+      - auth-backend
+      - dashboards-backend
+    # enable proper logging and allow DELETE and PUT through the WAF
+    environment:
+    - MODSEC_AUDIT_LOG="/var/log/modsec_audit.log"
+    - ALLOWED_METHODS=GET HEAD POST OPTIONS DELETE PUT
+    - NGINX_HOST=localhost
+    profiles: ["dev", "prod"]
+
+    

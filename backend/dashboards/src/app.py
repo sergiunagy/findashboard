@@ -13,12 +13,13 @@ from models.dashboard import Dashboard
 import libs.dashboards as dashb
 
 FRONTEND_HOST = os.environ.get('FRONTEND_HOST', None)
+FRONTEND_HOST_DEV = os.environ.get('FRONTEND_HOST_DEV', None)
 
 app = FastAPI()
 # set up CORS for same-machine access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_HOST],        # same domain in case of testing
+    allow_origins=[FRONTEND_HOST, FRONTEND_HOST_DEV],        # same domain in case of testing
     allow_credentials=True,             # allow cookies and credentials
     allow_methods = ['*'],              # all methods
     allow_headers = ['*']               # all headers

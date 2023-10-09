@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
-    backendurl: "http://localhost:8080",
+    backendurl: "http://localhost:8090",
     
     /* DASHBOARDS SERVICE API */
     api_newdashboard : "/api/v1/dashboards/new",
