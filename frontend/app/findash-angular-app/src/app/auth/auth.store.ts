@@ -3,9 +3,10 @@ import { HttpClient } from "@angular/common/http";
 
 import { BehaviorSubject, Observable, map, shareReplay, tap } from "rxjs";
 import { User } from "../model/user";
+import { environment } from "src/environments/environment";
 
-const BACKEND_HOST="http://localhost:8080";
-const SIGN_IN_API = "/api/v1/auth/signin";
+const BACKEND_HOST=environment.backendurl;
+const SIGN_IN_API = environment.api_signin;
 
 @Injectable({
     providedIn: 'root'

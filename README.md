@@ -14,6 +14,25 @@ The infrastructure is defined in the deploy folder yml and docker files.
 
 ## Functionality
 
+### Authentication
+
+A silent authentication will sign the user in and assign an API token to connect to the data provider.
+Currently this is limited but can easily be extended to a full auth service, providing JWTs and full auth features.
+
+### Dashboards
+
+The database boots with a set of test dashboards .
+The user can also create their own dashboards. 
+The user can also edit and remove any dashboards.
+
+### Data
+
+Data is currently set to maximum sampling rate allowed on the provider side (i.e. 1 minute data resolution).
+The graphs display the closing values over the 1 minute interval for the selected stock-symbols.
+
+Special scenario: Sundays, the API provider has no data over the past 24h, in ths case, the app will extend the interval it samples on
+by 24h  steps, until it finds data to display (max of 3 days)
+
 ### Mobile first 
 We mostly design around the width as the main limiting factor (for grouping, font size, UI elements sizes, ..).
 
@@ -62,3 +81,19 @@ This allows a closer inspection of the API as well as manually testing it.
 From the deploy folder: 
 
         docker compose --profile dev up
+
+### Production
+
+Production images have the functionality built in. 
+
+Note:
+You can still bind to the src folders to be able to edit the sources for testing and debugging. To enable this, you can use the dev docker compose yml as an example.
+
+The frontend is reduced to optimized static files and served through an Nginx container. 
+
+Note:
+The Nginx container uses Alpine Linux, to optimize for size, so you will need to use sh instead of bash to execute into the container during runtime.
+
+To run the production deployment:
+- use the deploy/production folder
+- run with docker compose --profile prod up.
