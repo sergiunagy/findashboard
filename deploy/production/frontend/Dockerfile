@@ -14,5 +14,5 @@ ARG baseVersion=alpine-slim
 LABEL maintainer="sergiu.nagy"
 
 # add the reverse_proxy configurations
-COPY build/findash-angular-app /usr/share/nginx/html
+COPY out/findash-angular-app /usr/share/nginx/html
 

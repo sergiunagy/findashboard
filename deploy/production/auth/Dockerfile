@@ -11,7 +11,7 @@ LABEL maintainer="sergiunb"
 WORKDIR /home/app
 
 COPY dependencies dependencies
-COPY build/src /home/app
+COPY out/src /home/app
 
 RUN pip install --upgrade pip
 RUN pip install -r dependencies
