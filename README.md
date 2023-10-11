@@ -31,7 +31,7 @@ Data is currently set to maximum sampling rate allowed on the provider side (i.e
 The graphs display the closing values over the 1 minute interval for the selected stock-symbols.
 
 Special scenario: Sundays, the API provider has no data over the past 24h, in ths case, the app will extend the interval it samples on
-by 24h  steps, until it finds data to display (max of 3 days)
+by 24h  steps, until it finds data to display (max of 3 days).
 
 ### Mobile first 
 We mostly design around the width as the main limiting factor (for grouping, font size, UI elements sizes, ..).
@@ -58,7 +58,7 @@ Our backend will redirect requests to the finnhub.io api.
 
 ### Finnhub Authentication
 Authentication is required for all requests sent to the API.
-The Authentication is provied in the form of a per-user token (api-key).  
+The Authentication is provided in the form of a per-user token (api-key).  
 This is obtained on the Frontend as part of a successful authentication to our backend.
 
 **Note**:
