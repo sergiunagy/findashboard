@@ -1,6 +1,86 @@
 <mxfile host="65bd71144e">
+    <diagram id="P16CNtLB-4IlEtLsnqEm" name="BackendApi">
+        <mxGraphModel dx="1199" dy="493" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-1" value="Methods/Route" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="50" width="270" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-4" value="GET,POST /dashboards/test" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
+                    <mxGeometry x="20" y="40" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-5" value="POST /dashboards/new" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
+                    <mxGeometry x="20" y="100" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-6" value="PUT /dashboards/update" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
+                    <mxGeometry x="20" y="160" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-7" value="DELETE /dashboards/delete" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
+                    <mxGeometry x="20" y="220" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-8" value="GET /dashboards/find" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
+                    <mxGeometry x="20" y="280" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-9" value="GET /dashboards/findall" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
+                    <mxGeometry x="20" y="343.5" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-10" value="GET /dashboards/findlast" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
+                    <mxGeometry x="20" y="400" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-2" value="Data: body/query" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="320" y="50" width="290" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-11" value="Body {data to be mirrored}" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
+                    <mxGeometry x="20" y="40" width="250" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-13" value="Query userid&lt;br&gt;Body {name, trackedSymbols, timestamp}" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
+                    <mxGeometry x="20" y="100" width="250" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-15" value="Query: dashboard_id&lt;br&gt;Body { name, trackedSymbols, timestamp}" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
+                    <mxGeometry x="20" y="160" width="250" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-17" value="Query: dashboard_id" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
+                    <mxGeometry x="15" y="220" width="255" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-19" value="Query: dashboard_id" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
+                    <mxGeometry x="15" y="280" width="255" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-21" value="Query: userid" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
+                    <mxGeometry x="15" y="343.5" width="255" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-24" value="Query: userid" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
+                    <mxGeometry x="15" y="400" width="255" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-3" value="Description" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="620" y="50" width="500" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-12" value="Mirrors back request data" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
+                    <mxGeometry x="10" y="40" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-14" value="Creates a new dashboard and returns it if successful" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
+                    <mxGeometry x="10" y="100" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-16" value="Updates a dashboard configuration" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
+                    <mxGeometry x="10" y="160" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-18" value="Deletes a dashboard configuration" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
+                    <mxGeometry x="10" y="220" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-20" value="Returns a dashboard configuration" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
+                    <mxGeometry x="10" y="280" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-22" value="Returns all dashboard configurations for a user" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
+                    <mxGeometry x="10" y="340" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-25" value="Returns the last saved dashboard configurations for a user" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
+                    <mxGeometry x="10" y="400" width="460" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
     <diagram id="k5bqN02csQ1cKzLP5F3b" name="SystemComponents">
-        <mxGraphModel dx="1456" dy="488" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1199" dy="493" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -99,7 +179,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="5wI-kCk8OfMBNjvCVMY2" name="Backend services">
-        <mxGraphModel dx="1456" dy="488" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1199" dy="493" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>

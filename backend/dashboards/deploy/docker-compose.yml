@@ -1,0 +1,35 @@
+# #############################
+# Definition of SW infrastructure for the Angular app
+# Defines:
+# - services
+# - networks
+# - volumes
+# Uses profiles to control what configurations launch, depending on the user-scenario
+# ##############################
+version: "3.8"
+
+networks:
+  backnet:
+    name: backnet
+
+services:
+  # #######################
+  # Backend nest service
+  # - Prerequisite: image exists.
+  # #######################
+  nestserver:
+    image: sergiunb/dashboards-nest
+    working_dir: /home/node/app/dashboards
+    container_name: findash-dashboards-serv
+    environment:
+      - NODE_ENV=dev
+    volumes:
+      - "../src:/home/node/app"
+    networks:
+      - backnet
+    ports:
+      - "8000:3000"
+    # Note: hot-reload is enabled by default
+    command: ["sh", "-c", "npm run start:dev --port 3000 --host 0.0.0.0"]
+ 
+    profiles: ["dev", "test"]
