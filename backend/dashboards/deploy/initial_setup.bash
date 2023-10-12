@@ -13,6 +13,10 @@ CONTAINER_PATH_APP="/home/node/app"
 APP_GENERATION_OPTS="-p npm -l ts"
 APP_EXTRA_PCKGS="class-validator class-transformer @nestjs/typeorm typeorm sqlite3  @nestjs/config"
 
+# create the folder on the host 
+# - avoids permission issue (image is built with root and will constrain access to app folder, node user used for package and project will be prohibited
+mkdir ../app
+
 # build the image
 echo Building image ..
 docker build -t $IMG_NAME .
@@ -22,4 +26,3 @@ echo Running initial project generation to $(pwd)/../app
 docker run --rm -u node -v $(pwd)/../app:$CONTAINER_PATH_APP $IMG_NAME nest new $APP_NAME $APP_GENERATION_OPTS
 
 docker run --rm -u node -v $(pwd)/../app:$CONTAINER_PATH_APP $IMG_NAME sh -c "cd $APP_NAME && npm install --save $APP_EXTRA_PCKGS"
-

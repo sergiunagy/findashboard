@@ -1,3 +1,12 @@
+# Initial configuration and run
+use from deploy/:
+
+        bash initial:setup.bash
+Run with:
+
+        docker compose --profile dev up
+
+
 # Commit strategy
 
 ## Regular use case 

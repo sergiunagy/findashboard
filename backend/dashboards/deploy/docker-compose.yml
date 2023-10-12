@@ -23,8 +23,9 @@ services:
     container_name: findash-dashboards-serv
     environment:
       - NODE_ENV=dev
+      - ENV_LOCATION=./environments
     volumes:
-      - "../src:/home/node/app"
+      - "../app:/home/node/app"
     networks:
       - backnet
     ports:
