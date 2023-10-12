@@ -11,7 +11,7 @@ IMG_NAME="sergiunb/dashboards-nest"
 APP_NAME="dashboards"
 CONTAINER_PATH_APP="/home/node/app"
 APP_GENERATION_OPTS="-p npm -l ts"
-APP_EXTRA_PCKGS="class-validator class-transformer @nestjs/typeorm typeorm sqlite3"
+APP_EXTRA_PCKGS="class-validator class-transformer @nestjs/typeorm typeorm sqlite3  @nestjs/config"
 
 # build the image
 echo Building image ..

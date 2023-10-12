@@ -1,84 +1,4 @@
 <mxfile host="65bd71144e">
-    <diagram id="P16CNtLB-4IlEtLsnqEm" name="BackendApi">
-        <mxGraphModel dx="1199" dy="493" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
-            <root>
-                <mxCell id="0"/>
-                <mxCell id="1" parent="0"/>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-1" value="Methods/Route" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="30" y="50" width="270" height="450" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-4" value="GET,POST /dashboards/test" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
-                    <mxGeometry x="20" y="40" width="210" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-5" value="POST /dashboards/new" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
-                    <mxGeometry x="20" y="100" width="210" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-6" value="PUT /dashboards/update" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
-                    <mxGeometry x="20" y="160" width="210" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-7" value="DELETE /dashboards/delete" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
-                    <mxGeometry x="20" y="220" width="210" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-8" value="GET /dashboards/find" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
-                    <mxGeometry x="20" y="280" width="210" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-9" value="GET /dashboards/findall" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
-                    <mxGeometry x="20" y="343.5" width="210" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-10" value="GET /dashboards/findlast" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-1">
-                    <mxGeometry x="20" y="400" width="210" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-2" value="Data: body/query" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="320" y="50" width="290" height="450" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-11" value="Body {data to be mirrored}" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
-                    <mxGeometry x="20" y="40" width="250" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-13" value="Query userid&lt;br&gt;Body {name, trackedSymbols, timestamp}" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
-                    <mxGeometry x="20" y="100" width="250" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-15" value="Query: dashboard_id&lt;br&gt;Body { name, trackedSymbols, timestamp}" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
-                    <mxGeometry x="20" y="160" width="250" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-17" value="Query: dashboard_id" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
-                    <mxGeometry x="15" y="220" width="255" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-19" value="Query: dashboard_id" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
-                    <mxGeometry x="15" y="280" width="255" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-21" value="Query: userid" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
-                    <mxGeometry x="15" y="343.5" width="255" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-24" value="Query: userid" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-2">
-                    <mxGeometry x="15" y="400" width="255" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-3" value="Description" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="620" y="50" width="500" height="450" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-12" value="Mirrors back request data" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
-                    <mxGeometry x="10" y="40" width="460" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-14" value="Creates a new dashboard and returns it if successful" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
-                    <mxGeometry x="10" y="100" width="460" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-16" value="Updates a dashboard configuration" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
-                    <mxGeometry x="10" y="160" width="460" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-18" value="Deletes a dashboard configuration" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
-                    <mxGeometry x="10" y="220" width="460" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-20" value="Returns a dashboard configuration" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
-                    <mxGeometry x="10" y="280" width="460" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-22" value="Returns all dashboard configurations for a user" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
-                    <mxGeometry x="10" y="340" width="460" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-25" value="Returns the last saved dashboard configurations for a user" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WdKTfdVPN0f5Ysp5mIyR-3">
-                    <mxGeometry x="10" y="400" width="460" height="40" as="geometry"/>
-                </mxCell>
-            </root>
-        </mxGraphModel>
-    </diagram>
     <diagram id="k5bqN02csQ1cKzLP5F3b" name="SystemComponents">
         <mxGraphModel dx="1199" dy="493" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
@@ -341,6 +261,190 @@
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="520" y="290" as="sourcePoint"/>
                         <mxPoint x="600" y="470" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="P16CNtLB-4IlEtLsnqEm" name="BackendDashboardsApi">
+        <mxGraphModel dx="979" dy="493" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-1" value="Methods/Route" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="50" width="270" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-4" value="GET,POST /dashboards/test" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-1" vertex="1">
+                    <mxGeometry x="20" y="40" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-5" value="POST /dashboards" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-1" vertex="1">
+                    <mxGeometry x="20" y="100" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-6" value="PUT /dashboards" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-1" vertex="1">
+                    <mxGeometry x="20" y="160" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-7" value="DELETE /dashboards" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-1" vertex="1">
+                    <mxGeometry x="20" y="220" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-8" value="GET /dashboards/find" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-1" vertex="1">
+                    <mxGeometry x="20" y="280" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-9" value="GET /dashboards" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-1" vertex="1">
+                    <mxGeometry x="20" y="343.5" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-10" value="GET /dashboards/findlast" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-1" vertex="1">
+                    <mxGeometry x="20" y="400" width="210" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-2" value="Data: body/query" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="50" width="290" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-11" value="Body {data to be mirrored}" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-2" vertex="1">
+                    <mxGeometry x="20" y="40" width="250" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-13" value="Query userid&lt;br&gt;Body {name, trackedSymbols, timestamp}" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-2" vertex="1">
+                    <mxGeometry x="20" y="100" width="250" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-15" value="Query: dashboard_id&lt;br&gt;Body { name, trackedSymbols, timestamp}" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-2" vertex="1">
+                    <mxGeometry x="20" y="160" width="250" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-17" value="Query: dashboard_id" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-2" vertex="1">
+                    <mxGeometry x="15" y="220" width="255" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-19" value="Query: dashboard_id" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-2" vertex="1">
+                    <mxGeometry x="15" y="280" width="255" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-21" value="Query: userid" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-2" vertex="1">
+                    <mxGeometry x="15" y="343.5" width="255" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-24" value="Query: userid" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-2" vertex="1">
+                    <mxGeometry x="15" y="400" width="255" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-3" value="Description" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="50" width="500" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-12" value="Mirrors back request data" style="rounded=1;whiteSpace=wrap;html=1;align=center;" parent="WdKTfdVPN0f5Ysp5mIyR-3" vertex="1">
+                    <mxGeometry x="10" y="40" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-14" value="Creates a new dashboard and returns it if successful" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-3" vertex="1">
+                    <mxGeometry x="10" y="100" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-16" value="Updates a dashboard configuration" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-3" vertex="1">
+                    <mxGeometry x="10" y="160" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-18" value="Deletes a dashboard configuration" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-3" vertex="1">
+                    <mxGeometry x="10" y="220" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-20" value="Returns a dashboard configuration" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-3" vertex="1">
+                    <mxGeometry x="10" y="280" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-22" value="Returns all dashboard configurations for a user" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-3" vertex="1">
+                    <mxGeometry x="10" y="340" width="460" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="WdKTfdVPN0f5Ysp5mIyR-25" value="Returns the last saved dashboard configuration for a user" style="rounded=1;whiteSpace=wrap;html=1;" parent="WdKTfdVPN0f5Ysp5mIyR-3" vertex="1">
+                    <mxGeometry x="10" y="400" width="460" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="Br6-GCHUpfwb4xp4ezAg" name="BackendDashboardsModule">
+        <mxGraphModel dx="1199" dy="413" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-15" value="DashboardsModule" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="240" width="790" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-19" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" parent="SuPB6cbbiHJDRQ6zVgRs-15" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="170" y="69.70999999999998" as="sourcePoint"/>
+                        <mxPoint x="230" y="69.70999999999998" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-20" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" parent="SuPB6cbbiHJDRQ6zVgRs-15" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="370" y="70" as="sourcePoint"/>
+                        <mxPoint x="430" y="70" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-21" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" parent="SuPB6cbbiHJDRQ6zVgRs-15" target="SuPB6cbbiHJDRQ6zVgRs-10" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="570" y="70" as="sourcePoint"/>
+                        <mxPoint x="630" y="70" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-23" value="" style="endArrow=classic;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" parent="SuPB6cbbiHJDRQ6zVgRs-15" source="SuPB6cbbiHJDRQ6zVgRs-13" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="470" y="210" as="sourcePoint"/>
+                        <mxPoint x="540" y="100" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-24" value="" style="endArrow=classic;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="SuPB6cbbiHJDRQ6zVgRs-15" source="SuPB6cbbiHJDRQ6zVgRs-13" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="620" y="170" as="sourcePoint"/>
+                        <mxPoint x="660" y="100" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-8" value="Controller" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="SuPB6cbbiHJDRQ6zVgRs-15" vertex="1">
+                    <mxGeometry x="230" y="40" width="140" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="G-R5u0f5guq3J0OuJTK2-7" value="API and routes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="SuPB6cbbiHJDRQ6zVgRs-8">
+                    <mxGeometry y="26" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="G-R5u0f5guq3J0OuJTK2-3" value="DashboardSerializer" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="SuPB6cbbiHJDRQ6zVgRs-15">
+                    <mxGeometry x="230" y="130" width="140" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="G-R5u0f5guq3J0OuJTK2-4" value="Control reponse data" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="G-R5u0f5guq3J0OuJTK2-3">
+                    <mxGeometry y="26" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="G-R5u0f5guq3J0OuJTK2-6" value="Control reponse data" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="SuPB6cbbiHJDRQ6zVgRs-15">
+                    <mxGeometry x="300" y="186" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-1" value="Request" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="280" width="80" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-4" value="Validation" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="280" width="140" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="G-R5u0f5guq3J0OuJTK2-5" value="Validate requests" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="SuPB6cbbiHJDRQ6zVgRs-4">
+                    <mxGeometry y="26" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-9" value="Service" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="280" width="140" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="G-R5u0f5guq3J0OuJTK2-8" value="Dashboards Logic" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="SuPB6cbbiHJDRQ6zVgRs-9">
+                    <mxGeometry y="26" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-10" value="Repository" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+                    <mxGeometry x="790" y="280" width="140" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="G-R5u0f5guq3J0OuJTK2-9" value="Storage" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="SuPB6cbbiHJDRQ6zVgRs-10">
+                    <mxGeometry y="26" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-11" value="«DTO»&lt;br&gt;&lt;b&gt;Dashboard&lt;/b&gt;" style="html=1;" parent="1" vertex="1">
+                    <mxGeometry x="215" y="380" width="110" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-13" value="«Entity»&lt;br&gt;&lt;b&gt;Dashboard&lt;/b&gt;" style="html=1;" parent="1" vertex="1">
+                    <mxGeometry x="720" y="389" width="110" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-14" value="MongoDb" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="280" width="90" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-16" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="SuPB6cbbiHJDRQ6zVgRs-1" target="SuPB6cbbiHJDRQ6zVgRs-4" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="30" y="440" as="sourcePoint"/>
+                        <mxPoint x="80" y="390" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-22" value="" style="endArrow=classic;startArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="SuPB6cbbiHJDRQ6zVgRs-14" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="930" y="320" as="sourcePoint"/>
+                        <mxPoint x="1130" y="420" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="SuPB6cbbiHJDRQ6zVgRs-25" value="" style="endArrow=classic;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="SuPB6cbbiHJDRQ6zVgRs-11" target="SuPB6cbbiHJDRQ6zVgRs-4" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="160" y="410" as="sourcePoint"/>
+                        <mxPoint x="210" y="360" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
             </root>
