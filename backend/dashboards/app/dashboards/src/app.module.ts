@@ -1,33 +1,21 @@
 import { Module } from '@nestjs/common';
 import { DashboardsModule } from './dashboards/dashboards.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Dashboard } from './model/dashboard.entity';
 
 @Module({
   imports: [
     DashboardsModule,
-    ConfigModule.forRoot({
-      isGlobal:true,
-      envFilePath:`${process.env.ENV_LOCATION}/.env.${process.env.NODE_ENV}` 
+    /* Config docs: https://docs.nestjs.com/techniques/database */
+    TypeOrmModule.forRoot({ /* TODO: can we make the type configurable ? */
+            type: <'sqlite'|'mariadb'>`${process.env.DB_TYPE}`,
+            database: `${process.env.DB_NAME}`,
+            host:`${process.env.DB_HOST}`,
+            port:parseInt(`${process.env.DB_PORT}`),
+            username:`${process.env.DB_USER}`,
+            password:`${process.env.DB_PASS}`,
+            autoLoadEntities: true, /* Entities require forFeature registration to be detected */
+            synchronize:`${process.env.DB_SYNC_FLAG}`==='true', 
     }),
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-          return {
-              type: 'sqlite',
-              database: config.get<string>('DB_NAME'),
-              autoLoadEntities: true, /* Entities require forFeature registration to be detected */
-              synchronize:true,                    
-          }
-      }
-  })
   ],
 })
-export class AppModule {
-
-  constructor(private config: ConfigService){
-    console.log(`${process.env.ENV_LOCATION}/.env.${process.env.NODE_ENV}`);
-    console.log(config.get<string>('DB_NAME'));
-  }
-}
+export class AppModule {}

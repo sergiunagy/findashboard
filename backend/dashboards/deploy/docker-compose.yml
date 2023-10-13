@@ -24,6 +24,14 @@ services:
     environment:
       - NODE_ENV=dev
       - ENV_LOCATION=./environments
+      - DB_HOST='datastore-server'
+      - DB_PORT=3306
+      - DB_USER='root'
+      - DB_PASS='root'
+      - DB_NAME=dashboards.sqlite
+      - DB_TYPE=sqlite
+      - DB_SYNC_FLAG=true
+
     volumes:
       - "../app:/home/node/app"
     networks:
