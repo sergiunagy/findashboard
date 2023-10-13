@@ -90,8 +90,7 @@ services:
       backnet:
         aliases:
           - dashboards-server
-    ports:
-      - "5000:5000"
+          
     # Note: hot-reload is enabled by default
     command:
       [

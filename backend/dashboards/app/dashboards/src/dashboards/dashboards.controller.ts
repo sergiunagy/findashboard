@@ -13,10 +13,10 @@ export class DashboardsController {
     constructor(private service: DashboardsService){}
 
     @Post()
-    createDashboard(@Query() ownerid: CreateDashboardParams, 
+    createDashboard(@Query() ownerId: CreateDashboardParams, 
                     @Body() body: CreateDashboardDto){
         
-        return this.service.create(ownerid.ownerid, body);
+        return this.service.create(ownerId.ownerId, body);
     }
 
     @Put()
@@ -34,12 +34,12 @@ export class DashboardsController {
     @Get("find")
     findDashboard(@Query() id:FindDashboardParams){
 
-        return this.service.findOne(id.dashboardid);
+        return this.service.findOne(id.dashboardId);
     }
 
     @Delete()
     removeDashboard(@Query() id:FindDashboardParams){
 
-        return this.service.deleteOne(id.dashboardid);
+        return this.service.deleteOne(id.dashboardId);
     }
 }

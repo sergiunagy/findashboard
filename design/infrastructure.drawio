@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="Yf3V8BL3d49GuPFL8qzb" name="Dev PortBinds">
-        <mxGraphModel dx="1199" dy="413" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -91,7 +91,7 @@
                         <mxPoint x="500" y="690" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="26" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;27017&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;" parent="1" vertex="1">
+                <mxCell id="26" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;xxx&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;" parent="1" vertex="1">
                     <mxGeometry x="540" y="655" width="60" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="27" value="" style="whiteSpace=wrap;html=1;aspect=fixed;dashed=1;fillColor=none;" parent="1" vertex="1">
@@ -157,10 +157,13 @@
         </mxGraphModel>
     </diagram>
     <diagram name="ProdPortBinds-sameHost" id="kvNyjHchTtmpYtn1jW40">
-        <mxGraphModel dx="1199" dy="1240" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="1606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="8yNIrelO1CAX560oub1o-0"/>
                 <mxCell id="8yNIrelO1CAX560oub1o-1" parent="8yNIrelO1CAX560oub1o-0"/>
+                <mxCell id="wGEXk0iVghqJmSYLJJfG-3" value="" style="whiteSpace=wrap;html=1;aspect=fixed;dashed=1;fillColor=none;" parent="8yNIrelO1CAX560oub1o-1" vertex="1">
+                    <mxGeometry x="580" y="510" width="150" height="150" as="geometry"/>
+                </mxCell>
                 <mxCell id="8yNIrelO1CAX560oub1o-2" value="s" style="whiteSpace=wrap;html=1;aspect=fixed;dashed=1;fillColor=none;" parent="8yNIrelO1CAX560oub1o-1" vertex="1">
                     <mxGeometry x="90" y="90" width="200" height="200" as="geometry"/>
                 </mxCell>
@@ -239,7 +242,7 @@
                         <mxPoint x="500" y="690" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="8yNIrelO1CAX560oub1o-28" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;27017&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;" parent="8yNIrelO1CAX560oub1o-1" vertex="1">
+                <mxCell id="8yNIrelO1CAX560oub1o-28" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;xxx&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;" parent="8yNIrelO1CAX560oub1o-1" vertex="1">
                     <mxGeometry x="590" y="545" width="60" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="8yNIrelO1CAX560oub1o-29" value="" style="whiteSpace=wrap;html=1;aspect=fixed;dashed=1;fillColor=none;" parent="8yNIrelO1CAX560oub1o-1" vertex="1">
@@ -306,9 +309,6 @@
                 </mxCell>
                 <mxCell id="wGEXk0iVghqJmSYLJJfG-2" value="" style="whiteSpace=wrap;html=1;aspect=fixed;dashed=1;fillColor=none;" parent="8yNIrelO1CAX560oub1o-1" vertex="1">
                     <mxGeometry x="340" y="339" width="150" height="150" as="geometry"/>
-                </mxCell>
-                <mxCell id="wGEXk0iVghqJmSYLJJfG-3" value="" style="whiteSpace=wrap;html=1;aspect=fixed;dashed=1;fillColor=none;" parent="8yNIrelO1CAX560oub1o-1" vertex="1">
-                    <mxGeometry x="580" y="510" width="150" height="150" as="geometry"/>
                 </mxCell>
                 <mxCell id="wGEXk0iVghqJmSYLJJfG-5" value="CORS config is required on the backend services that accept requests from frontend (same host)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="8yNIrelO1CAX560oub1o-1" vertex="1">
                     <mxGeometry x="50" y="392.5" width="220" height="87.5" as="geometry"/>

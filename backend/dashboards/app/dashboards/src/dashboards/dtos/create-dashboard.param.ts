@@ -4,5 +4,5 @@ export class CreateDashboardParams {
 
     @IsString()
     @IsNotEmpty()
-    ownerid: string;
+    ownerId: string;
 }

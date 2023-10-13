@@ -27,7 +27,7 @@ app.add_middleware(
 DUMMY_TOKEN = '1234' # TODO: generate proper JWT if required
 
 dummy_user_profile = {
-        'id': '01865b6c51f04ba8a8b5ecc699fc51ec',
+        'id': '12345',
         'alias' :'user-alias', 
         'name' :'Anonymous',
 }

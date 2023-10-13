@@ -1,8 +1,13 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { DashboardsStore } from '../dahsboards.store';
 import { AuthStore } from 'src/app/auth/auth.store';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { DashboardConfig } from 'src/app/model/dashboardconfig';
+
+class UserDashboardCfg {
+  dashboardId: number;
+  dashboardName: string;
+}
 
 @Component({
   selector: 'app-load-dashboard',
@@ -13,7 +18,7 @@ export class LoadDashboardComponent implements AfterViewInit{
   @ViewChild('dashnameinput') dashboardNameInput: ElementRef;
   @Output() close = new EventEmitter<void>();
 
-  userDashboards$ : Observable<string[]>;
+  userDashboards$ : Observable<UserDashboardCfg[]>;
 
   constructor(
               private dashStore: DashboardsStore,
@@ -21,7 +26,17 @@ export class LoadDashboardComponent implements AfterViewInit{
             ) 
     { 
       const uid = this.auth.userState?.id;
-      this.userDashboards$ = dashStore.findAllDashboardNamesForUser(uid);
+      this.userDashboards$ = dashStore.findAllDashboardsForUser(uid).pipe(
+        map(dashboards => 
+          {
+          return dashboards.map(
+              dashboard=>{
+                  const cfg = new UserDashboardCfg();
+                  Object.assign(cfg,{dashboardId:dashboard.id, dashboardName: dashboard.name});
+                  return cfg;
+          })
+        })
+      );
     } 
   
  
@@ -37,13 +52,13 @@ export class LoadDashboardComponent implements AfterViewInit{
     const uid = this.auth.userState?.id;
     
     const name = this.dashboardNameInput.nativeElement.value;
-    this.dashStore.loadDashboardByOwnerAndName(uid, name).subscribe();
+    this.dashStore.loadDashboard(1).subscribe();
     this.close.emit();
   } 
-  onListSubmit(dname: string) { 
+  onListSubmit(dashboardId: number) { 
     const uid = this.auth.userState?.id;
     
-    this.dashStore.loadDashboardByOwnerAndName(uid, dname).subscribe();
+    this.dashStore.loadDashboard(dashboardId).subscribe();
     this.close.emit();
   } 
 }
