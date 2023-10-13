@@ -35,9 +35,11 @@ services:
     volumes:
       - "../app:/home/node/app"
     networks:
-      - backnet
+      backnet:
+        aliases:
+          - dashboards-server
     ports:
-      - "8000:3000"
+      - "5000:3000"
     # Note: hot-reload is enabled by default
     command: ["sh", "-c", "npm run start:dev --port 3000 --host 0.0.0.0"]
  

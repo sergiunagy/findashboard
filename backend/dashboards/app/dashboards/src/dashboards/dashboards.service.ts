@@ -36,6 +36,7 @@ export class DashboardsService {
         const dashboard = await this.findOne(updatedDashboard.id);
 
         if(!dashboard){
+            /* Throwing from the service layer because we only intend to have http controllers */
             throw new NotFoundException(`Dashboard with id ${updatedDashboard.id} does not exist`);
         }
 
@@ -48,7 +49,7 @@ export class DashboardsService {
     async deleteOne(id: number):Promise<Dashboard>{
 
         const dashboard = await this.findOne(id);
-
+        /* Throwing from the service layer because we only intend to have http controllers */
         if(!dashboard){ /* Return an error if ID is not found, anomaly event though this is a delete */
             throw new NotFoundException(`Dashboard with id ${id} does not exist`);
         }

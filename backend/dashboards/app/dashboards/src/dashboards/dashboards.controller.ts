@@ -7,7 +7,7 @@ import { FindAllByParams } from './dtos/find-all-by.params';
 import { FindDashboardParams } from './dtos/find-dashboard.params';
 import { UpdateDashboardDto } from './dtos/update-dashboard.dto';
 
-@Controller('dashboards')
+@Controller('/api/v1/dashboards')
 export class DashboardsController {
 
     constructor(private service: DashboardsService){}
