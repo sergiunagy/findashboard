@@ -1,110 +1,110 @@
 <mxfile host="65bd71144e">
     <diagram id="04NmVkc7BXzSvhjQqVve" name="frontend data-flows">
-        <mxGraphModel dx="1111" dy="517" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-2" value="financial&amp;nbsp;&lt;br&gt;data" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-2" value="financial&amp;nbsp;&lt;br&gt;data" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="1" vertex="1">
                     <mxGeometry x="20" y="379" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-3" value="dashboards&lt;br&gt;config&lt;br&gt;data" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-3" value="dashboards&lt;br&gt;config&lt;br&gt;data" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" parent="1" vertex="1">
                     <mxGeometry x="20" y="284" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-4" value="forecasting&amp;nbsp;&lt;br&gt;data" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#d80073;fontColor=#ffffff;strokeColor=#A50040;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-4" value="forecasting&amp;nbsp;&lt;br&gt;data" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#d80073;fontColor=#ffffff;strokeColor=#A50040;" parent="1" vertex="1">
                     <mxGeometry x="20" y="489" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-5" value="Backend API" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-5" value="Backend API" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="150" y="239" width="160" height="380" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-6" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-6" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="380" y="239" width="760" height="380" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-7" value="Frontend Components" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-7" value="Frontend Components" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="605" y="209" width="160" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-8" value="«Store»&lt;br&gt;&lt;b&gt;DashboardStore&lt;/b&gt;" style="html=1;dropTarget=0;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-8" value="«Store»&lt;br&gt;&lt;b&gt;DashboardStore&lt;/b&gt;" style="html=1;dropTarget=0;" parent="1" vertex="1">
                     <mxGeometry x="420" y="269" width="120" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-9" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" vertex="1" parent="VXbwFieqJV5It5OmqrJu-8">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-9" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="VXbwFieqJV5It5OmqrJu-8" vertex="1">
                     <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
                         <mxPoint x="-27" y="7" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-10" value="«Store»&lt;br&gt;&lt;b&gt;FinnDataStore&lt;/b&gt;" style="html=1;dropTarget=0;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-10" value="«Store»&lt;br&gt;&lt;b&gt;FinnDataStore&lt;/b&gt;" style="html=1;dropTarget=0;" parent="1" vertex="1">
                     <mxGeometry x="420" y="369" width="120" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-11" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" vertex="1" parent="VXbwFieqJV5It5OmqrJu-10">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-11" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="VXbwFieqJV5It5OmqrJu-10" vertex="1">
                     <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
                         <mxPoint x="-27" y="7" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-12" value="«Store»&lt;br&gt;&lt;b&gt;ForecastDataStore&lt;/b&gt;" style="html=1;dropTarget=0;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-12" value="«Store»&lt;br&gt;&lt;b&gt;ForecastDataStore&lt;/b&gt;" style="html=1;dropTarget=0;" parent="1" vertex="1">
                     <mxGeometry x="420" y="479" width="120" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-13" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" vertex="1" parent="VXbwFieqJV5It5OmqrJu-12">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-13" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="VXbwFieqJV5It5OmqrJu-12" vertex="1">
                     <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
                         <mxPoint x="-27" y="7" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-14" value="«Component»&lt;br&gt;&lt;b&gt;DashboardList&lt;/b&gt;" style="html=1;dropTarget=0;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-14" value="«Component»&lt;br&gt;&lt;b&gt;DashboardList&lt;/b&gt;" style="html=1;dropTarget=0;" parent="1" vertex="1">
                     <mxGeometry x="590" y="269" width="120" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-15" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" vertex="1" parent="VXbwFieqJV5It5OmqrJu-14">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-15" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="VXbwFieqJV5It5OmqrJu-14" vertex="1">
                     <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
                         <mxPoint x="-27" y="7" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-16" value="«Component»&lt;br&gt;&lt;b&gt;Dashboard&lt;/b&gt;" style="html=1;dropTarget=0;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-16" value="«Component»&lt;br&gt;&lt;b&gt;Dashboard&lt;/b&gt;" style="html=1;dropTarget=0;" parent="1" vertex="1">
                     <mxGeometry x="730" y="269" width="120" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-17" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" vertex="1" parent="VXbwFieqJV5It5OmqrJu-16">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-17" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="VXbwFieqJV5It5OmqrJu-16" vertex="1">
                     <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
                         <mxPoint x="-27" y="7" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-18" value="«Component»&lt;br&gt;&lt;b&gt;LineChart&lt;/b&gt;" style="html=1;dropTarget=0;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-18" value="«Component»&lt;br&gt;&lt;b&gt;LineChart&lt;/b&gt;" style="html=1;dropTarget=0;" parent="1" vertex="1">
                     <mxGeometry x="970" y="300" width="120" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-19" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" vertex="1" parent="VXbwFieqJV5It5OmqrJu-18">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-19" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="VXbwFieqJV5It5OmqrJu-18" vertex="1">
                     <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
                         <mxPoint x="-27" y="7" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-20" value="«Component»&lt;br&gt;&lt;b&gt;Average&lt;/b&gt;" style="html=1;dropTarget=0;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-20" value="«Component»&lt;br&gt;&lt;b&gt;Average&lt;/b&gt;" style="html=1;dropTarget=0;" parent="1" vertex="1">
                     <mxGeometry x="970" y="409" width="120" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-21" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" vertex="1" parent="VXbwFieqJV5It5OmqrJu-20">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-21" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="VXbwFieqJV5It5OmqrJu-20" vertex="1">
                     <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
                         <mxPoint x="-27" y="7" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-22" value="«Component»&lt;br&gt;&lt;b&gt;Forecast&lt;/b&gt;" style="html=1;dropTarget=0;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-22" value="«Component»&lt;br&gt;&lt;b&gt;Forecast&lt;/b&gt;" style="html=1;dropTarget=0;" parent="1" vertex="1">
                     <mxGeometry x="970" y="513" width="120" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-23" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" vertex="1" parent="VXbwFieqJV5It5OmqrJu-22">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-23" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="VXbwFieqJV5It5OmqrJu-22" vertex="1">
                     <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
                         <mxPoint x="-27" y="7" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-24" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;fillColor=#0050ef;strokeColor=#001DBC;" edge="1" parent="1" source="VXbwFieqJV5It5OmqrJu-3" target="VXbwFieqJV5It5OmqrJu-8">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-24" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;fillColor=#0050ef;strokeColor=#001DBC;" parent="1" source="VXbwFieqJV5It5OmqrJu-3" target="VXbwFieqJV5It5OmqrJu-8" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="140" y="319" as="sourcePoint"/>
                         <mxPoint x="190" y="269" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-25" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;fillColor=#0050ef;strokeColor=#001DBC;" edge="1" parent="1" source="VXbwFieqJV5It5OmqrJu-8" target="VXbwFieqJV5It5OmqrJu-14">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-25" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;fillColor=#0050ef;strokeColor=#001DBC;" parent="1" source="VXbwFieqJV5It5OmqrJu-8" target="VXbwFieqJV5It5OmqrJu-14" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="630" y="549" as="sourcePoint"/>
                         <mxPoint x="680" y="499" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-26" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#60a917;strokeColor=#2D7600;" edge="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-26" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#60a917;strokeColor=#2D7600;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="140" y="409" as="sourcePoint"/>
                         <mxPoint x="420" y="409" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-27" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#60a917;strokeColor=#2D7600;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="VXbwFieqJV5It5OmqrJu-18">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-27" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#60a917;strokeColor=#2D7600;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="VXbwFieqJV5It5OmqrJu-18" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="540" y="413.5" as="sourcePoint"/>
                         <mxPoint x="820" y="413.5" as="targetPoint"/>
@@ -114,7 +114,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-28" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#60a917;strokeColor=#2D7600;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.667;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="VXbwFieqJV5It5OmqrJu-10" target="VXbwFieqJV5It5OmqrJu-20">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-28" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#60a917;strokeColor=#2D7600;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.667;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="VXbwFieqJV5It5OmqrJu-10" target="VXbwFieqJV5It5OmqrJu-20" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="550" y="423.5" as="sourcePoint"/>
                         <mxPoint x="740" y="424" as="targetPoint"/>
@@ -124,13 +124,13 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-29" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#d80073;strokeColor=#A50040;" edge="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-29" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#d80073;strokeColor=#A50040;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="140" y="518.5" as="sourcePoint"/>
                         <mxPoint x="420" y="518.5" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-30" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#d80073;strokeColor=#A50040;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="VXbwFieqJV5It5OmqrJu-12" target="VXbwFieqJV5It5OmqrJu-22">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-30" value="" style="endArrow=classic;html=1;strokeWidth=3;fillColor=#d80073;strokeColor=#A50040;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="VXbwFieqJV5It5OmqrJu-12" target="VXbwFieqJV5It5OmqrJu-22" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="510" y="639" as="sourcePoint"/>
                         <mxPoint x="790" y="639" as="targetPoint"/>
@@ -140,14 +140,14 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="VXbwFieqJV5It5OmqrJu-31" value="&lt;h1&gt;Data flows from Frontend perspective&lt;/h1&gt;&lt;div&gt;- Backend API abstracts data-sources (backend services and 3rd party data suppliers)&lt;/div&gt;&lt;div&gt;- Separation between presentational (Dashboards/Dashboard) and smart components is intended&lt;/div&gt;&lt;div&gt;- 3 main data flows are identified (additional user/auth related flows are out of scope here and not represented)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Note:&lt;/div&gt;&lt;div&gt;- Additional Auth functionality exists on the backend but this is out of scope for this app.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+                <mxCell id="VXbwFieqJV5It5OmqrJu-31" value="&lt;h1&gt;Data flows from Frontend perspective&lt;/h1&gt;&lt;div&gt;- Backend API abstracts data-sources (backend services and 3rd party data suppliers)&lt;/div&gt;&lt;div&gt;- Separation between presentational (Dashboards/Dashboard) and smart components is intended&lt;/div&gt;&lt;div&gt;- 3 main data flows are identified (additional user/auth related flows are out of scope here and not represented)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Note:&lt;/div&gt;&lt;div&gt;- Additional Auth functionality exists on the backend but this is out of scope for this app.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="230" y="20" width="700" height="160" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
     <diagram id="yawmFh53kR1rAt1Ke-RY" name="Concept">
-        <mxGraphModel dx="1507" dy="701" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -262,7 +262,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="0fDVI-UUUqqTXi_IZEYt" name="Infrastructure">
-        <mxGraphModel dx="1055" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -340,7 +340,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="2MWFBWHxctqiKtLl-Jbj" name="Physical">
-        <mxGraphModel dx="1055" dy="491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -685,6 +685,20 @@
                 </mxCell>
                 <mxCell id="U-riOEW_TqNvMNgb85oK-37" value="Forecasting would be better associated with a session, but this is out of the scope of the app right now" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="655" y="630" width="160" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="EeTx2W4i-bGvb1zat3Qe" name="DatabaseSource">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="42Ma6vJEJYzdu_aGmmZu-1" value="&lt;h1&gt;Dashboards&lt;/h1&gt;&lt;p&gt;We use Sqlite for dev and tests&lt;/p&gt;&lt;p&gt;We use MariaDb as the production solution.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Rationale:&lt;/p&gt;&lt;p&gt;- data is structured : we have stable structures in the frontend data. The user cannot alter the structure.&lt;/p&gt;&lt;p&gt;- we don't plan for a lot of data, sharding is not an issue and neither is response latency.&lt;/p&gt;&lt;p&gt;- we have better(preferred) NestJs frameworks for RDBMS sources than for NoSql&lt;/p&gt;&lt;p&gt;- we have better options for separating the dev-test from prod, using sqlite for dev /test and any other sql solution in prod.&lt;/p&gt;&lt;p&gt;- image size is smaller (aboud 2x) from the MongoImage&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="80" width="460" height="430" as="geometry"/>
+                </mxCell>
+                <mxCell id="42Ma6vJEJYzdu_aGmmZu-2" value="&lt;h1&gt;Forecasting&lt;/h1&gt;&lt;p&gt;We use MongoDb for both dev and prod&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Rationale:&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;- larger datasets&lt;br&gt;&lt;/p&gt;&lt;p&gt;- the structure may vary (i.e. we may pull different features on different symbols due to echange-availability, data avail)&lt;/p&gt;&lt;p&gt;- speed is a factor&amp;nbsp;&lt;/p&gt;&lt;p&gt;- data relationships are not complex, i.e. we will simply store features and not worry about traceability and other constraints.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="630" y="90" width="460" height="240" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

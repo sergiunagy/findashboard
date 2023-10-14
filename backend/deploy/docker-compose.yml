@@ -43,69 +43,78 @@ services:
   # Dashboards service
   # #######################
   dashboards-backend:
-    build:
-      context: ../dashboards/deploy
-      dockerfile: Dockerfile
-    image: sergiunagy/finapp-dashboards-serv
+    image: sergiunb/dashboards-nest
+    working_dir: /home/node/app/dashboards
     container_name: findash-dashboards-serv
-    # mount volumes if you want hot reloads
+    environment:
+      - NODE_ENV=dev
+      - ENV_LOCATION=./environments
+      - DB_HOST='datastore-server'
+      - DB_PORT=3306
+      - DB_USER='root'
+      - DB_PASS='root'
+      - DB_NAME=dashboards.sqlite
+      - DB_TYPE=sqlite
+      - DB_SYNC_FLAG=true
+
     volumes:
-      - "../dashboards/src:/home/app"
+      - "../dashboards/app:/home/node/app"
     networks:
       backnet:
         aliases:
           - dashboards-server
-    environment: 
-      FRONTEND_HOST_DEV : "http://localhost:8000"
-      FRONTEND_HOST : "http://localhost:8080"
-
-    profiles: ["dev", "prod"]
+    ports:
+      - "5000:5000"
+    # Note: hot-reload is enabled by default
+    command: ["sh", "-c", "npm run start:dev --port 5000 --host 0.0.0.0"]
+ 
+    profiles: ["dev", "test"]
 
   # #######################
   # DataStore service 
   # #######################
-  datastore:
-    build:
-      context: ../datastore/deploy
-      dockerfile: Dockerfile
-    image: sergiunagy/finapp-datastore-serv
-    container_name: findash-datastore-mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=findemoadmin
-      - MONGO_INITDB_ROOT_PASSWORD=findemoadmin_pas_951
-      - MONGO_DB_PORT=27017
-    # configure seeding and/or permanent storage. 
-    volumes: 
-      - '../datastore/dbinit:/database-seed'
-      # mount storage for persistent volume --> needs storage transfer strategy
-      # - dbstorage:/data/db
-    networks:
-      backnet:
-        aliases:
-          - datastore-server
+  # datastore:
+  #   build:
+  #     context: ../datastore/deploy
+  #     dockerfile: Dockerfile
+  #   image: sergiunagy/finapp-datastore-serv
+  #   container_name: findash-datastore-mongo
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=findemoadmin
+  #     - MONGO_INITDB_ROOT_PASSWORD=findemoadmin_pas_951
+  #     - MONGO_DB_PORT=27017
+  #   # configure seeding and/or permanent storage. 
+  #   volumes: 
+  #     - '../datastore/dbinit:/database-seed'
+  #     # mount storage for persistent volume --> needs storage transfer strategy
+  #     # - dbstorage:/data/db
+  #   networks:
+  #     backnet:
+  #       aliases:
+  #         - datastore-server
           
-    profiles: ["dev", "prod"]
+  #   profiles: ["dev", "prod"]
 
   # #######################
   # DataStore Admin service  - dev only
   # #######################
-  mongo-express:
-    image: mongo-express:1.0.0-alpha.4
-    container_name: mongo-express
-    ports:
-      - 5090:8081
-    environment:
-    - ME_CONFIG_MONGODB_ADMINUSERNAME=findemoadmin
-    - ME_CONFIG_MONGODB_ADMINPASSWORD=findemoadmin_pas_951
-    - ME_CONFIG_MONGODB_SERVER=datastore-server
-    depends_on:
-      - datastore
-    # Mongo container is available but the server starts responding only after init. TODO: health check as start condition ?
-    restart: always
-    networks:
-      - backnet
+  # mongo-express:
+  #   image: mongo-express:1.0.0-alpha.4
+  #   container_name: mongo-express
+  #   ports:
+  #     - 5090:8081
+  #   environment:
+  #   - ME_CONFIG_MONGODB_ADMINUSERNAME=findemoadmin
+  #   - ME_CONFIG_MONGODB_ADMINPASSWORD=findemoadmin_pas_951
+  #   - ME_CONFIG_MONGODB_SERVER=datastore-server
+  #   depends_on:
+  #     - datastore
+  #   # Mongo container is available but the server starts responding only after init. TODO: health check as start condition ?
+  #   restart: always
+  #   networks:
+  #     - backnet
     
-    profiles: ["dev"]
+  #   profiles: ["dev"]
 
   # #######################
   # Ingress service

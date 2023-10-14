@@ -3,12 +3,8 @@ export const environment = {
     backendurl: "http://localhost:8090",
     
     /* DASHBOARDS SERVICE API */
-    api_newdashboard : "/api/v1/dashboards/new",
-    api_updatedashboard : "/api/v1/dashboards/update",
-    api_loadlastdashboard : "/api/v1/dashboards/loadlast",
-    api_findalldashboards : "/api/v1/dashboards/findall",
-    api_deletedashboard : "/api/v1/dashboards/delete",
-    api_loaddasboardbyname : "/api/v1/dashboards/load",
+    api_dashboards : "/api/v1/dashboards",                    /*POST, PUT, GET, DELETE*/
+    api_find_by : "/api/v1/dashboards/find",         /*GET*/
     
     /* DATA SERVICE API */
     api_getcandle : "/findata/api/v1/stock/candle",

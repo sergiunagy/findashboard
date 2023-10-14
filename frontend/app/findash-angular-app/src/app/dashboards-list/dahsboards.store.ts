@@ -1,18 +1,19 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { DashboardConfig } from "../model/dashboardconfig";
-import { BehaviorSubject, Observable, catchError, map, tap, throwError } from "rxjs";
+import { BehaviorSubject, ObjectUnsubscribedError, Observable, catchError, flatMap, last, map, max, mergeMap, of, reduce, tap, throwError } from "rxjs";
 import { AuthStore } from "../auth/auth.store";
 import * as moment from "moment";
 import { environment } from '../../environments/environment';
 
 const BACKEND_HOST = environment.backendurl; 
-const NEW_DASHBOARD = environment.api_newdashboard;
-const UPDATE_DASHBOARD = environment.api_updatedashboard;
-const LOAD_LAST_DASHBOARD = environment.api_loadlastdashboard;
-const FINDALL_DASHBOARDS = environment.api_findalldashboards ;
-const DELETE_DASHBOARD =environment.api_deletedashboard;
-const LOAD_DASHBOARD_BY_NAME_API = environment.api_loaddasboardbyname;
+const DASHBOARDS_API = BACKEND_HOST + environment.api_dashboards;
+const DASHBOARDS_LOOKUP_API = BACKEND_HOST + environment.api_find_by;
+// const UPDATE_DASHBOARD = environment.api_updatedashboard;
+// const LOAD_LAST_DASHBOARD = environment.api_loadlastdashboard;
+// const FINDALL_DASHBOARDS = environment.api_findalldashboards ;
+// const DELETE_DASHBOARD =environment.api_deletedashboard;
+// const LOAD_DASHBOARD_BY_NAME_API = environment.api_loaddasboardbyname;
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,11 @@ export class DashboardsStore {
   /* state variable */
   private dashboardState: DashboardConfig = null;
 
+  /**
+   * Executes Store component pre-loading and auth verification
+   * @param http : service for http requests handling
+   * @param auth : service for security ops
+   */
   constructor(
     private http: HttpClient,
     private auth: AuthStore) {
@@ -37,6 +43,7 @@ export class DashboardsStore {
     if (!!uid) {
       this.loadLastSavedDasboardConfig(uid).pipe(
         tap(dashCfg => {
+          console.log("LOADED:", JSON.stringify(dashCfg));
           this.dashboardState = dashCfg; /* store state */
           this.subjectDashboard.next(dashCfg); /* emit to subscribers */
         }
@@ -47,76 +54,85 @@ export class DashboardsStore {
     }
   }
 
-  /* ----------- READ ----------- */
-  private loadLastSavedDasboardConfig(uid): Observable<DashboardConfig> {
-    const url = BACKEND_HOST + LOAD_LAST_DASHBOARD;
+  /**
+   * Defines the empty DashboardConfig object and returns it
+   * @returns DashboardConfig
+   */
+  private getEmptyDashboard(): DashboardConfig{
 
-    return this.http.get<Partial<DashboardConfig>>(url,
+    return {
+      id: null,
+      ownerid:"",
+      name: "",
+      trackedSymbols: [],
+      unixTimestamp: null,
+    };
+  }
+
+  /* ----------- READ ----------- */
+  /**
+   * This function will query the backend for the users stored configurations
+   * and will select the latest configuration to return.
+   * @param uid : user id
+   * @returns Observable with the last stored dashboard config.
+   */
+  private loadLastSavedDasboardConfig(uid): Observable<DashboardConfig> {
+
+    return this.http.get<DashboardConfig[]>(DASHBOARDS_API,
       {
         params: {
-          user: uid,
+          ownerid: uid,
         }
       }).pipe(
-        map(response => {
-          return <DashboardConfig>{
-            id: response['dashboard']['_id'],
-            name: response['dashboard']['name'],
-            trackedSymbols: response['dashboard']['trackedSymbols'],
-            unixTimestamp: response['dashboard']['unixTimestamp'],
-          };
-        }),
+        reduce((max, current) =>{
+          /* Get the latest i.e. largest timestamp */
+          current.forEach(el=> max= el.unixTimestamp > max.unixTimestamp ? el: max);
+          return max;
+        }, this.getEmptyDashboard()),
+
         catchError(err => {
-          const msg = 'Init Failed to fetch data from provider at' + url;
+          const msg = 'Init Failed to fetch data from provider at' + DASHBOARDS_API;
           console.log(msg, err); /* dev log */
           return throwError(() => new Error(err));
         })
       );
   }
 
-  loadDashboardByOwnerAndName(userid: string, dashboard_name: string): Observable<DashboardConfig> {
-    const url = BACKEND_HOST + LOAD_DASHBOARD_BY_NAME_API;
+  loadDashboard(dashboardId: number): Observable<DashboardConfig> {
 
-    return this.http.get<Partial<DashboardConfig>>(url,
+    return this.http.get<Partial<DashboardConfig>>(DASHBOARDS_LOOKUP_API,
       {
         params: {
-          user: userid,
-          dashboard_name: dashboard_name,
+          dashboardId,
         }
       }).pipe(
         map(response => {
-          return <DashboardConfig>{
-            id: response['dashboard']['_id'],
-            name: response['dashboard']['name'],
-            trackedSymbols: response['dashboard']['trackedSymbols'],
-            unixTimestamp: response['dashboard']['unixTimestamp'],
-          };
+          const dashboard = this.getEmptyDashboard();
+          Object.assign(dashboard, response)
+          return dashboard;          
         }),
         tap(dashCfg => {
           this.dashboardState = dashCfg; /* store state */
           this.subjectDashboard.next(dashCfg); /* emit to subscribers */
         }),
         catchError(err => {
-          const msg = 'Init Failed to fetch data from provider at' + url;
+          const msg = 'Init Failed to fetch data from provider at' + DASHBOARDS_API;
           console.log(msg, err); /* dev log */
           return throwError(() => new Error(err));
         })
       );
   }
 
-  findAllDashboardNamesForUser(uid: string): Observable<string[]> {
-    const url = BACKEND_HOST + FINDALL_DASHBOARDS;
+  findAllDashboardsForUser(uid: string): Observable<DashboardConfig[]> {
 
-    return this.http.get<DashboardConfig[]>(url,
+    return this.http.get<DashboardConfig[]>(DASHBOARDS_API,
       {
         params: {
-          user: uid,
+          ownerid: uid,
         }
       }).pipe(
-        map(dashCfgs => {
-          return dashCfgs.map(cfg => cfg.name);
-        }),
         catchError(err => {
-          const msg = 'Init Failed to fetch data from provider at' + url;
+          const msg = 'Init Failed to fetch data from provider at' + DASHBOARDS_API;
           console.log(msg, err); /* dev log */
           return throwError(() => new Error(err));
         })
@@ -125,16 +141,10 @@ export class DashboardsStore {
 
   /* ----------- CREATE AND UPDATE ----------- */
   createNewDashboard() {
+    const ed = this.getEmptyDashboard();
     /* clear current configuration */
-    const empytDashboard: DashboardConfig = {
-      id: null,
-      ownerid:"",
-      name: "",
-      trackedSymbols: [],
-      unixTimestamp: null,
-    };
-    this.dashboardState = empytDashboard;
-    this.subjectDashboard.next(empytDashboard);
+    this.dashboardState = ed;
+    this.subjectDashboard.next(ed);
   }
 
   abortCreateDashboard() {
@@ -146,27 +156,6 @@ export class DashboardsStore {
         this.subjectDashboard.next(dashCfg); /* emit to subscribers */
       })
     ).subscribe();
-  }
-
-  newDashboardsConfiguration(userid: string, dconfig: Partial<DashboardConfig>): Observable<boolean | Object> {
-
-    const url = BACKEND_HOST + NEW_DASHBOARD;
-    const uid = this.auth.userState?.id
-
-    return this.http
-      .post(url, dconfig,
-        {
-          params: {
-            user: uid
-          }
-        })
-      .pipe(
-        catchError(err => {
-          const msg = 'Failed to save dashboard';
-          console.log(msg, err); /* dev log */
-          return throwError(() => new Error(err));
-        })
-      )
   }
 
   addNewTrackedSym(symbol: string) {
@@ -187,27 +176,23 @@ export class DashboardsStore {
   }
 
   saveEditedDashboard() {
-    const url = BACKEND_HOST + UPDATE_DASHBOARD;
-    const uid = this.auth.userState?.id;
     /* TODO: do some checks here: content, validation.. */
 
     /* construct our cfg */
-    const dashCfg: Partial<DashboardConfig> = {
-        /* id is not part of the editable section */
-        name: this.dashboardState.trackedSymbols.join('-'),
-        trackedSymbols: this.dashboardState.trackedSymbols,
-        unixTimestamp: moment().unix()
-    }
-
+    const dashCfg: Partial<DashboardConfig> = this.getEmptyDashboard();
+    /* load current state */
+    Object.assign(dashCfg, this.dashboardState);
+    /* update change sensitive properties */
+    Object.assign(dashCfg, {
+      /* re-calculate name */
+      name: this.dashboardState.trackedSymbols.join('-'),
+      /* update timestamp */
+      unixTimestamp: moment().unix(),
+  })
+    
     /* push local state to storage */
     return this.http
-      .put(url, dashCfg,
-        {
-          params: {
-            user_id: this.auth.userState.id,
-            dashboard_id: this.dashboardState.id,
-          }
-        })
+      .put(DASHBOARDS_API, dashCfg)
       .pipe(
         catchError(err => {
           const msg = 'Failed to save dashboard';
@@ -219,8 +204,7 @@ export class DashboardsStore {
   }
 
   saveCreatedDashboard() {
-    const url = BACKEND_HOST + NEW_DASHBOARD;
-    const uid = this.auth.userState?.id;
+    const ownerId = this.auth.userState?.id;
     /* TODO: do some checks here: content, validation.. */
 
     /* construct our cfg */
@@ -233,11 +217,9 @@ export class DashboardsStore {
 
     /* push local state to storage */
     return this.http
-      .post(url, dashCfg,
+      .post(DASHBOARDS_API, dashCfg,
         {
-          params: {
-            user: uid
-          }
+          params: { ownerId}
         })
       .pipe(
         catchError(err => {
@@ -258,22 +240,18 @@ export class DashboardsStore {
     return this.dashboardState.trackedSymbols.length;
   }
   /* ----------- DELETE ----------- */
-
-  deleteDashboard(dashid: number): Observable<boolean | Object> {
-    const url = BACKEND_HOST + DELETE_DASHBOARD;
+  deleteDashboard(dashboardId: number): Observable<boolean | Object> {
     const uid = this.auth.userState?.id
-    return this.http.delete(url,
+    return this.http.delete(DASHBOARDS_API,
       {
-        params: {
-          dashboard_id: dashid
-        }
+        params: { dashboardId }
       }).pipe(
         /* as a side-effect, load the last saved config into the current dashboard since our state is now invalid*/
         tap(_ => this.loadLastSavedDasboardConfig(uid).pipe(
           tap(dashCfg => this.subjectDashboard.next(dashCfg))
         ).subscribe()),
         catchError(err => {
-          const msg = 'Delete dashboard failed for id' + dashid;
+          const msg = 'Delete dashboard failed for id' + dashboardId;
           console.log(msg, err); /* dev log */
           return throwError(() => new Error(err));
         })

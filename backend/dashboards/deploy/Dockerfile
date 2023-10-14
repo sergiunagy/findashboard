@@ -1,17 +1,15 @@
-ARG baseImage=python
-ARG baseVersion=3.11.4-bullseye 
-# SQLAlchemy fails to install on 3.12
-FROM ${baseImage}:${baseVersion}
+FROM node:20-bullseye
 
-ARG baseImage=python
-ARG baseVersion=3.11.4-bullseye
+LABEL scope="nestjstraining"
 
-LABEL maintainer="sergiunb"
+# install the nest cli gloabally
+RUN npm install -g @nestjs/cli
 
-WORKDIR /home/app
+# set up a directory for our app
+RUN mkdir -p /home/node/app            
+WORKDIR /home/node/app
 
-COPY dependencies dependencies
-RUN pip install --upgrade pip
-RUN pip install -r dependencies
 
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
+
+# Build with:
+# docker build -f ./Dockerfile -t node-angular-app
