@@ -5,6 +5,20 @@
 # - networks
 # - volumes
 # Uses profiles to control what configurations launch, depending on the user-scenario
+# ---------------------------
+# Dev:
+# - frontend
+# - auth-backend
+# - dashboards-backend-dev
+# - ingress-server-dev
+# ------------------------------
+# Test:
+# - frontend
+# - auth-backend
+# - dashboards-backend
+# - dashboardsdb
+# - adminer
+# - ingress-server
 # ##############################
 version: "3.8"
 
@@ -37,7 +51,7 @@ services:
     ports:
       - "8000:4200"
     # todo: add production profile
-    profiles: [ "dev", "test" ]
+    profiles: [ "dev", "test"]
 
     # change to project folder and start serving the app -> use 0.0.0.0 as host since the default is a loopback
     # Note: hot-reload is enabled by default
@@ -64,12 +78,12 @@ services:
       FRONTEND_HOST_DEV: "http://localhost:8000"
       FRONTEND_HOST: "http://localhost:8080"
 
-    profiles: [ "dev", "prod" ]
+    profiles: [ "dev", "test" ]
 
   # #######################
   # Dashboards service
   # #######################
-  dashboards-backend:
+  dashboards-backend-dev:
     image: sergiunb/dashboards-nest
     working_dir: /home/node/app/dashboards
     container_name: findash-dashboards-serv
@@ -99,57 +113,98 @@ services:
         "npm run start:dev --port 5000 --host 0.0.0.0"
       ]
 
-    profiles: [ "dev", "test" ]
+    profiles: [ "dev" ]
+
+  dashboards-backend:
+    image: sergiunb/dashboards-nest
+    working_dir: /home/node/app/dashboards
+    container_name: findash-dashboards-serv
+    environment:
+      - NODE_ENV=test
+      - ENV_LOCATION=./environments
+      - DB_HOST=dashboards-store-server
+      - DB_PORT=5432
+      - DB_USER=finadmin
+      - DB_PASS=finpas357
+      - DB_NAME=dashboards
+      - DB_TYPE=postgres
+      - DB_SYNC_FLAG=true
+
+    volumes:
+      - "../backend/dashboards/app:/home/node/app"
+    networks:
+      backnet:
+        aliases:
+          - dashboards-server
+          
+    # Note: hot-reload is enabled by default
+    command:
+      [
+        "sh",
+        "-c",
+        "npm run start:dev --port 5000 --host 0.0.0.0"
+      ]
+
+    profiles: [ "test"]
 
   # #######################
   # DataStore service 
   # #######################
-  # datastore:
-  #   build:
-  #     context: ../backend/datastore/deploy
-  #     dockerfile: Dockerfile
-  #   image: sergiunagy/finapp-datastore-serv
-  #   container_name: findash-datastore-mongo
-  #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=findemoadmin
-  #     - MONGO_INITDB_ROOT_PASSWORD=findemoadmin_pas_951
-  #     - MONGO_DB_PORT=27017
-  #   # configure seeding and/or permanent storage. 
-  #   volumes:
-  #     - '../backend/datastore/dbinit:/database-seed'
-  #     # mount storage for persistent volume --> needs storage transfer strategy
-  #     # - dbstorage:/data/db
-  #   networks:
-  #     backnet:
-  #       aliases:
-  #         - datastore-server
+  dashboardsdb:
+    image: postgres # sergiunagy/finapp-dashboards-store
+    container_name: findash-dashboards-store
+    environment:
+      POSTGRES_PASSWORD: finpas357
+      POSTGRES_USER: finadmin
+      POSTGRES_DB: dashboards
+    networks:
+      backnet:
+        aliases:
+          - dashboards-store-server
 
-  #   profiles: [ "dev", "prod" ]
+    restart: always
+    profiles: ["test"]
 
-  # #######################
-  # DataStore Admin service  - dev only
-  # #######################
-  # mongo-express:
-  #   image: mongo-express:1.0.0-alpha.4
-  #   container_name: mongo-express
-  #   ports:
-  #     - 5090:8081
-  #   environment:
-  #     - ME_CONFIG_MONGODB_ADMINUSERNAME=findemoadmin
-  #     - ME_CONFIG_MONGODB_ADMINPASSWORD=findemoadmin_pas_951
-  #     - ME_CONFIG_MONGODB_SERVER=datastore-server
-  #   depends_on:
-  #     - datastore
-  #   # Mongo container is available but the server starts responding only after init. TODO: health check as start condition ?
-  #   restart: always
-  #   networks:
-  #     - backnet
-
-    # profiles: [ "dev" ]
+  adminer:
+    image: adminer
+    restart: always
+    networks:
+      - backnet
+    ports:
+      - 8050:8080
+    profiles: ["test"]
+      
 
   # #######################
   # Ingress service
+  # we need 2 profiles because some prerequisite services also have different profiles
   # #######################
+  ingress-server-dev:
+    privileged: true
+    build:
+      context: ../backend/ingress
+      dockerfile: ./deploy/Dockerfile.dev
+    image: sergiunagy/nginx:0.01
+    container_name: findash-ingress-nginx
+    # map any static files you want to serve here
+    volumes:
+      - "../backend/ingress/config:/etc/nginx/conf.d" # map configuration files here
+    networks:
+      - backnet
+    # this is a proxy service and is bound to the localhost network stack
+    ports:
+      - "8090:80"
+    # the service waits for authorization and the dashboards services to be up because it requires them when checking proxy paths  
+    depends_on:
+      - auth-backend
+      - dashboards-backend-dev
+    # enable proper logging and allow DELETE and PUT through the WAF
+    environment:
+      - MODSEC_AUDIT_LOG="/var/log/modsec_audit.log"
+      - ALLOWED_METHODS=GET HEAD POST OPTIONS DELETE PUT
+    
+    profiles: ["dev"]
+
   ingress-server:
     privileged: true
     build:
@@ -173,4 +228,7 @@ services:
     environment:
       - MODSEC_AUDIT_LOG="/var/log/modsec_audit.log"
       - ALLOWED_METHODS=GET HEAD POST OPTIONS DELETE PUT
-    profiles: [ "dev", "prod" ]
+    
+    profiles: ["test"]
+      
+    # NO PROFILES - ALWAYS ENABLED

@@ -29,7 +29,7 @@ switch (process.env.NODE_ENV) {
             username: process.env.DB_USER,
             password: process.env.DB_PASS,
             autoLoadEntities: true, /* Entities require forFeature registration to be detected */
-            migrationsRun: true, /* run migrations  */
+            migrationsRun: true, /* run migrations  before testing*/
         });
         break;
     case 'prod': /* run on proper db mapped to service */

@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="04NmVkc7BXzSvhjQqVve" name="frontend data-flows">
-        <mxGraphModel dx="1199" dy="586" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -147,7 +147,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="yawmFh53kR1rAt1Ke-RY" name="Concept">
-        <mxGraphModel dx="1199" dy="586" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -262,7 +262,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="0fDVI-UUUqqTXi_IZEYt" name="Infrastructure">
-        <mxGraphModel dx="1199" dy="586" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -340,7 +340,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="2MWFBWHxctqiKtLl-Jbj" name="Physical">
-        <mxGraphModel dx="1199" dy="586" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -690,14 +690,14 @@
         </mxGraphModel>
     </diagram>
     <diagram id="EeTx2W4i-bGvb1zat3Qe" name="DatabaseSource">
-        <mxGraphModel dx="1199" dy="586" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="1177" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="42Ma6vJEJYzdu_aGmmZu-1" value="&lt;h1&gt;Dashboards&lt;/h1&gt;&lt;p&gt;We use Sqlite for dev and tests&lt;/p&gt;&lt;p&gt;We use MariaDb as the production solution.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Rationale:&lt;/p&gt;&lt;p&gt;- data is structured : we have stable structures in the frontend data. The user cannot alter the structure.&lt;/p&gt;&lt;p&gt;- we don't plan for a lot of data, sharding is not an issue and neither is response latency.&lt;/p&gt;&lt;p&gt;- we have better(preferred) NestJs frameworks for RDBMS sources than for NoSql&lt;/p&gt;&lt;p&gt;- we have better options for separating the dev-test from prod, using sqlite for dev /test and any other sql solution in prod.&lt;/p&gt;&lt;p&gt;- image size is smaller (aboud 2x) from the MongoImage&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+                <mxCell id="42Ma6vJEJYzdu_aGmmZu-1" value="&lt;h1&gt;Dashboards&lt;/h1&gt;&lt;p&gt;We use Sqlite for dev and tests&lt;/p&gt;&lt;p&gt;We use MariaDb as the production solution.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Rationale:&lt;/p&gt;&lt;p&gt;- data is structured : we have stable structures in the frontend data. The user cannot alter the structure.&lt;/p&gt;&lt;p&gt;- we don't plan for a lot of data, sharding is not an issue and neither is response latency.&lt;/p&gt;&lt;p&gt;- we have better(preferred) NestJs frameworks for RDBMS sources than for NoSql&lt;/p&gt;&lt;p&gt;- we have better options for separating the dev-test from prod, using sqlite for dev /test and any other sql solution in prod.&lt;/p&gt;&lt;p&gt;- image size is smaller (aboud 2x) from the MongoImage&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="80" y="80" width="460" height="430" as="geometry"/>
                 </mxCell>
-                <mxCell id="42Ma6vJEJYzdu_aGmmZu-2" value="&lt;h1&gt;Forecasting&lt;/h1&gt;&lt;p&gt;We use MongoDb for both dev and prod&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Rationale:&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;- larger datasets&lt;br&gt;&lt;/p&gt;&lt;p&gt;- the structure may vary (i.e. we may pull different features on different symbols due to echange-availability, data avail)&lt;/p&gt;&lt;p&gt;- speed is a factor&amp;nbsp;&lt;/p&gt;&lt;p&gt;- data relationships are not complex, i.e. we will simply store features and not worry about traceability and other constraints.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+                <mxCell id="42Ma6vJEJYzdu_aGmmZu-2" value="&lt;h1&gt;Forecasting&lt;/h1&gt;&lt;p&gt;We use MongoDb for both dev and prod&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Rationale:&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;- larger datasets&lt;br&gt;&lt;/p&gt;&lt;p&gt;- the structure may vary (i.e. we may pull different features on different symbols due to echange-availability, data avail)&lt;/p&gt;&lt;p&gt;- speed is a factor&amp;nbsp;&lt;/p&gt;&lt;p&gt;- data relationships are not complex, i.e. we will simply store features and not worry about traceability and other constraints.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="630" y="90" width="460" height="240" as="geometry"/>
                 </mxCell>
             </root>

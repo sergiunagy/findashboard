@@ -17,7 +17,7 @@ The infrastructure is defined in the deploy folder yml and docker files.
 ### Authentication
 
 A silent authentication will sign the user in and assign an API token to connect to the data provider.
-Currently this is limited but can easily be extended to a full auth service, providing JWTs and full auth features.
+Currently this is limited (more of a mock than a service) and a single user is hardcoded into the service. This can easily be extended to a full auth service, providing JWTs and full auth features.
 
 ### Dashboards
 
@@ -74,26 +74,58 @@ This allows a closer inspection of the API as well as manually testing it.
 ![swagger editor screenshot](./readme_imgs/SwaggerEditor.png)
 
 
-## Running the app
+## Running the app with different profiles
 
-### Dev mode
+### Deployment profiles description
 
-From the deploy folder: 
+We use 3 profiles for deploying the app:
+- dev
+- test
+- prod
 
-        docker compose --profile dev up
+Spin up the services associated with a profile using :
+        docker compose --profile <dev | test | prod> up
 
-### Production
+### Profiles scope and rationale:
 
-Production images have the functionality built in. 
+General note:
+- no proper migration schema is prepared for the Dashboards DB. For this reason, the ORM library on the service is set to "synchronize" and recreates the structure automatically. This would not be feasible in a persitent data situation (could destroy data on a schema cheange) but it works OK in the scope of this demo.
+
+#### Dev
+
+Profile intended for development.
+- Image build is enabled and the images are bind-mounted to local host source folders.
+- Hot-replace is enbabled for all services.
+- Uses an in-mem database solution, preloaded with a couple of samples to facilitate quick tests during development.
+
+#### Test 
+
+Profile for testing service integrations.
+- Image build is enabled and the images are bind-mounted to local host source folders.
+- Hot-replace is enbabled for all services.
+- Uses a database-as a service pattern and spins up a database server.
 
 Note:
-You can still bind to the src folders to be able to edit the sources for testing and debugging. To enable this, you can use the dev docker compose yml as an example.
+- the server is currently not mapped to a volume for persisisting between server resets
 
-The frontend is reduced to optimized static files and served through an Nginx container. 
+- Contains an extra service for checking the database using a dedicated admin tool.
+
+#### Prod
+
+Profile for deploying services.
+- Image building is disabled and code is running from the images directly.
+- Uses a database-as a service pattern and spins up a database server.
+
+Note:
+- You can still bind to the src folders to be able to edit the sources for testing and debugging. To enable this, you can use the dev docker compose yml as an example.
+
+- The frontend is reduced to optimized static files and served through an Nginx container. 
 
 Note:
 The Nginx container uses Alpine Linux, to optimize for size, so you will need to use sh instead of bash to execute into the container during runtime.
 
 To run the production deployment:
 - use the deploy/production folder
-- run with docker compose --profile prod up.
+- run with:
+
+        docker compose --profile prod up.
