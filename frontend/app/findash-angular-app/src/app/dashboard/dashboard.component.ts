@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { FinData } from '../model/findata';
 import { Observable, catchError, map, shareReplay, tap, throwError } from 'rxjs';
 import { DataStore } from '../data/data.store';
@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   @Input() trackedSymbol: string = null;
 
-
+  @Output() removeRequested = new EventEmitter();
 
   constructor(private dataprovider: DataStore,
               private dashStore: DashboardsStore /* todo: this creates tight-coupling, refactor */
@@ -39,6 +39,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onRemoveElement(){
-    this.dashStore.removeTrackedSym(this.trackedSymbol);
+    this.removeRequested.emit();
   }
 }

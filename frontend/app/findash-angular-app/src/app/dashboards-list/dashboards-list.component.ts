@@ -55,47 +55,64 @@ export class DashboardsListComponent implements OnInit, OnDestroy {
   }
   /* ---------- Lifecycle hooks ---------- */
   ngOnInit() {
-    this.currentState = DashboardStates.READ;
+    this.onTranToRead();
   }
 
   ngOnDestroy() {
     /* Manual subscriptions handling */
     this.subSymbols.unsubscribe();
   }
+  /* ---------- State transitions ---------- */
+  private onTranToEdit(){
+
+    /* check and disable add button  */
+    this.allowNewElement = this.dashStore.getNumberOfTrackedSymbols() < this.MAX_ALLOWED_DASH_ELEMENTS;
+  }
+ 
+  /**
+   * Actions when transitioning to state (from other or same state)
+   */
+  private onTranToCreate(){
+    this.onClear();
+    /* check and disable add button  */
+    this.allowNewElement = this.dashStore.getNumberOfTrackedSymbols() < this.MAX_ALLOWED_DASH_ELEMENTS;
+    this.currentState = DashboardStates.CREATE;
+  }
+  private onTranToRead(){
+
+    this.currentState = DashboardStates.READ;
+  }
 
   /* ----------------  Create -----------------*/
   onNewDashboardsConfig() {
     /* state transition to activate template elements */
-    this.currentState = DashboardStates.CREATE;
-    this.dashStore.createNewDashboard();
-    this.allowNewElement = true;
+    this.onTranToCreate();
   }
 
-  onClearCreate() {
-    /* Inform store to clear the dahsboard content */
-    this.dashStore.createNewDashboard();
-    /* state reset */
-    this.isAddingNewSymbol = false;
-    /* allow add */
-    this.allowNewElement = true;
-  }
   onCancelCreate() {
     /* inform store of rollback action */
     this.dashStore.abortCreateDashboard();
     /* state transition to READ */
-    this.currentState = DashboardStates.READ;
-    this.isAddingNewSymbol = false;
-    this.allowNewElement = true;
+    this.onTranToRead();
   }
 
+  /**
+   * Notification indicating the Symbol adding input is active
+   */
   onAddNewSymbolToTrack() {
     this.isAddingNewSymbol = true;
   }
 
   onNewTrackedSymbolInput() {
-    /* todo: Quicksearrch here */
+    /* todo: Quicksearch here */
   }
 
+  /**
+   * Symbol adding input value submission.
+   * Validate submission and trigger actions
+   * @param event 
+   * @returns 
+   */
   onNewSymbolSubmit(event: any) {
     const symbol = event.target.value;
     /* validate against cached symbols*/
@@ -113,9 +130,7 @@ export class DashboardsListComponent implements OnInit, OnDestroy {
     /* add symbol to be tracked */
     this.dashStore.addNewTrackedSym(symbol);
     /* check and disable add button  */
-    if (this.dashStore.getNumberOfTrackedSymbols() >= this.MAX_ALLOWED_DASH_ELEMENTS) {
-      this.allowNewElement = false;
-    }
+    this.allowNewElement = this.dashStore.getNumberOfTrackedSymbols() < this.MAX_ALLOWED_DASH_ELEMENTS;
     this.isAddingNewSymbol = false;
   }
 
@@ -134,6 +149,12 @@ export class DashboardsListComponent implements OnInit, OnDestroy {
     this.currentState = DashboardStates.READ;
     this.isAddingNewSymbol = false;
   }
+
+  onRemoveDashboard(symbol:string){
+    this.dashStore.removeTrackedSym(symbol);
+    /* check and disable add button  */
+    this.allowNewElement = this.dashStore.getNumberOfTrackedSymbols() < this.MAX_ALLOWED_DASH_ELEMENTS;
+  }
   /* --------- Load  ----------
   * Configuration Modal handlers 
    */
@@ -146,7 +167,7 @@ export class DashboardsListComponent implements OnInit, OnDestroy {
   }
 
   /* ---------- Save  ---------- */
-  onSaveDashboardsConfig() { }
+
   /* ---------- Delete  ---------- */
   onDashboardDelete(dashboardId: number) {
     this.dashStore.deleteDashboard(dashboardId).subscribe();
@@ -156,9 +177,17 @@ export class DashboardsListComponent implements OnInit, OnDestroy {
 
     /* state transition to EDIT */
     this.currentState = DashboardStates.EDIT;
+    this.allowNewElement = this.dashStore.getNumberOfTrackedSymbols() < this.MAX_ALLOWED_DASH_ELEMENTS;
+    }
+   /* ---------- Clear  ---------- */
+   onClear() {
+    /* Inform store to clear the dahsboard content */
+    this.dashStore.createNewDashboard();
+    /* state reset */
+    this.isAddingNewSymbol = false;
+    /* allow add */
+    this.allowNewElement = true;
   }
-  /* ---------- Clear  ---------- */
-
   /* ------------ Private, utility methods ----------- */
   private authValidCheck() {
     if (!this.auth.userState) {
