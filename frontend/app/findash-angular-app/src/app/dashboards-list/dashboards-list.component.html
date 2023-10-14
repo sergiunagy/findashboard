@@ -18,7 +18,7 @@
                         <ng-container *ngIf="[availableStates.EDIT, availableStates.CREATE].includes(currentState)">
                             <button type="button" class="btn btn-md btn-outline-secondary" (click)="onSave()">
                                 Save</button>
-                            <button type="button" class="btn btn-md btn-outline-secondary" (click)="onClearCreate()">
+                            <button type="button" class="btn btn-md btn-outline-secondary" (click)="onClear()">
                                 Clear</button>
                             <button type="button" class="btn btn-md btn-outline-secondary" (click)="onCancelCreate()">
                                 Cancel</button>
@@ -41,7 +41,9 @@
                 <div *ngFor="let symbol of dashboard.trackedSymbols">
                     <app-dashboard 
                         [isEditable]="[availableStates.EDIT, availableStates.CREATE].includes(currentState)"
-                        [trackedSymbol]="symbol">
+                        [trackedSymbol]="symbol"
+                        (removeRequested)="onRemoveDashboard(symbol)"
+                        >
                     </app-dashboard>
                 </div>
             </ng-container>

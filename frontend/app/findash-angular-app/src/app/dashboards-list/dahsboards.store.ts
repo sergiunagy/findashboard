@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { DashboardConfig } from "../model/dashboardconfig";
-import { BehaviorSubject, ObjectUnsubscribedError, Observable, catchError, flatMap, last, map, max, mergeMap, of, reduce, tap, throwError } from "rxjs";
+import { BehaviorSubject, Observable, catchError, map, reduce, tap, throwError } from "rxjs";
 import { AuthStore } from "../auth/auth.store";
 import * as moment from "moment";
 import { environment } from '../../environments/environment';
@@ -9,11 +9,6 @@ import { environment } from '../../environments/environment';
 const BACKEND_HOST = environment.backendurl; 
 const DASHBOARDS_API = BACKEND_HOST + environment.api_dashboards;
 const DASHBOARDS_LOOKUP_API = BACKEND_HOST + environment.api_find_by;
-// const UPDATE_DASHBOARD = environment.api_updatedashboard;
-// const LOAD_LAST_DASHBOARD = environment.api_loadlastdashboard;
-// const FINDALL_DASHBOARDS = environment.api_findalldashboards ;
-// const DELETE_DASHBOARD =environment.api_deletedashboard;
-// const LOAD_DASHBOARD_BY_NAME_API = environment.api_loaddasboardbyname;
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +66,7 @@ export class DashboardsStore {
 
   /* ----------- READ ----------- */
   /**
-   * This function will query the backend for the users stored configurations
+   * Query the backend for the users stored configurations
    * and will select the latest configuration to return.
    * @param uid : user id
    * @returns Observable with the last stored dashboard config.
@@ -98,6 +93,11 @@ export class DashboardsStore {
       );
   }
 
+    /**
+   * Query the backend for a dashboard identified by its id
+   * @param uid : user id
+   * @returns Observable with the found dashboard config.
+   */
   loadDashboard(dashboardId: number): Observable<DashboardConfig> {
 
     return this.http.get<Partial<DashboardConfig>>(DASHBOARDS_LOOKUP_API,
@@ -123,6 +123,11 @@ export class DashboardsStore {
       );
   }
 
+  /**
+   * Query the backend for a list of dashboards owned by an user
+   * @param uid : user id
+   * @returns Observable with the found dashboard config.
+   */
   findAllDashboardsForUser(uid: string): Observable<DashboardConfig[]> {
 
     return this.http.get<DashboardConfig[]>(DASHBOARDS_API,
