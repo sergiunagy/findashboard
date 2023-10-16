@@ -20,31 +20,40 @@ services:
   # #######################
   webserver:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    image: sergiunagy/finwebserver
+      context: ../../frontend
+      dockerfile: ./deploy/Dockerfile
+      target: production
+      no_cache: true
 
+    image: sergiunagy/finapp-web-ui
+    container_name: finapp-web-serv
+    networks:
+      - frontnet
     ports:
-    - "8080:80"
+      - "8000:80"
     environment:
     - NGINX_HOST=localhost
     - NGINX_PORT=80
 
     profiles: ["prod"]
+
   # #######################
   # Authentication & Authorization service
   # #######################
   auth-backend:
     build:
-      context: ./auth
-      dockerfile: Dockerfile
-    image: sergiunagy/finapp-auth-serv
-    container_name: finapp-auth-serv
+      context: ../../backend/auth
+      dockerfile: ./deploy/Dockerfile
+      target: production
+      no_cache: true
+    image: sergiunagy/finapp-auth
+    container_name: finapp-auth
 
     networks:
       backnet:
         aliases:
           - authentication-server
+
     environment: 
       FINNHUB_APIKEY : "ck47m71r01qus81pr1ogck47m71r01qus81pr1p0"
       FRONTEND_HOST_DEV : "http://localhost:8000"
@@ -57,63 +66,50 @@ services:
   # #######################
   dashboards-backend:
     build:
-      context: ./dashboards
-      dockerfile: Dockerfile
-    image: sergiunagy/finapp-dashboards-serv
-    container_name: finapp-dashboards-serv
+      context: ../../backend/dashboards
+      dockerfile: ./deploy/Dockerfile
+      target: production
+      no_cache: true
+    image: sergiunagy/finapp-dashboards
+    container_name: finapp-dashboards
 
     networks:
       backnet:
         aliases:
           - dashboards-server
-    environment: 
-      FRONTEND_HOST_DEV : "http://localhost:8000"
-      FRONTEND_HOST : "http://localhost:8080"
+
+    environment:
+      - NODE_ENV=production
+      - ENV_LOCATION=./environments
+      - DB_HOST=dashboards-store-server
+      - DB_PORT=5432
+      - DB_USER=finadmin
+      - DB_PASS=finpas357
+      - DB_NAME=dashboards
+      - DB_TYPE=postgres
+      - DB_SYNC_FLAG=true
+    depends_on:
+      - dashboardsdb
 
     profiles: ["prod"]
 
   # #######################
-  # DataStore service 
+  # Dashboards Storage service 
   # #######################
-  datastore:
-    build:
-      context: ./datastore
-      dockerfile: Dockerfile
-    image: sergiunagy/finapp-datastore-serv
-    container_name: finapp-datastore-mongo
+  dashboardsdb:
+    image: postgres # sergiunagy/finapp-dashboards-store
+    container_name: finapp-dashboards-store
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=findemoadmin
-      - MONGO_INITDB_ROOT_PASSWORD=findemoadmin_pas_951
-      - MONGO_DB_PORT=27017
+      POSTGRES_PASSWORD: finpas357
+      POSTGRES_USER: finadmin
+      POSTGRES_DB: dashboards
 
-    # mount storage for persistent volume --> needs storage transfer strategy
-    # - dbstorage:/data/db
     networks:
       backnet:
         aliases:
-          - datastore-server
-          
-    profiles: ["prod"]
+          - dashboards-store-server
 
-  # #######################
-  # DataStore Admin service  - dev only
-  # #######################
-  mongo-express:
-    image: mongo-express:1.0.0-alpha.4
-    container_name: mongo-express
-    ports:
-      - 5090:8081
-    environment:
-    - ME_CONFIG_MONGODB_ADMINUSERNAME=findemoadmin
-    - ME_CONFIG_MONGODB_ADMINPASSWORD=findemoadmin_pas_951
-    - ME_CONFIG_MONGODB_SERVER=datastore-server
-    depends_on:
-      - datastore
-    # Mongo container is available but the server starts responding only after init. TODO: health check as start condition ?
     restart: always
-    networks:
-      - backnet
-    
     profiles: ["prod"]
 
   # #######################
@@ -122,10 +118,12 @@ services:
   ingress-server:
     privileged: true
     build:
-      context: ./ingress
-      dockerfile: Dockerfile
-    image: sergiunagy/finappingress
-    container_name: finapp-ingress-nginx
+      context: ../../backend/ingress
+      dockerfile: ./deploy/Dockerfile
+      target: production
+      no_cache: true
+    image: sergiunagy/finapp-ingress
+    container_name: dev-finapp-ingress
 
     networks:
       - backnet

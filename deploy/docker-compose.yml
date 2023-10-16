@@ -34,15 +34,14 @@ services:
   # #######################
   frontend:
     build:
-      context: ../frontend/deploy
-      args:
-        - script="initial_setup.bash"
-      # todo: add a context path here
-    image: sergiunagy/findash-angular-app
+      context: ../frontend
+      dockerfile: ./deploy/Dockerfile
+      target: development      
+    image: sergiunagy/dev-finapp-web-ui
     working_dir: /home/node/app/findash-angular-app
-    container_name: findash-angular-app
+    container_name: dev-finapp-web-ui
     environment:
-      - NODE_ENV=dev
+      - NODE_ENV=development
     volumes:
       - "../frontend/app:/home/node/app"
       # todo: add output folder bindmount for the compiled website
@@ -62,10 +61,11 @@ services:
   # #######################
   auth-backend:
     build:
-      context: ../backend/auth/deploy
-      dockerfile: Dockerfile
-    image: sergiunagy/findash-auth-serv
-    container_name: findash-auth-serv
+      context: ../backend/auth
+      dockerfile: ./deploy/Dockerfile
+      target: development
+    image: sergiunagy/dev-finapp-auth
+    container_name: dev-finapp-auth
     # mount volumes if you want hot reloads
     volumes:
       - "../backend/auth/src:/home/app"
@@ -80,15 +80,21 @@ services:
 
     profiles: [ "dev", "test" ]
 
+    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
   # #######################
   # Dashboards service
   # #######################
   dashboards-backend-dev:
-    image: sergiunb/dashboards-nest
+    build:
+      context: ../backend/dashboards
+      dockerfile: ./deploy/Dockerfile
+      target: development
+      # no_cache: true
+    image: sergiunb/dev-finapp-dashboards
     working_dir: /home/node/app/dashboards
-    container_name: findash-dashboards-serv
+    container_name: dev-finapp-dashboards
     environment:
-      - NODE_ENV=dev
+      - NODE_ENV=development
       - ENV_LOCATION=./environments
       - DB_HOST='datastore-server'
       - DB_PORT=3306
@@ -116,9 +122,9 @@ services:
     profiles: [ "dev" ]
 
   dashboards-backend:
-    image: sergiunb/dashboards-nest
+    image: sergiunb/dev-finapp-dashboards
     working_dir: /home/node/app/dashboards
-    container_name: findash-dashboards-serv
+    container_name: dev-finapp-dashboards
     environment:
       - NODE_ENV=test
       - ENV_LOCATION=./environments
@@ -148,11 +154,11 @@ services:
     profiles: [ "test"]
 
   # #######################
-  # DataStore service 
+  # Dashboards Storage service 
   # #######################
   dashboardsdb:
     image: postgres # sergiunagy/finapp-dashboards-store
-    container_name: findash-dashboards-store
+    container_name: dev-finapp-dashboards-store
     environment:
       POSTGRES_PASSWORD: finpas357
       POSTGRES_USER: finadmin
@@ -183,9 +189,9 @@ services:
     privileged: true
     build:
       context: ../backend/ingress
-      dockerfile: ./deploy/Dockerfile.dev
-    image: sergiunagy/nginx:0.01
-    container_name: findash-ingress-nginx
+      dockerfile: ./deploy/Dockerfile
+    image: sergiunagy/dev-finapp-ingress
+    container_name: dev-finapp-ingress
     # map any static files you want to serve here
     volumes:
       - "../backend/ingress/config:/etc/nginx/conf.d" # map configuration files here
@@ -209,9 +215,10 @@ services:
     privileged: true
     build:
       context: ../backend/ingress
-      dockerfile: ./deploy/Dockerfile.dev
-    image: sergiunagy/nginx:0.01
-    container_name: findash-ingress-nginx
+      dockerfile: ./deploy/Dockerfile
+      target: development
+    image: dev-finapp-ingress
+    container_name: dev-finapp-ingress
     # map any static files you want to serve here
     volumes:
       - "../backend/ingress/config:/etc/nginx/conf.d" # map configuration files here

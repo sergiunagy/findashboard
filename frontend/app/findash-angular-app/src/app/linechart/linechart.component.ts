@@ -161,8 +161,8 @@ private drawGraph(ticks_x:number=6, ticks_y:number=3): void {
     .x(d => d[0])
     .y(d => d[1])
     .curve(d3.curveBasis); /* This is a basic curve. Y dimension monotonicity is not suitable
-                            for prices since they can remain constant even though x is monotonically
-                            increasing. i.e. prices are not monotonic though time is */
+                            for prices since they can remain constant, or vary inversly, for a monotonically
+                            increasing X.  */
   /* map data points to data*/                            
   const points: [number, number][] = this.data.map(
     d => [this.xScale(d.date), this.yScale(d.value)]
