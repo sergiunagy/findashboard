@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { MessagesComponent } from './messages/messages.component';
 import { MessagesService } from './messages/messages.service';
 import { DataInterceptorService } from './data/data-interceptor.service';
+import { NgxResizeObserverModule } from 'ngx-resize-observer';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { DataInterceptorService } from './data/data-interceptor.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxResizeObserverModule
   ],
   providers: [
     MessagesService, /*multi instance are possible, add local provider where suitable*/

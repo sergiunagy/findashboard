@@ -1,8 +1,9 @@
 import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { FinData } from '../model/findata';
-import { Observable, catchError, map, shareReplay, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, shareReplay, tap, throwError } from 'rxjs';
 import { DataStore } from '../data/data.store';
 import { DashboardsStore } from '../dashboards-list/dahsboards.store';
+import { NgxResizeObserverDirective } from 'ngx-resize-observer';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,10 @@ import { DashboardsStore } from '../dashboards-list/dahsboards.store';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   symbolTracker$: Observable<FinData[]>;
+
+  // private sResizeEvt = new BehaviorSubject<{width:number, height:number}>(null);
+  private sResizeEvt = new BehaviorSubject<DOMRectReadOnly>(null);
+  resizeEvt$ = this.sResizeEvt.asObservable();
 
   @Input() @Output() isEditable=false;
 
@@ -37,6 +42,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     /* Manual cleanup for symbol trackers */
     this.dataprovider.unregisterTrackedSym(this.trackedSymbol);
   }
+  handleResize(evt) {
+    this.sResizeEvt.next(evt.contentRect);
+}
 
   onRemoveElement(){
     this.removeRequested.emit();

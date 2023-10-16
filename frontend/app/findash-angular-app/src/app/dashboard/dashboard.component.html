@@ -1,5 +1,5 @@
 <ng-container *ngIf="(symbolTracker$ | async) as tracker">
-    <div class="col-sm-9">
+    <div class="col-sm-12">
         <div class="d-flex justify-content-between flex-sm-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
             <h1 class="h4">{{trackedSymbol}} </h1>
             <button *ngIf="isEditable" 
@@ -7,9 +7,11 @@
                     (click)="onRemoveElement()"
                     >-</button>
         </div>
-        <div class="d-flex justify-content-between flex-sm-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
-            <app-linechart [data]="tracker"></app-linechart>
-            <app-avgcalc [data]="tracker"></app-avgcalc>
+        <div class="d-flex justify-content-between flex-sm-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom"
+        (onResize) = "handleResize($event)"
+        >   
+            <app-linechart class="col-9" [data]="tracker" [resize]="(resizeEvt$ | async)"></app-linechart>
+            <app-avgcalc class="col-3 px-2" [data]="tracker"></app-avgcalc>
         </div>
     </div>
 </ng-container>
