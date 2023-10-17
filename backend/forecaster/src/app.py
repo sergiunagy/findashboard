@@ -107,7 +107,7 @@ def _load_model():
     
     return tf.keras.models.load_model('model/lstm_predictor.keras')
 
-@app.post("/api/v1/forecast", 
+@app.get("/api/v1/forecast", 
         tags=['forecast'], 
         summary='provide an hour return forecast for a time interval ',
         )

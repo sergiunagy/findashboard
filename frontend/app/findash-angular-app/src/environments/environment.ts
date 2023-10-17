@@ -13,4 +13,8 @@ export const environment = {
 
     /* AUTH SERVICE API */
     api_signin : "/api/v1/auth/signin",
+    
+    /* Forecasting SERVICE API */
+    api_forecast : "/api/v1/forecast",
+
 };

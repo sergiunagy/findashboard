@@ -2,6 +2,7 @@
     <div class="col-sm-12">
         <div class="d-flex justify-content-between flex-sm-nowrap align-items-center pt-1 pb-2 mb-3 border-bottom">
             <h1 class="h4">{{trackedSymbol}} </h1>
+            <h1 class="h6" *ngIf="(symbolPredictor$ | async) as pred"> Predicted 60m return: {{pred}} </h1>
             <button *ngIf="isEditable" 
                     class="btn btn-md btn-outline-secondary"
                     (click)="onRemoveElement()"

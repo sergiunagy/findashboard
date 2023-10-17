@@ -13,6 +13,7 @@ import { NgxResizeObserverDirective } from 'ngx-resize-observer';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   symbolTracker$: Observable<FinData[]>;
+  symbolPredictor$: Observable<string>;
 
   // private sResizeEvt = new BehaviorSubject<{width:number, height:number}>(null);
   private sResizeEvt = new BehaviorSubject<DOMRectReadOnly>(null);
@@ -35,7 +36,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       throw new Error("Loaded dashboard with NULL data tracker");
     }
 
-    this.symbolTracker$ = this.dataprovider.registerNewTrackedSym(this.trackedSymbol, 1/*minute*/ ).pipe(shareReplay());
+    this.symbolTracker$ = this.dataprovider
+                                .registerNewTrackedSym(this.trackedSymbol, 1/*minute*/ )
+                                .pipe(shareReplay());
+    this.symbolPredictor$ = this.dataprovider.getPredictionsTrackerForSymbol(this.trackedSymbol);
   }
 
   ngOnDestroy(): void {

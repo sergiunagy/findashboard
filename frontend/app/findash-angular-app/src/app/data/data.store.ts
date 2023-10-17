@@ -9,6 +9,7 @@ import { environment } from "src/environments/environment";
 const BACKEND_HOST = environment.backendurl;
 const CANDLE_DATA_API = environment.api_getcandle;
 const FIND_SYMBOLS_API = environment.api_findsymbols;
+const FORECAST_API = environment.api_forecast;
 
 @Injectable({
   providedIn: "root" /* Make available to all components. */
@@ -18,8 +19,10 @@ export class DataStore {
   private timers: { [sym: string]: { polling: Subscription } } = {};
   private trackers: {
     [sym: string]: {
-      sData: BehaviorSubject<FinData[]>,
-      data$: Observable<FinData[]>
+      sData: BehaviorSubject<FinData[]>,  /* finance data stream */
+      data$: Observable<FinData[]>,
+      sPred: BehaviorSubject<string>,  /* predictions data stream */
+      pred$: Observable<string>
     }
   } = {};
 
@@ -36,6 +39,10 @@ export class DataStore {
     );
   }
 
+  getPredictionsTrackerForSymbol(symbol): Observable<string>{
+
+    return this.trackers[symbol].pred$;
+  }
 
   registerNewTrackedSym(sym: string, update_interval_mins: number) {
     /* check if symbol exists. Else throw error */
@@ -43,8 +50,11 @@ export class DataStore {
     this.trackers[sym] = {
       sData: new BehaviorSubject<FinData[]>(null),
       data$: null,
+      sPred: new BehaviorSubject<string>(null),
+      pred$: null,
     }
     this.trackers[sym].data$ = this.trackers[sym].sData.asObservable();
+    this.trackers[sym].pred$ = this.trackers[sym].sPred.asObservable();
     /* initial load */
     this.getDataForSymbol(sym).subscribe(
       data => this.trackers[sym].sData.next(data))
@@ -54,7 +64,11 @@ export class DataStore {
       polling: this.startTracking(update_interval_mins).subscribe(
         _ => { /* set up polling */
           this.getDataForSymbol(sym).pipe(
-            shareReplay()).subscribe(data => {
+            tap(data =>{ 
+              this.requestPredictionsForSym(sym)
+                  .subscribe(prediction => this.trackers[sym].sPred.next(prediction))}),
+            shareReplay()
+            ).subscribe(data => {
               this.trackers[sym].sData.next(data);
             });
 
@@ -162,4 +176,24 @@ export class DataStore {
       }),
     )
   } /*: Observable<FinData> */
+
+  private requestPredictionsForSym(sym:string): Observable<string> {
+    const url = BACKEND_HOST + FORECAST_API;
+    return this.http.get<any[]>(url, {
+      params: {
+        symbol:sym,
+        start_time: this.getPastTimestampFromNow(1),
+        end_time: Math.round(new Date().getTime() / 1000),
+      },
+      responseType: "json",
+    }).pipe(
+      /* First build an array of values of interest*/
+      map(data => data['prediction']),
+      catchError(err => {
+        const msg = (err != "no_data") ? 'data collect failed to fetch data from provider' : "no data for time interval";
+        console.log(msg, err); /* dev log */
+        return throwError(() => new Error(err));
+      }))
+  } /*requestPredictionsForSym*/
+
 }
