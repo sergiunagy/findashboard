@@ -44,6 +44,14 @@ Used sites:
 - https://worship.agency/mobile-screen-sizes-for-2023-based-on-data-from-2022
 - https://gs.statcounter.com/screen-resolution-stats/mobile/worldwide
 
+##  Forecasting service
+
+The service provides 60 minutes return forecasting for each of the selected stocks.
+
+The forecasting figure are updated every minute (plus the time it takes to model to process the data and output results).
+
+![Alt text](readme_imgs/model_forecast.png)
+
 ## Libraries and build tools
 
 We use bootstrap and Angular Material as a styling librares.   
@@ -89,7 +97,7 @@ Spin up the services associated with a profile using :
 ### Profiles scope and rationale:
 
 General note:
-- no proper migration schema is prepared for the Dashboards DB. For this reason, the ORM library on the service is set to "synchronize" and recreates the structure automatically. This would not be feasible in a persitent data situation (could destroy data on a schema cheange) but it works OK in the scope of this demo.
+- no proper migration schema is prepared for the Dashboards DB. For this reason, the ORM library on the service is set to "synchronize" and recreates the structure automatically. This would not be feasible in a persitent data situation (could destroy data on a schema change) but it works OK in the scope of this demo.
 
 #### Dev
 
@@ -97,6 +105,10 @@ Profile intended for development.
 - Image build is enabled and the images are bind-mounted to local host source folders.
 - Hot-replace is enbabled for all services.
 - Uses an in-mem database solution, preloaded with a couple of samples to facilitate quick tests during development.
+
+Run from the deploy folder with:
+
+                docker compose --profile dev up
 
 #### Test 
 

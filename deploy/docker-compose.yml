@@ -187,10 +187,10 @@ services:
     build:
       context: ../backend/forecaster
       dockerfile: ./deploy/Dockerfile
+      target: development
     image: sergiunagy/dev-finapp-forecaster
     container_name: dev-finapp-forecaster
-    ports:
-    - 5000:5000
+
     # mount volumes if you want hot reloads
     volumes:
       - "../backend/forecaster/src:/home/app"
@@ -204,6 +204,7 @@ services:
       
     command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
 
+    profiles: ['dev']
 
   # #######################
   # Ingress service

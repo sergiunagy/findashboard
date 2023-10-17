@@ -3,9 +3,9 @@
 # - image for development - requires the project and sources
 # ################################
 ARG baseImage=python
-ARG baseVersion=3.11.4-bullseye as development
+ARG baseVersion=3.11.4-bullseye 
 # SQLAlchemy fails to install on 3.12
-FROM ${baseImage}:${baseVersion}
+FROM ${baseImage}:${baseVersion} as development
 
 ARG baseImage=python
 ARG baseVersion=3.11.4-bullseye
@@ -14,7 +14,7 @@ LABEL maintainer="sergiunb"
 
 WORKDIR /home/app
 
-COPY dependencies dependencies
+COPY ./deploy/dependencies dependencies
 RUN pip install --upgrade pip
 RUN pip install -r dependencies
 

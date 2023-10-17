@@ -2,13 +2,26 @@
 
 - see Colab notebook for analysis details and code : https://colab.research.google.com/drive/1fu2YAWgXiQyEkUHabxrSh73BV5gjpMFk#scrollTo=JqNoUw0OGx3u&uniqifier=1
 
-## General points
+# General points
 
-### Model integration
+## Defining the main goal
+
+The main goal is to have predictions possible for a configurable number of steps in the future and for a given stock.
+
+The predictions are of return values (i.e. the increase in percentage in the values at close ).
+
+The steps should be configurable with the remark that prediction quality will llikely worsen the further in the future we try to predict.
+
+#### Design choice
+The model will attempt to predict on single stock symbols only (i.e. will will not consider possible inter-symbol correlations).\
+This comes from the way we sample data on the frontend , to keep the logic simple. \
+Alternatives would be to buffer or synchronize requests before running a model on them or have the process running in the background for all symbols.
+
+## Model integration
 We will use a suitable Time Series model that will export the predictions in a specific format.\
 This is so we can switch the model based on performance.
 
-### Model training
+## Model training
 
 We cannot find a free model pre-trained on the specific data we have. \
 To train a model from scratch we will pull data from the finnhub provider for the max available time interval.\
@@ -40,28 +53,19 @@ We receive the following structure:
 
 ## Dataset construct
 
-We will define the module predictions as a vector of closing prices for a given moment in time : C(t).
+We will consider the use case of predicting over single-stock candle data.
 
-We will define the features vector as a sample vector of received data (including the closing prices) for t-1: S(t-1).
+As such we will stack the data we have for the different symbols and we can fit the model iteratively over all of them.
 
-We will have a time series prediction, meaning our model will attempt to predict the C for the next candle.
+The normalization phase also needs to fit the scaler model over as much of the symbols as possible (due to variation in sizes).
 
-We will also use only 10 stocks for the predictions. This means our C vector will be shaped as [10 x 1].
+We will define the features vector as a sample vector of received data (including the closing prices).
 
-Our input data matrix will be shaped like [N x M x 1] where:
-- N is the number of samples we will pull from the finnhub as training data
-- M is the size of one sample vector. To simplify the concept we will concatenate the candle vectors from all the stocks, i.e. for 3 stocks A, B, C we would have sample = [oa, ha, la, va, ca.., lc, vc, t]
-Note the following:
-    - t is taken only once since t should be common for all stocks
-    - c values are also included. This makes sense in the context of a timeseries where past values are predictors for current values. This also explains the decrease in accuracy as we predict further into the future as the errors accrued at each step will accumulate.
-- 1 is the sample size for each symbol but since we concatenate all, this will be 1.
+We will have a time series prediction, meaning our model will attempt to predict the next feature vector for the next point in time. 
 
+We will also use only 10 stocks for the predictions to limit the size of the dataset and the model training duration.
 
-In short we will have the following:
-
-[ca(t), cb(t), cc(t) ] = f(sample(t-1)). where sample(t-1) also contains ca(t-1), cb(t-1), cc(t-1).
-
-## Challenges
+## Some Challenges
 
 ### Different sample times for the different stocks
 Filling missing data with suitable values (ex. gaps in sampled data for a single stock).\
@@ -100,26 +104,26 @@ An alternative to explore would be to cut out these intervals completely .
 
 # Model
 
-We use a generic LSTM model which we will train with time series data.
+We use a generic LSTM model which we will train with time series data.\
+The model is stored and can be further trained or simply loaded and used as is.
 
-## Single stock prediction
+## Scaler
+The same as for the model applies to the pre-trained scaler: it is saved and loadable on a backend service.
+
+## Training
+
+We only train the model for 10 epochs. \
+The observation is that around 10 epochs the loss decrease seems to taper-off so training for longer on this amount of data is not likely to improve the performance.
+
+## Predictions
 
 We first have a look on how well a model is able to predict the next value in a sequence.
-We use a 10 elements window and the AAPL symbol .
+We use a 50 elements window and a set of 5 features taken for a "generic" stock symbol.
 
-Looking at the results we see that the model does decrease the loss by a tiny margin(aka it's learning) however as the loss decreases on the training data we see it increasing on the validation/test data.
-This means the model is basically learning the "noise" and attempting to fit the training set without being able to generalize and predict well on unseen data.
+Looking at the results we see that the model does decrease the loss by a small margin(aka it's learning) this is also decreasing the loss on the validation data. 
+
+The remark to make here is that this is a single step prediction measure taken during the learning phase. 
+The real challenge comes from multistep predictions that would allow time to also act on te findings.
 
 ![Alt text](readmeimgs/loss-vs-validation.png)
 
-## Train on all
-
-We will define a larger window (50) and add all data we have for the training.\
-We'll split 70-30 to also have a test dataset.\
-THe shape of our input dataset will be: [M, T, D], where:
-- M : number of samples we refine based on our dataset and window size
-- T : window size
-- D : size of the features vector.
-
-First build the shifted frame (current values are labels for for past values).
-![Alt text](readmeimgs/data_process_prev.png)
