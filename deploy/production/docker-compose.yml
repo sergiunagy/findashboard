@@ -23,7 +23,7 @@ services:
       context: ../../frontend
       dockerfile: ./deploy/Dockerfile
       target: production
-      # no_cache: true
+      no_cache: true
 
     image: sergiunagy/finapp-web-ui
     container_name: finapp-web-serv

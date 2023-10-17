@@ -64,7 +64,8 @@ export class DataStore {
       polling: this.startTracking(update_interval_mins).subscribe(
         _ => { /* set up polling */
           this.getDataForSymbol(sym).pipe(
-            tap(data =>{ 
+            tap(_ =>{ 
+              console.log('registering predictor for ', sym);
               this.requestPredictionsForSym(sym)
                   .subscribe(prediction => this.trackers[sym].sPred.next(prediction))}),
             shareReplay()
