@@ -180,6 +180,30 @@ services:
       - 8050:8080
     profiles: ["test"]
       
+  # #######################
+  # Forecasting service
+  # #######################
+  forecasting-backend:
+    build:
+      context: ../backend/forecaster
+      dockerfile: ./deploy/Dockerfile
+    image: sergiunagy/dev-finapp-forecaster
+    container_name: dev-finapp-forecaster
+    ports:
+    - 5000:5000
+    # mount volumes if you want hot reloads
+    volumes:
+      - "../backend/forecaster/src:/home/app"
+    networks:
+      backnet:
+        aliases:
+          - forecast-server
+    environment:
+      FRONTEND_HOST_DEV: "http://localhost:8000"
+      FRONTEND_HOST: "http://localhost:8080"
+      
+    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
+
 
   # #######################
   # Ingress service
@@ -204,6 +228,7 @@ services:
     depends_on:
       - auth-backend
       - dashboards-backend-dev
+      - forecasting-backend
     # enable proper logging and allow DELETE and PUT through the WAF
     environment:
       - MODSEC_AUDIT_LOG="/var/log/modsec_audit.log"
