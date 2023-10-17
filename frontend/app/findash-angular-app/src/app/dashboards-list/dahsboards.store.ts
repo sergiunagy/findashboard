@@ -227,6 +227,12 @@ export class DashboardsStore {
           params: { ownerId}
         })
       .pipe(
+        tap(newdashb => {
+          const dashboard = this.getEmptyDashboard();
+          Object.assign(dashboard, newdashb);
+          this.dashboardState = dashboard; /* store state */
+          this.subjectDashboard.next(dashboard); /* emit to subscribers */
+        }),
         catchError(err => {
           const msg = 'Failed to save dashboard';
           console.log(msg, err); /* dev log */
