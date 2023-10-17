@@ -1,1 +1,0 @@
-[{"_id":{"$oid":"651d832a94d458e24186c669"},"ownerid":"01865b6c51f04ba8a8b5ecc699fc51ec","name":"Test Dashboard","trackedSymbols":["AAPL","GOOGL","MSFT"],"unixTimestamp":1696432938},{"_id":{"$oid":"651d835994d458e24186c66b"},"ownerid":"01865b6c51f04ba8a8b5ecc699fc51ec","name":"Test Dashboard","trackedSymbols":["AAPL","GOOGL","MSFT","AMZN"],"unixTimestamp":1696432985}]

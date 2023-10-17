@@ -34,4 +34,5 @@ export class AvgcalcComponent {
     return avg.toPrecision(4);
   }
 
+   
 }

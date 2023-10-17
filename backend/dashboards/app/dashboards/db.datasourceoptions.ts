@@ -6,14 +6,13 @@
  */
 
 const _DBOptions = {
-    type: "sqlite", /* default, in -mem option */
     entities: [__dirname + '/**/*.entity{.js,.ts}'],
     synchronize: process.env.DB_SYNC_FLAG === 'true',
     migrations: [__dirname + "/migrations/*.js"]
 };
 
 switch (process.env.NODE_ENV) {
-    case 'dev': /* Run with in-mem db */
+    case 'development': /* Run with in-mem db */
         Object.assign(_DBOptions, {
             type: process.env.DB_TYPE,
             database: process.env.DB_NAME,
@@ -32,7 +31,7 @@ switch (process.env.NODE_ENV) {
             migrationsRun: true, /* run migrations  before testing*/
         });
         break;
-    case 'prod': /* run on proper db mapped to service */
+    case 'production': /* run on proper db mapped to service */
         Object.assign(_DBOptions, {
             type: process.env.DB_TYPE,
             database: process.env.DB_NAME,

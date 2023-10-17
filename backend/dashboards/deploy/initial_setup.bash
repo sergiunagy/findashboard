@@ -19,7 +19,7 @@ mkdir ../app
 
 # build the image
 echo Building image ..
-docker build -t $IMG_NAME .
+docker build -t $IMG_NAME --target base .
 
 # run initial project creation using an ephemeral container.
 echo Running initial project generation to $(pwd)/../app
