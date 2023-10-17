@@ -97,3 +97,29 @@ Example for the 56h gap:
 #### Solution
 Since these gaps are across all stocks we can simply consider the data within these intervals as constant.
 An alternative to explore would be to cut out these intervals completely .
+
+# Model
+
+We use a generic LSTM model which we will train with time series data.
+
+## Single stock prediction
+
+We first have a look on how well a model is able to predict the next value in a sequence.
+We use a 10 elements window and the AAPL symbol .
+
+Looking at the results we see that the model does decrease the loss by a tiny margin(aka it's learning) however as the loss decreases on the training data we see it increasing on the validation/test data.
+This means the model is basically learning the "noise" and attempting to fit the training set without being able to generalize and predict well on unseen data.
+
+![Alt text](readmeimgs/loss-vs-validation.png)
+
+## Train on all
+
+We will define a larger window (50) and add all data we have for the training.\
+We'll split 70-30 to also have a test dataset.\
+THe shape of our input dataset will be: [M, T, D], where:
+- M : number of samples we refine based on our dataset and window size
+- T : window size
+- D : size of the features vector.
+
+First build the shifted frame (current values are labels for for past values).
+![Alt text](readmeimgs/data_process_prev.png)

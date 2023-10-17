@@ -80,5 +80,5 @@ LABEL maintainer="sergiu.nagy"
 
 # copy build results to server
 COPY --chown=node:node --from=build  /home/node/app/${APP}/dist/${APP} /usr/share/nginx/html
-
+COPY --chown=node:node ./deploy/conf.d /etc/nginx/conf.d
 EXPOSE 80
