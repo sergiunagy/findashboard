@@ -42,11 +42,11 @@ RUN chown node:node /home/node/app/dashboards
 
 COPY --chown=node:node ./app/dashboards/package*.json ./
 
-# install dependencies
-RUN npm ci
-
 # copy app source files (workdir set on previous step)
 COPY --chown=node:node ./app/dashboards .
+
+# install dependencies
+RUN npm ci
 
 USER node
 

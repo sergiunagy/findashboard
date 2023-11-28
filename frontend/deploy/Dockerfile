@@ -42,11 +42,11 @@ WORKDIR /home/node/app/${APP}
 RUN chown node:node /home/node/app/${APP}
 COPY --chown=node:node ./app/${APP}/package*.json ./
 
-# install dependencies
-RUN npm ci
-
 # copy app source files (workdir set on previous step)
 COPY --chown=node:node ./app/${APP} .
+
+# install dependencies
+RUN npm ci
 
 # switch user 
 USER node

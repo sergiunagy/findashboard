@@ -37,7 +37,7 @@ services:
       context: ../frontend
       dockerfile: ./deploy/Dockerfile
       target: development      
-      # no_cache: true
+      no_cache: true
     image: sergiunagy/dev-finapp-web-ui
     working_dir: /home/node/app/findash-angular-app
     container_name: dev-finapp-web-ui
@@ -45,12 +45,12 @@ services:
       - NODE_ENV=development
     volumes:
       - "../frontend/app:/home/node/app"
-      # todo: add output folder bindmount for the compiled website
+      - /home/node/app/findash-angular-app/node_modules # get the pre-installed npm modules to local folders.
     networks:
       - frontnet
     ports:
       - "8000:4200"
-    # todo: add production profile
+
     profiles: [ "dev", "test"]
 
     # change to project folder and start serving the app -> use 0.0.0.0 as host since the default is a loopback
@@ -107,6 +107,7 @@ services:
 
     volumes:
       - "../backend/dashboards/app:/home/node/app"
+      - /home/node/app/dashboards/node_modules  # get the pre-installed npm modules to local folders.
     networks:
       backnet:
         aliases:
